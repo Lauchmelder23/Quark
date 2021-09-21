@@ -2,6 +2,10 @@
 .vs/
 bin/
 bin-int/
+doc/
 
 # Files
-*.user
+**.sln
+**.vcxproj
+**.vcxproj.filter
+**.vcxproj.user

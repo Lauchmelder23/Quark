@@ -9,3 +9,5 @@
 #else 
 	#error Quark only supports Windows
 #endif // QK_PLATFORM_WINDOWS
+
+#define BIT(x) (1 << x)
