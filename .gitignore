@@ -1,11 +1,11 @@
 # Directories
 .vs/
-bin/
-bin-int/
 doc/
+out/
 
 # Files
 **.sln
 **.vcxproj
 **.vcxproj.filters
 **.vcxproj.user
+**.json

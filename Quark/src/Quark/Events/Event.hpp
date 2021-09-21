@@ -55,7 +55,7 @@ namespace Quark
 
 		/// <summary>
 		/// Returns a string containing the name of the event
-		/// <seealso cref="Event::ToString()" />
+		/// <seealso cref="ToString()" />
 		/// </summary>
 		/// <returns>String with event name</returns>
 		virtual const char* GetName() const = 0;
@@ -68,16 +68,16 @@ namespace Quark
 
 		/// <summary>
 		/// Returns a string containing the name of the event
-		/// <seealso cref="Event::GetName()" />
+		/// <seealso cref="GetName()" />
 		/// </summary>
 		/// <returns>String with event name</returns>
 		virtual std::string ToString() const { return GetName(); }
 
 		/// <summary>
-		/// Tests whether this event belongs to the given <see cref="EventCategory" />
+		/// Tests whether this event belongs to the given <see cref="EventCategory"/>
 		/// </summary>
-		/// <param name="category"><see cref="EventCategory" /> to test against</param>
-		/// <returns>True if this event belongs to <paramref name="category" />. False if not.</returns>
+		/// <param name="category">Category to test against</param>
+		/// <returns><c>True</c>if this event belongs to <paramref name="category"/>.</returns>
 		inline bool IsInCategory(EventCategory category)
 		{
 			return GetCategoryFlags() & category;
