@@ -1,3 +1,6 @@
 [submodule "Quark/vendor/spdlog"]
 	path = Quark/vendor/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "Quark/vendor/GLFW"]
+	path = Quark/vendor/GLFW
+	url = https://github.com/glfw/glfw

@@ -12,6 +12,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "Quark/Log.hpp"
 
 #ifdef QK_PLATFORM_WINDOWS
 	#include <Windows.h>
