@@ -32,3 +32,5 @@ if(WIN32)
 		QK_BUILD_DLL
 	)
 endif()
+
+set_property(TARGET Quark PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
