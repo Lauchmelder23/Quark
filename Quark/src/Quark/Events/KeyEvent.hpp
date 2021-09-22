@@ -102,4 +102,36 @@ namespace Quark
 
 		EVENT_CLASS_TYPE(KeyReleased)
 	};
+
+
+	/**
+	 * @brief Event for when a key was typed
+	 */
+	class QUARK_API KeyTypedEvent : public KeyEvent
+	{
+	public:
+		/**
+		 * @brief             Create a new event with the given parameters
+		 *
+		 * @param keycode     Keycode of the pressed key
+		 */
+		KeyTypedEvent(int keycode) :
+			KeyEvent(keycode) { }
+
+
+		/**
+		 * @brief   Convenience function for printing event details
+		 *
+		 * @returns Formatted string with event data
+		 */
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "KeyTypedEvent: " << m_KeyCode;
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(KeyTyped)
+	};
+
 }

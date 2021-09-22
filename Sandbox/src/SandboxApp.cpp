@@ -10,7 +10,7 @@ public:
 
 	void OnUpdate() override
 	{
-		QK_INFO("Examplelayer::Update");
+
 	}
 
 	void OnEvent(Quark::Event& event) override
@@ -25,6 +25,7 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
+		PushOverlay(new Quark::ImGuiLayer());
 	}
 
 	~Sandbox()

@@ -10,7 +10,7 @@
 namespace Quark
 {
 	/**
-	 * @brief A structure containing everything needed to run the application.
+	 * @brief A singleton containing everything needed to run the application.
 	 */
 	class QUARK_API Application
 	{
@@ -44,6 +44,9 @@ namespace Quark
 		 */
 		void PushOverlay(Layer* overlay);
 
+		inline static Application& Get() { return *s_Instance; }
+		inline Window& GetWindow() { return *m_Window; }
+
 	private:
 		/**
 		 * @brief   Called internally when a WindowClose event is dispatched.
@@ -55,6 +58,9 @@ namespace Quark
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+
+	private:
+		static Application* s_Instance;
 	};
 
 	/**

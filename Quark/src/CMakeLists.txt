@@ -2,7 +2,7 @@ set(QUARK_SOURCES
 	"qkpch.cpp"
 	"Quark/Log.cpp"
 	"Quark/Application.cpp"
- "Platform/Windows/WindowsWindow.cpp" "Quark/Layer.cpp" "Quark/LayerStack.cpp")
+ "Platform/Windows/WindowsWindow.cpp" "Quark/Layer.cpp" "Quark/LayerStack.cpp" "Quark/ImGui/ImGuiLayer.cpp" "Platform/OpenGL/ImGuiOpenGLRenderer.cpp")
 
 set(QUARK_HEADERS
 	"Quark.hpp"
@@ -15,7 +15,7 @@ set(QUARK_HEADERS
 	"Quark/Events/KeyEvent.hpp"
 	"Quark/Events/MouseEvent.hpp"
 	"Quark/Window.hpp"
-  "Platform/Windows/WindowsWindow.hpp" "Quark/Layer.hpp" "Quark/LayerStack.hpp")
+  "Platform/Windows/WindowsWindow.hpp" "Quark/Layer.hpp" "Quark/LayerStack.hpp" "Quark/ImGui/ImGuiLayer.hpp" "Platform/OpenGL/ImGuiOpenGLRenderer.hpp")
 
 add_library(Quark SHARED 
 	${QUARK_SOURCES} ${QUARK_HEADERS}
@@ -23,11 +23,14 @@ add_library(Quark SHARED
 
 target_include_directories(Quark PUBLIC
 	${CMAKE_CURRENT_LIST_DIR}
+	${OPENGL_INCLUDE_DIRS}
 )
 
 target_link_libraries(Quark PUBLIC 
 	spdlog
 	glfw
+	glad
+	${OPENGL_LIBRARIES}
 )
 
 if(WIN32)

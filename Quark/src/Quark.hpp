@@ -5,5 +5,6 @@
 #include "Quark/Application.hpp"
 #include "Quark/Layer.hpp"
 #include "Quark/Log.hpp"
+#include "Quark/ImGui/ImGuiLayer.hpp"
 
 #include "Quark/EntryPoint.hpp"

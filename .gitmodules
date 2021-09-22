@@ -4,3 +4,6 @@
 [submodule "Quark/vendor/GLFW"]
 	path = Quark/vendor/GLFW
 	url = https://github.com/glfw/glfw
+[submodule "Quark/vendor/imgui"]
+	path = Quark/vendor/imgui
+	url = https://github.com/ocornut/imgui

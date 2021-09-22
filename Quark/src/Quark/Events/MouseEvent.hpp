@@ -5,9 +5,6 @@
 
 namespace Quark
 {
-	/// <summary>
-	/// 
-	/// </summary>
 	/**
 	 * @brief Event for when the mouse was moved
 	 */
