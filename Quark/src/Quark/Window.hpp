@@ -7,9 +7,9 @@
 
 namespace Quark
 {
-	/// <summary>
-	/// A structure that contains basic information and properties about the window
-	/// </summary>
+	/**
+	 * @brief A structure that contains basic information and properties about the window
+	 */
 	struct WindowProperties
 	{
 		std::string Title;
@@ -22,9 +22,10 @@ namespace Quark
 		}
 	};
 
-	/// <summary>
-	/// Abstract class representing a desktop window
-	/// </summary>
+
+	/**
+	 * @brief Abstract class representing a (generic) desktop window.
+	 */
 	class QUARK_API Window
 	{
 	public:
@@ -32,48 +33,54 @@ namespace Quark
 
 		virtual ~Window() {}
 
-		/// <summary>
-		/// Callback that gets called if the window should update. It is called once every frame
-		/// </summary>
+		/**
+		 * @brief Callback that gets called if the window should update. It is called once every frame
+		 */
 		virtual void OnUpdate() = 0;
 
-		/// <summary>
-		/// Get width of the window
-		/// </summary>
-		/// <returns>The width of the window</returns>
+		/**
+		 * @brief   Get width of the window
+		 * 
+		 * @returns The width of the window
+		 */
 		virtual unsigned int GetWidth() const = 0;
 
-		/// <summary>
-		/// Get height of the window
-		/// </summary>
-		/// <returns>The height of the window</returns>
+		/**
+		 * @brief Get height of the window.
+		 * 
+		 * @returns The height of the window
+		 */
 		virtual unsigned int GetHeight() const = 0;
 
 
-		/// <summary>
-		/// Sets the function that should be called if an event occurs
-		/// </summary>
-		/// <param name="callback">The function to call</param>
+		/**
+		 * @brief Sets the function that should be called if an event occurs.
+		 * 
+		 * @param[in] callback The function to call
+		 */
 		virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
 
-		/// <summary>
-		/// Enables/Disables VSync for this window
-		/// </summary>
-		/// <param name="enabled">Whether to enable VSync</param>
+		/**
+		 * @brief         Toggles VSync for this window
+		 * 
+		 * @param enabled Whether to enable or disable VSync
+		 */
 		virtual void SetVSync(bool enabled) = 0;
 
-		/// <summary>
-		/// Checks whether VSync is enabled for this window
-		/// </summary>
-		/// <returns><c>True</c> if VSync is enabled</returns>
+		/**
+		 * @brief Checks whether VSync is enabled for this window
+		 * 
+		 * @returns \c True if VSync is enabled for this window
+		 */
 		virtual bool IsVSync() const = 0;
 
 
-		/// <summary>
-		/// Creates a new window
-		/// </summary>
-		/// <param name="props">The properties of the window</param>
-		/// <returns>A pointer to the newly created window</returns>
+		/**
+		 * @brief       Creates a new window
+		 * 
+		 * @param props The properties of the window
+		 * @returns     A pointer to the newly created window
+		 */
 		static Window* Create(const WindowProperties& props = WindowProperties());
 	};
 }

@@ -6,12 +6,17 @@
 
 namespace Quark
 {
-	/// <summary>
-	/// A structure representing a desktop window on Windows
-	/// </summary>
+	/**
+	 * @brief A structure representing a desktop window on Windows
+	 */
 	class WindowsWindow : public Window
 	{
 	public:
+		/**
+		 * @brief       Create new Windows window with the given properties 
+		 * 
+		 * @param props Properties of the new window
+		 */
 		WindowsWindow(const WindowProperties& props);
 		virtual ~WindowsWindow();
 

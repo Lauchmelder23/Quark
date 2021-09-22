@@ -16,28 +16,34 @@ namespace Quark
 	///		<item><c>Client</c>, which is for use by the application</item>
 	/// </list>
 	/// </remarks>
+	
+	/**
+	 * @brief Static class containing basic logging functionality.
+	 * 
+	 * The logging module contains two types of loggers
+	 *   - \c Core, which is used internally
+	 *   - \c Client, which is for use by the application
+	 */
 	class QUARK_API Log
 	{
 	public:
-		/// <summary>
-		/// Initialize the logging module
-		/// </summary>
+		/**
+		 * @brief Initialize the logging module.
+		 */
 		static void Init();
 
-		/// <summary>
-		/// Returns the logger used internally used by the engine
-		/// </summary>
-		/// <returns>
-		/// A shared pointer to the core logger
-		/// </returns>
+		/**
+		 * @brief Returns the logger used internally used by the engine
+		 * 
+		 * @return A shared pointer to the core logger
+		 */
 		inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return m_CoreLogger; }
 
-		/// <summary>
-		/// Returns the logger for use by the application
-		/// </summary>
-		/// <returns>
-		/// A shared pointer to the client logger
-		/// </returns>
+		/**
+		 * @brief Returns the logger for use by the application
+		 *
+		 * @return A shared pointer to the client logger
+		 */
 		inline static std::shared_ptr<spdlog::logger>& GetClientLogger() { return m_ClientLogger; }
 
 	private:
