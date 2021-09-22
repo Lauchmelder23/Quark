@@ -1,9 +1,11 @@
 #pragma once
 
 #include "Core.hpp"
+
+#include "Window.hpp"
+#include "LayerStack.hpp"
 #include "Events/Event.hpp"
 #include "Events/ApplicationEvent.hpp"
-#include "Window.hpp"
 
 namespace Quark
 {
@@ -28,6 +30,20 @@ namespace Quark
 		  */
 		void OnEvent(Event& e);
 
+		/**
+		 * @brief       Pushes a layer to the applications default layer stack
+		 * 
+		 * @param layer The layer to push
+		 */
+		void PushLayer(Layer* layer);
+
+		/**
+		 * @brief         Pushes a layer to the applications overlay layer stack
+		 *
+		 * @param overlay The layer to push
+		 */
+		void PushOverlay(Layer* overlay);
+
 	private:
 		/**
 		 * @brief   Called internally when a WindowClose event is dispatched.
@@ -38,6 +54,7 @@ namespace Quark
 
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;
+		LayerStack m_LayerStack;
 	};
 
 	/**

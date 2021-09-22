@@ -2,7 +2,7 @@ set(QUARK_SOURCES
 	"qkpch.cpp"
 	"Quark/Log.cpp"
 	"Quark/Application.cpp"
- "Platform/Windows/WindowsWindow.cpp")
+ "Platform/Windows/WindowsWindow.cpp" "Quark/Layer.cpp" "Quark/LayerStack.cpp")
 
 set(QUARK_HEADERS
 	"Quark.hpp"
@@ -15,7 +15,7 @@ set(QUARK_HEADERS
 	"Quark/Events/KeyEvent.hpp"
 	"Quark/Events/MouseEvent.hpp"
 	"Quark/Window.hpp"
-  "Platform/Windows/WindowsWindow.hpp")
+  "Platform/Windows/WindowsWindow.hpp" "Quark/Layer.hpp" "Quark/LayerStack.hpp")
 
 add_library(Quark SHARED 
 	${QUARK_SOURCES} ${QUARK_HEADERS}
@@ -26,6 +26,7 @@ target_include_directories(Quark PUBLIC
 )
 
 target_link_libraries(Quark PUBLIC 
+	spdlog
 	glfw
 )
 
@@ -38,4 +39,4 @@ if(WIN32)
 	)
 endif()
 
-set_property(TARGET Quark PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+set_property(TARGET Quark PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")

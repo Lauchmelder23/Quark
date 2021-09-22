@@ -14,4 +14,4 @@ add_custom_command(TARGET Sandbox POST_BUILD
 	COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:Quark> $<TARGET_FILE_DIR:Sandbox>
 )
 
-set_property(TARGET Sandbox PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+set_property(TARGET Sandbox PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")

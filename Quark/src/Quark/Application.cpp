@@ -1,6 +1,8 @@
 #include "qkpch.hpp"
 #include "Application.hpp"
 
+#include <GLFW/glfw3.h>
+
 namespace Quark
 {
 	Application::Application()
@@ -13,12 +15,20 @@ namespace Quark
 	{
 	}
 
-	void Application::Run()
+	void Application::PushLayer(Layer* layer)
 	{
-		while (m_Running)
-		{
-			m_Window->OnUpdate();
-		}
+		m_LayerStack.PushLayer(layer);
+	}
+
+	void Application::PushOverlay(Layer* overlay)
+	{
+		m_LayerStack.PushOverlay(overlay);
+	}
+
+	bool Application::OnWindowClose(WindowCloseEvent& e)
+	{
+		m_Running = false;
+		return true;
 	}
 
 	void Application::OnEvent(Event& e)
@@ -27,11 +37,26 @@ namespace Quark
 		dispatcher.Dispatch<WindowCloseEvent>(std::bind(&Application::OnWindowClose, this, std::placeholders::_1));
 
 		QK_CORE_TRACE("{0}", e);
+
+		for (std::vector<Layer*>::reverse_iterator it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); it++)
+		{
+			(*it)->OnEvent(e);
+			if (e.Handled)
+				break;
+		}
 	}
 
-	bool Application::OnWindowClose(WindowCloseEvent& e)
+	void Application::Run()
 	{
-		m_Running = false;
-		return true;
+		while (m_Running)
+		{
+			glClearColor(0.3f, 0.1f, 0.8f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT);
+
+			for (Layer* layer : m_LayerStack)
+				layer->OnUpdate();
+
+			m_Window->OnUpdate();
+		}
 	}
 }
