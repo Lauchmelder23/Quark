@@ -9,7 +9,7 @@ namespace Quark
 	/**
 	 * @brief A structure representing a desktop window on Windows
 	 */
-	class WindowsWindow : public Window
+	class WindowsWindow final : public Window
 	{
 	public:
 		/**
@@ -22,12 +22,19 @@ namespace Quark
 
 		void OnUpdate() override;
 
-		inline unsigned int GetWidth() const override { return m_Data.Width; }
-		inline unsigned int GetHeight() const override { return m_Data.Height; }
+		virtual inline unsigned int GetWidth() const override { return m_Data.Width; }
+		virtual inline unsigned int GetHeight() const override { return m_Data.Height; }
 
-		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
-		void SetVSync(bool enabled) override;
-		bool IsVSync() const override;
+		virtual inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
+		virtual void SetVSync(bool enabled) override;
+		virtual bool IsVSync() const override;
+
+		/**
+		 * @brief   Retrieves the underlying window object, depending on the API used
+		 *
+		 * @returns An any containing a GLFWwindow*
+		 */
+		virtual inline std::any GetNativeWindow() const override { return std::make_any<GLFWwindow*>(m_Window); }
 
 	private:
 		virtual void Init(const WindowProperties& props);

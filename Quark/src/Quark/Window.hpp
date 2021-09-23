@@ -74,6 +74,16 @@ namespace Quark
 		 */
 		virtual bool IsVSync() const = 0;
 
+		/**
+		 * @brief   Retrieves the underlying window object, depending on the API used
+		 * 
+		 * The actual return type depends on which implementation of Window was 
+		 * ultimately chosen. More information about the return of this function
+		 * can be found in the implementation classes
+		 * 
+		 * @returns An any containing the used window API object
+		 */
+		virtual std::any GetNativeWindow() const = 0;
 
 		/**
 		 * @brief       Creates a new window

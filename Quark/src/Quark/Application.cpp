@@ -1,6 +1,8 @@
 #include "qkpch.hpp"
 #include "Application.hpp"
 
+#include "Input.hpp"
+
 #include <glad/glad.h>
 
 namespace Quark
@@ -39,8 +41,6 @@ namespace Quark
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(std::bind(&Application::OnWindowClose, this, std::placeholders::_1));
-
-		QK_CORE_TRACE("{0}", e);
 
 		for (std::vector<Layer*>::reverse_iterator it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); it++)
 		{
