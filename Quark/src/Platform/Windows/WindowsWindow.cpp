@@ -101,7 +101,7 @@ namespace Quark
 		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int key)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-			KeyTypedEvent event(key);
+			KeyTypedEvent event(GetQuarkKeyCode(key));
 
 			data.EventCallback(event);
 		});
@@ -114,13 +114,13 @@ namespace Quark
 			switch (action)
 			{
 			case GLFW_PRESS:
-				event = new KeyPressedEvent(key, 0);
+				event = new KeyPressedEvent(GetQuarkKeyCode(key), 0);
 				break;
 			case GLFW_RELEASE:
-				event = new KeyReleasedEvent(key);
+				event = new KeyReleasedEvent(GetQuarkKeyCode(key));
 				break;
 			case GLFW_REPEAT:
-				event = new KeyPressedEvent(key, 1);
+				event = new KeyPressedEvent(GetQuarkKeyCode(key), 1);
 				break;
 			}
 
@@ -129,7 +129,7 @@ namespace Quark
 			delete event;
 		});
 
-		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int key, int action, int mods)
+		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
@@ -137,10 +137,10 @@ namespace Quark
 			switch (action)
 			{
 			case GLFW_PRESS:
-				event = new MouseButtonPressedEvent(key);
+				event = new MouseButtonPressedEvent(GetQuarkMouseButtonCode(button));
 				break;
 			case GLFW_RELEASE:
-				event = new MouseButtonReleasedEvent(key);
+				event = new MouseButtonReleasedEvent(GetQuarkMouseButtonCode(button));
 				break;
 			}
 

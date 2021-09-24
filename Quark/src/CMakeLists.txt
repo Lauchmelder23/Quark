@@ -2,7 +2,7 @@ set(QUARK_SOURCES
 	"qkpch.cpp"
 	"Quark/Log.cpp"
 	"Quark/Application.cpp"
- "Platform/Windows/WindowsWindow.cpp" "Quark/Layer.cpp" "Quark/LayerStack.cpp" "Quark/ImGui/ImGuiLayer.cpp" "Platform/OpenGL/ImGuiOpenGLRenderer.cpp" "Platform/Windows/WindowsInput.cpp")
+ "Platform/Windows/WindowsWindow.cpp" "Quark/Layer.cpp" "Quark/LayerStack.cpp" "Quark/ImGui/ImGuiLayer.cpp" "Platform/OpenGL/ImGuiOpenGLRenderer.cpp" "Platform/Windows/WindowsInput.cpp" "Quark/MouseButtonCodes.hpp")
 
 set(QUARK_HEADERS
 	"Quark.hpp"
@@ -15,7 +15,7 @@ set(QUARK_HEADERS
 	"Quark/Events/KeyEvent.hpp"
 	"Quark/Events/MouseEvent.hpp"
 	"Quark/Window.hpp"
-  "Platform/Windows/WindowsWindow.hpp" "Quark/Layer.hpp" "Quark/LayerStack.hpp" "Quark/ImGui/ImGuiLayer.hpp" "Platform/OpenGL/ImGuiOpenGLRenderer.hpp" "Quark/Input.hpp" "Platform/Windows/WindowsInput.hpp")
+  "Platform/Windows/WindowsWindow.hpp" "Quark/Layer.hpp" "Quark/LayerStack.hpp" "Quark/ImGui/ImGuiLayer.hpp" "Platform/OpenGL/ImGuiOpenGLRenderer.hpp" "Quark/Input.hpp" "Platform/Windows/WindowsInput.hpp" "Quark/KeyCodes.hpp" "Quark/Utility/Bimap.hpp")
 
 add_library(Quark SHARED 
 	${QUARK_SOURCES} ${QUARK_HEADERS}

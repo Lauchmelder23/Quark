@@ -2,6 +2,7 @@
 
 #include <sstream>
 #include "Event.hpp"
+#include "Quark/MouseButtonCodes.hpp"
 
 namespace Quark
 {
@@ -117,7 +118,7 @@ namespace Quark
 		 * 
 		 * @returns The mouse button in question
 		 */
-		inline int GetMouseButton() const { return m_Button; }
+		inline MouseButton GetMouseButton() const { return m_Button; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 
@@ -127,10 +128,10 @@ namespace Quark
 		 * 
 		 * @param button The interacted mouse button
 		 */
-		MouseButtonEvent(int button) :
+		MouseButtonEvent(MouseButton button) :
 			m_Button(button) {}
 
-		int m_Button;
+		MouseButton m_Button;
 	};
 
 
@@ -145,7 +146,7 @@ namespace Quark
 		 * 
 		 * @param button The pressed mouse button
 		 */
-		MouseButtonPressedEvent(int button) :
+		MouseButtonPressedEvent(MouseButton button) :
 			MouseButtonEvent(button) {}
 
 		/**
@@ -156,7 +157,7 @@ namespace Quark
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "MouseButtonPressedEvent: " << m_Button;
+			ss << "MouseButtonPressedEvent: " << static_cast<int>(m_Button);
 			return ss.str();
 		}
 
@@ -175,7 +176,7 @@ namespace Quark
 		 *
 		 * @param button The released mouse button
 		 */
-		MouseButtonReleasedEvent(int button) :
+		MouseButtonReleasedEvent(MouseButton button) :
 			MouseButtonEvent(button) {}
 
 		/**
@@ -186,7 +187,7 @@ namespace Quark
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "MouseButtonReleasedEvent: " << m_Button;
+			ss << "MouseButtonReleasedEvent: " << static_cast<int>(m_Button);
 			return ss.str();
 		}
 

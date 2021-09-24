@@ -2,6 +2,7 @@
 
 #include <sstream>
 #include "Event.hpp"
+#include "Quark/KeyCodes.hpp"
 
 namespace Quark
 {
@@ -16,7 +17,7 @@ namespace Quark
 		 * 
 		 * @returns Keycode of the interacted key
 		 */
-		inline int GetKeyCode() const { return m_KeyCode; }
+		inline Key GetKeyCode() const { return m_KeyCode; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 
@@ -24,10 +25,10 @@ namespace Quark
 		/**
 		 * @brief Create new keyboard event with the given keycode
 		 */
-		KeyEvent(int keycode) :
+		KeyEvent(Key keycode) :
 			m_KeyCode(keycode) {}
 
-		int m_KeyCode;
+		Key m_KeyCode;
 	};
 
 
@@ -43,7 +44,7 @@ namespace Quark
 		 * @param keycode     Keycode of the pressed key
 		 * @param repeatCount When the key is held down, the amount of "ticks" the key has been held for
 		 */
-		KeyPressedEvent(int keycode, int repeatCount) :
+		KeyPressedEvent(Key keycode, int repeatCount) :
 			KeyEvent(keycode), m_RepeatCount(repeatCount) { }
 
 
@@ -62,7 +63,7 @@ namespace Quark
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "KeyPressedEvent: " << m_KeyCode << "(" << m_RepeatCount << " repeats)";
+			ss << "KeyPressedEvent: " << static_cast<int>(m_KeyCode) << "(" << m_RepeatCount << " repeats)";
 			return ss.str();
 		}
 
@@ -84,7 +85,7 @@ namespace Quark
 		 * 
 		 * @param keycode Keycode of the released key
 		 */
-		KeyReleasedEvent(int keycode) :
+		KeyReleasedEvent(Key keycode) :
 			KeyEvent(keycode) { }
 
 
@@ -96,7 +97,7 @@ namespace Quark
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "KeyReleasedEvent: " << m_KeyCode;
+			ss << "KeyReleasedEvent: " << static_cast<int>(m_KeyCode);
 			return ss.str();
 		}
 
@@ -115,7 +116,7 @@ namespace Quark
 		 *
 		 * @param keycode     Keycode of the pressed key
 		 */
-		KeyTypedEvent(int keycode) :
+		KeyTypedEvent(Key keycode) :
 			KeyEvent(keycode) { }
 
 
@@ -127,7 +128,7 @@ namespace Quark
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "KeyTypedEvent: " << m_KeyCode;
+			ss << "KeyTypedEvent: " << static_cast<int>(m_KeyCode);
 			return ss.str();
 		}
 

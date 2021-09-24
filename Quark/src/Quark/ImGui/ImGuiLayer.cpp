@@ -98,7 +98,7 @@ namespace Quark
 	bool ImGuiLayer::OnMouseButtonPressed(MouseButtonPressedEvent& e)
 	{
 		ImGuiIO& io = ImGui::GetIO();
-		io.MouseDown[e.GetMouseButton()] = true;
+		io.MouseDown[GetAPIMouseButtonCode(e.GetMouseButton())] = true;
 
 		return false;
 	}
@@ -106,7 +106,7 @@ namespace Quark
 	bool ImGuiLayer::OnMouseButtonReleased(MouseButtonReleasedEvent& e)
 	{
 		ImGuiIO& io = ImGui::GetIO();
-		io.MouseDown[e.GetMouseButton()] = false;
+		io.MouseDown[GetAPIMouseButtonCode(e.GetMouseButton())] = false;
 
 		return false;
 	}
@@ -131,7 +131,7 @@ namespace Quark
 	bool ImGuiLayer::OnKeyDown(KeyPressedEvent& e)
 	{
 		ImGuiIO& io = ImGui::GetIO();
-		io.KeysDown[e.GetKeyCode()] = true;
+		io.KeysDown[GetAPIKeyCode(e.GetKeyCode())] = true;
 
 		io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_CONTROL];
 		io.KeyShift = io.KeysDown[GLFW_KEY_LEFT_SHIFT];
@@ -144,7 +144,7 @@ namespace Quark
 	bool ImGuiLayer::OnKeyUp(KeyReleasedEvent& e)
 	{
 		ImGuiIO& io = ImGui::GetIO();
-		io.KeysDown[e.GetKeyCode()] = false;
+		io.KeysDown[GetAPIKeyCode(e.GetKeyCode())] = false;
 
 		io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_CONTROL];
 		io.KeyShift = io.KeysDown[GLFW_KEY_LEFT_SHIFT];
@@ -157,7 +157,7 @@ namespace Quark
 	bool ImGuiLayer::OnKeyTyped(KeyTypedEvent& e)
 	{
 		ImGuiIO& io = ImGui::GetIO();
-		int c = e.GetKeyCode();
+		int c = GetAPIKeyCode(e.GetKeyCode());
 		if (c > 0 && c < 0x10000)
 			io.AddInputCharacter((unsigned short)c);
 

@@ -2,6 +2,9 @@
 
 #include "Core.hpp"
 
+#include "Quark/KeyCodes.hpp"
+#include "Quark/MouseButtonCodes.hpp"
+
 namespace Quark
 {
 	/**
@@ -16,7 +19,7 @@ namespace Quark
 		 * @param   keycode The key to test for 
 		 * @returns \c True if the specified key is currently pressed
 		 */
-		inline static bool IsKeyPressed(int keycode) { return s_Instance->IsKeyPressedImpl(keycode); }
+		inline static bool IsKeyPressed(Key keycode) { return s_Instance->IsKeyPressedImpl(keycode); }
 
 		/**
 		 * @brief   Queries the state of the given mouse button
@@ -24,7 +27,7 @@ namespace Quark
 		 * @param   button The button to test for
 		 * @returns \c True if the button key is currently pressed
 		 */
-		inline static bool IsMouseButtonPressed(int button) { return s_Instance->IsMouseButtonPressedImpl(button); }
+		inline static bool IsMouseButtonPressed(MouseButton button) { return s_Instance->IsMouseButtonPressedImpl(button); }
 
 		/**
 		 * @brief   Queries the x coordiante of the mouse
@@ -54,7 +57,7 @@ namespace Quark
 		 * @param   keycode The key to test for 
 		 * @returns \c True if the specified key is currently pressed
 		 */
-		virtual bool IsKeyPressedImpl(int keycode) = 0;
+		virtual bool IsKeyPressedImpl(Key keycode) = 0;
 
 		/**
 		 * @brief   Platform dependent implementation of IsMouseButtonPressed()
@@ -62,7 +65,7 @@ namespace Quark
 		 * @param   button The key to test for
 		 * @returns \c True if the specified button is currently pressed
 		 */
-		virtual bool IsMouseButtonPressedImpl(int button) = 0;
+		virtual bool IsMouseButtonPressedImpl(MouseButton button) = 0;
 
 		/**
 		 * @brief   Platform dependent implementation of GetMouseX()

@@ -15,7 +15,14 @@ public:
 
 	void OnEvent(Quark::Event& event) override
 	{
-		QK_TRACE("{0}", event);
+		// QK_TRACE("{0}", event);
+		Quark::EventDispatcher d(event);
+		d.Dispatch<Quark::KeyPressedEvent>([](Quark::KeyPressedEvent e) 
+		{
+				QK_TRACE("Quark KeyCode: {0}, API KeyCode: {1}", e.GetKeyCode(), Quark::GetAPIKeyCode(e.GetKeyCode()));
+
+			return false;
+		});
 	}
 };
 
