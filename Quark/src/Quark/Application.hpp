@@ -7,6 +7,8 @@
 #include "Events/Event.hpp"
 #include "Events/ApplicationEvent.hpp"
 
+#include "ImGui/ImGuiLayer.hpp"
+
 namespace Quark
 {
 	/**
@@ -56,6 +58,8 @@ namespace Quark
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
+
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 

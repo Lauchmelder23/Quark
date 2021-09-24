@@ -4,7 +4,7 @@ namespace Quark
 {
 	LayerStack::LayerStack()
 	{
-		m_LayerInsert = m_Layers.begin();
+		
 	}
 
 	LayerStack::~LayerStack()
@@ -15,7 +15,8 @@ namespace Quark
 
 	void LayerStack::PushLayer(Layer* layer)
 	{
-		m_LayerInsert = m_Layers.emplace(m_LayerInsert, layer) + 1;
+		m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex, layer);
+		m_LayerInsertIndex++;
 		layer->OnAttach();
 	}
 
@@ -27,18 +28,18 @@ namespace Quark
 
 	void LayerStack::PopLayer(Layer* layer)
 	{
-		std::vector<Layer*>::const_iterator it = std::find(m_Layers.begin(), m_LayerInsert, layer);
-		if (it != m_LayerInsert)
+		std::vector<Layer*>::const_iterator it = std::find(m_Layers.begin(), m_Layers.end(), layer);
+		if (it != m_Layers.end())
 		{
 			m_Layers.erase(it);
-			m_LayerInsert--;
+			m_LayerInsertIndex--;
 		}
 		layer->OnDetach();
 	}
 
 	void LayerStack::PopOverlay(Layer* overlay)
 	{
-		std::vector<Layer*>::const_iterator it = std::find(m_LayerInsert, m_Layers.end(), overlay);
+		std::vector<Layer*>::const_iterator it = std::find(m_Layers.begin(), m_Layers.end(), overlay);
 		if (it != m_Layers.end())
 			m_Layers.erase(it);
 		overlay->OnDetach();

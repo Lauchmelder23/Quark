@@ -23,20 +23,12 @@ namespace Quark
 		ImGuiLayer();
 		~ImGuiLayer();
 
-		void OnAttach() override;
-		void OnDetach() override;
-		void OnUpdate() override;
-		void OnEvent(Event& event) override;
+		virtual void OnAttach() override;
+		virtual void OnDetach() override;
+		virtual void OnImGuiRender() override;
 
-	private:
-		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
-		bool OnMouseButtonReleased(MouseButtonReleasedEvent& e);
-		bool OnMouseWheelScrolled(MouseScrolledEvent& e);
-		bool OnMouseMoved(MouseMovedEvent& e);
-		bool OnKeyDown(KeyPressedEvent& e);
-		bool OnKeyUp(KeyReleasedEvent& e);
-		bool OnKeyTyped(KeyTypedEvent& e);
-		bool OnWindowResized(WindowResizeEvent& e);
+		void Begin();
+		void End();
 
 	private:
 		float m_Time = 0.0f;

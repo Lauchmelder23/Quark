@@ -40,6 +40,11 @@ namespace Quark
 		virtual void OnUpdate() {}
 
 		/**
+		 * @brief Gets called when the layer needs to show its ImGui content
+		 */
+		virtual void OnImGuiRender() {}
+
+		/**
 		 * @brief Gets called when the layer receives an event
 		 */
 		virtual void OnEvent(Event& event) {}

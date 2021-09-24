@@ -5,6 +5,8 @@
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "imgui.h"
+
 glm::mat4 camera(float Translate, const glm::vec2& Rotate)
 {
 	glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
@@ -29,16 +31,16 @@ public:
 
 	}
 
+	virtual void OnImGuiRender() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Hello, World!");
+		ImGui::End();
+	}
+
 	void OnEvent(Quark::Event& event) override
 	{
-		// QK_TRACE("{0}", event);
-		Quark::EventDispatcher d(event);
-		d.Dispatch<Quark::KeyPressedEvent>([](Quark::KeyPressedEvent e) 
-		{
-				QK_TRACE("Quark KeyCode: {0}, API KeyCode: {1}", e.GetKeyCode(), Quark::GetAPIKeyCode(e.GetKeyCode()));
 
-			return false;
-		});
 	}
 };
 
@@ -48,7 +50,6 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Quark::ImGuiLayer());
 	}
 
 	~Sandbox()
