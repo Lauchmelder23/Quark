@@ -1,10 +1,8 @@
-# Find packages
-find_package(OpenGL REQUIRED)
-
 # Build used libraries
 add_subdirectory(vendor/spdlog)
 add_subdirectory(vendor/GLFW)
 add_subdirectory(vendor/GLAD)
+add_subdirectory(vendor/glm)
 
 # Build Quark
 add_subdirectory(src)

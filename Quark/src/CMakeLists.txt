@@ -23,14 +23,13 @@ add_library(Quark SHARED
 
 target_include_directories(Quark PUBLIC
 	${CMAKE_CURRENT_LIST_DIR}
-	${OPENGL_INCLUDE_DIRS}
 )
 
 target_link_libraries(Quark PUBLIC 
 	spdlog
 	glfw
 	glad
-	${OPENGL_LIBRARIES}
+	glm
 )
 
 if(WIN32)
