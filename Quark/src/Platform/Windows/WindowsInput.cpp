@@ -140,7 +140,7 @@ namespace Quark
 		{ Key::Menu, GLFW_KEY_MENU }
 	};
 
-	int GetAPIKeyCode(Key keycode)
+	extern int GetAPIKeyCode(Key keycode)
 	{
 		if (keycode == Key::Unknown)
 			return GLFW_KEY_UNKNOWN;
@@ -148,7 +148,7 @@ namespace Quark
 		return s_KeyMap[keycode];
 	}
 
-	Key GetQuarkKeyCode(int keycode)
+	extern Key GetQuarkKeyCode(int keycode)
 	{
 		return s_KeyMap[keycode];
 	}
@@ -164,12 +164,12 @@ namespace Quark
 		{ MouseButton::Button8, GLFW_MOUSE_BUTTON_8 }
 	};
 
-	int GetAPIMouseButtonCode(MouseButton button)
+	extern int GetAPIMouseButtonCode(MouseButton button)
 	{
 		return s_MouseButtonMap[button];
 	}
 
-	MouseButton GetQuarkMouseButtonCode(int button)
+	extern MouseButton GetQuarkMouseButtonCode(int button)
 	{
 		return s_MouseButtonMap[button];
 	}

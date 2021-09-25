@@ -17,9 +17,6 @@ target_include_directories(ImGui PUBLIC
 	"vendor/imgui"
 )
 
-set_property(TARGET ImGui PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
-
-
 # Build Quark
 add_subdirectory(src)
 
