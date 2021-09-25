@@ -5,7 +5,7 @@
 #include "Quark/Events/MouseEvent.hpp"
 #include "Quark/Events/KeyEvent.hpp"
 
-#include <glad/glad.h>
+#include "Platform/OpenGL/OpenGLContext.hpp"
 
 namespace Quark
 {
@@ -34,7 +34,7 @@ namespace Quark
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
@@ -71,10 +71,9 @@ namespace Quark
 		}
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
 
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		QK_CORE_ASSERT(status, "Failed to initialize GLAD");
+		m_Context = new Photon::OpenGLContext(m_Window);
+		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);

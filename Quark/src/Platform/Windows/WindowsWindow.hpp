@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Quark/Window.hpp"
+#include "Quark/Photon/Context.hpp"
 
 #include <GLFW/glfw3.h>
 
@@ -42,6 +43,7 @@ namespace Quark
 
 	private:
 		GLFWwindow* m_Window;
+		Photon::Context* m_Context;
 
 		struct WindowData
 		{

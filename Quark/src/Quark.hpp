@@ -12,9 +12,4 @@
 #include "Quark/EntryPoint.hpp"
 
 // Namespace aliases
-namespace Quark
-{
-	// using namespace Photon;
-}
-
 namespace qk = Quark;
