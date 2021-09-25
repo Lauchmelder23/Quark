@@ -1,5 +1,6 @@
-# Quark [![CodeFactor](https://www.codefactor.io/repository/github/lauchmelder23/quark/badge)](https://www.codefactor.io/repository/github/lauchmelder23/quark)
-![Quark](doc/images/icon_small.png)
+![Quark](doc/images/icon_small_text.png)
+
+[![CodeFactor](https://www.codefactor.io/repository/github/lauchmelder23/quark/badge)](https://www.codefactor.io/repository/github/lauchmelder23/quark)
 
 An attempt at understanding game engines. Heavily based on [TheCherno's engine](https://github.com/TheCherno/Hazel), as that's the tutorial I'm learning all of this from. The more I progress the more I will hopefully modify this engine to fit my needs though. We'll see.
 
