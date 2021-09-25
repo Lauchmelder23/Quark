@@ -13,7 +13,7 @@ namespace Quark
 	{
 		s_Instance = this;
 
-		m_Window = std::unique_ptr<Window>(Window::Create());
+		m_Window = std::unique_ptr<Window>(Window::Create(WindowProperties("Quark Engine", 1280, 720, RenderAPI::Vulkan)));
 		m_Window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
 
 		m_ImGuiLayer = new ImGuiLayer;
@@ -57,16 +57,18 @@ namespace Quark
 	{
 		while (m_Running)
 		{
-			glClearColor(0.3f, 0.1f, 0.8f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT);
+			// glClearColor(0.3f, 0.1f, 0.8f, 1.0f);
+			// glClear(GL_COLOR_BUFFER_BIT);
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 
+			/*
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
 				layer->OnImGuiRender();
 			m_ImGuiLayer->End();
+			*/
 
 			m_Window->OnUpdate();
 		}

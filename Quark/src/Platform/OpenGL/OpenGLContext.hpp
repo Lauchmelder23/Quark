@@ -11,7 +11,7 @@ namespace Quark
 		/**
 		 * @brief Abstraction of an OpenGL rendering context
 		 */
-		class OpenGLContext : public Context
+		class QUARK_API OpenGLContext : public Context
 		{
 		public:
 			/**

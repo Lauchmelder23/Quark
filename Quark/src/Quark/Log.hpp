@@ -57,10 +57,10 @@ namespace Quark
 #define QK_CORE_INFO(...)       ::Quark::Log::GetCoreLogger()->info(__VA_ARGS__)
 #define QK_CORE_WARN(...)       ::Quark::Log::GetCoreLogger()->warn(__VA_ARGS__)
 #define QK_CORE_ERROR(...)      ::Quark::Log::GetCoreLogger()->error(__VA_ARGS__)
-#define QK_CORE_FATAL(...)      ::Quark::Log::GetCoreLogger()->fatal(__VA_ARGS__)
+#define QK_CORE_FATAL(...)      ::Quark::Log::GetCoreLogger()->critical(__VA_ARGS__)
 
 #define QK_TRACE(...)           ::Quark::Log::GetClientLogger()->trace(__VA_ARGS__)
 #define QK_INFO(...)            ::Quark::Log::GetClientLogger()->info(__VA_ARGS__)
 #define QK_WARN(...)            ::Quark::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define QK_ERROR(...)           ::Quark::Log::GetClientLogger()->error(__VA_ARGS__)
-#define QK_FATAL(...)           ::Quark::Log::GetClientLogger()->fatal(__VA_ARGS__)
+#define QK_FATAL(...)           ::Quark::Log::GetClientLogger()->critical(__VA_ARGS__)

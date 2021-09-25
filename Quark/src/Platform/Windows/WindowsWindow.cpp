@@ -6,6 +6,7 @@
 #include "Quark/Events/KeyEvent.hpp"
 
 #include "Platform/OpenGL/OpenGLContext.hpp"
+#include "Platform/Vulkan/VulkanContext.hpp"
 
 namespace Quark
 {
@@ -18,6 +19,11 @@ namespace Quark
 
 	Window* Window::Create(const WindowProperties& props)
 	{
+		QK_CORE_ASSERT(
+			props.Renderer == RenderAPI::OpenGL || props.Renderer == RenderAPI::Vulkan,
+			"WindowsWindow can't be created with the requested RenderAPI: {0}", static_cast<int>(props.Renderer)
+		);
+
 		return new WindowsWindow(props);
 	}
 
@@ -58,7 +64,7 @@ namespace Quark
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
 
-		QK_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
+		QK_CORE_INFO("Creating window {0} ({1}, {2}). RenderAPI: {3}", props.Title, props.Width, props.Height, static_cast<int>(props.Renderer));
 
 		if (!s_GLFWInitialized)
 		{
@@ -70,9 +76,17 @@ namespace Quark
 			s_GLFWInitialized = true;
 		}
 
+		if (props.Renderer == RenderAPI::Vulkan)
+			glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 
-		m_Context = new Photon::OpenGLContext(m_Window);
+		switch (props.Renderer)
+		{
+		case RenderAPI::OpenGL: m_Context = new Photon::OpenGLContext(m_Window);	break;
+		case RenderAPI::Vulkan: m_Context = new Photon::VulkanContext(m_Window);	break;
+		}
+
 		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
@@ -167,6 +181,7 @@ namespace Quark
 
 	void WindowsWindow::Shutdown()
 	{
+		delete m_Context;
 		glfwDestroyWindow(m_Window);
 	}
 

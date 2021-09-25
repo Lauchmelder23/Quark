@@ -7,6 +7,12 @@
 
 namespace Quark
 {
+	enum class RenderAPI
+	{
+		OpenGL,
+		Vulkan
+	};
+
 	/**
 	 * @brief A structure that contains basic information and properties about the window
 	 */
@@ -15,9 +21,10 @@ namespace Quark
 		std::string Title;
 		unsigned int Width;
 		unsigned int Height;
+		RenderAPI Renderer;
 
-		WindowProperties(const std::string& title = "Quark Engine", unsigned int width = 1280, unsigned int height = 720) :
-			Title(title), Width(width), Height(height)
+		WindowProperties(const std::string& title = "Quark Engine", unsigned int width = 1280, unsigned int height = 720, RenderAPI renderer = RenderAPI::OpenGL) :
+			Title(title), Width(width), Height(height), Renderer(renderer)
 		{
 		}
 	};
