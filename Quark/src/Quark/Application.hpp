@@ -17,7 +17,17 @@ namespace Quark
 	class QUARK_API Application
 	{
 	public:
-		Application();
+		/**
+		 * @brief Create a new application and window
+		 * 
+		 * Application window creation will be attempted with the list of specified APIs. Only one API will
+		 * be used. The application will try creating a window with the first API in the list,
+		 * if that fails it will retry with the second API etc. If none of the desired APIs
+		 * work the application will quit.
+		 * 
+		 * @param desiredRenderAPIs	A list of render APIs to be used by the window. 
+		 */
+		Application(const std::vector<RenderAPI> desiredRenderAPIs);
 		virtual ~Application();
 		
 		/**

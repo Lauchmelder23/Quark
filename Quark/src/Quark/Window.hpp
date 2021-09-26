@@ -7,6 +7,9 @@
 
 namespace Quark
 {
+	/**
+	 * @brief Render APIs supported by Photon
+	 */
 	enum class RenderAPI
 	{
 		OpenGL,
