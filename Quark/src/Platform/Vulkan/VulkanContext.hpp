@@ -72,6 +72,9 @@ namespace Quark
 			void CreateImageViews();
 			void CreateSemaphores();
 
+			void CleanupSwapChain();
+			void RecreateSwapChain();
+
 			bool IsDeviceSuitable(VkPhysicalDevice device);
 			bool CheckDeviceExtensionSupport(VkPhysicalDevice device);
 			QueueFamilyIndices GetQueueFamilyIndices(VkPhysicalDevice device);
@@ -94,7 +97,6 @@ namespace Quark
 			VkSwapchainKHR				m_SwapChain;
 			std::vector<VkImage>		m_SwapChainImages;
 			std::vector<VkImageView>	m_SwapChainImageViews;
-			std::vector<VkFramebuffer>	m_SwapChainFrameBuffers;
 			VkFormat					m_SwapChainImageFormat;
 			VkExtent2D					m_SwapChainExtent;
 

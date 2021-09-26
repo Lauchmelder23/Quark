@@ -69,11 +69,10 @@ namespace Quark
 
 		VulkanContext::~VulkanContext()
 		{
+			CleanupSwapChain();
+
 			vkDestroySemaphore(m_Device, m_RenderFinishedSemaphore, nullptr);
 			vkDestroySemaphore(m_Device, m_ImageAvailableSemaphore, nullptr);
-
-			for (const VkFramebuffer& framebuffer : m_SwapChainFrameBuffers)
-				vkDestroyFramebuffer(m_Device, framebuffer, nullptr);
 
 			for (const VkImageView& imageView : m_SwapChainImageViews)
 				vkDestroyImageView(m_Device, imageView, nullptr);
@@ -104,7 +103,14 @@ namespace Quark
 		void VulkanContext::SwapBuffers()
 		{
 			uint32_t imageIndex;
-			vkAcquireNextImageKHR(m_Device, m_SwapChain, UINT64_MAX, m_ImageAvailableSemaphore, VK_NULL_HANDLE, &imageIndex);
+			VkResult result = vkAcquireNextImageKHR(m_Device, m_SwapChain, UINT64_MAX, m_ImageAvailableSemaphore, VK_NULL_HANDLE, &imageIndex);
+
+			if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || m_FrameBufferResized) 
+			{
+				RecreateSwapChain();
+				return;
+			}
+			QK_VULKAN_ASSERT(result, "Failed to acquire swap chain image")
 
 			VkPresentInfoKHR presentInfo{};
 			presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
@@ -114,7 +120,13 @@ namespace Quark
 			presentInfo.pSwapchains = swapChains;
 			presentInfo.pImageIndices = &imageIndex;
 
-			vkQueuePresentKHR(m_PresentQueue, &presentInfo);
+			result = vkQueuePresentKHR(m_PresentQueue, &presentInfo);
+
+			if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || m_FrameBufferResized)
+			{
+				RecreateSwapChain();
+			}
+			QK_VULKAN_ASSERT(result, "Failed to acquire swap chain image")
 		}
 
 		void VulkanContext::CreateInstance()
@@ -358,6 +370,34 @@ namespace Quark
 			QK_VULKAN_ASSERT(result, "Failed to create semaphore");
 
 			QK_CORE_INFO("Created semaphores");
+		}
+
+		void VulkanContext::CleanupSwapChain()
+		{
+			for (const VkImageView& imageView : m_SwapChainImageViews)
+				vkDestroyImageView(m_Device, imageView, nullptr);
+
+			vkDestroySwapchainKHR(m_Device, m_SwapChain, nullptr);
+		}
+
+		void VulkanContext::RecreateSwapChain()
+		{
+			int width = 0, height = 0;
+			glfwGetFramebufferSize(m_Handle, &width, &height);
+			while (width == 0 || height == 0)
+			{
+				glfwGetFramebufferSize(m_Handle, &width, &height);
+				glfwWaitEvents();
+			}
+
+			vkDeviceWaitIdle(m_Device);
+
+			CleanupSwapChain();
+
+			CreateSwapChain();
+			CreateImageViews();
+
+			m_FrameBufferResized = false;
 		}
 
 		bool VulkanContext::IsDeviceSuitable(VkPhysicalDevice device)

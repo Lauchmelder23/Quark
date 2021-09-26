@@ -43,7 +43,6 @@ namespace Quark
 
 	private:
 		GLFWwindow* m_Window;
-		Photon::Context* m_Context;
 
 		struct WindowData
 		{
@@ -52,6 +51,7 @@ namespace Quark
 			bool VSync;
 
 			EventCallbackFn EventCallback;
+			Photon::Context* m_Context;
 		};
 
 		WindowData m_Data;

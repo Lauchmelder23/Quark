@@ -40,7 +40,7 @@ namespace Quark
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		m_Context->SwapBuffers();
+		m_Data.m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
@@ -83,13 +83,13 @@ namespace Quark
 
 		switch (props.Renderer)
 		{
-		case RenderAPI::OpenGL: m_Context = new Photon::OpenGLContext(m_Window);	break;
-		case RenderAPI::Vulkan: m_Context = new Photon::VulkanContext(m_Window);	break;
+		case RenderAPI::OpenGL: m_Data.m_Context = new Photon::OpenGLContext(m_Window);	break;
+		case RenderAPI::Vulkan: m_Data.m_Context = new Photon::VulkanContext(m_Window);	break;
 		}
 
 		try
 		{
-			m_Context->Init();
+			m_Data.m_Context->Init();
 		}
 		catch (const std::runtime_error& exception)
 		{
@@ -101,6 +101,12 @@ namespace Quark
 		SetVSync(false);
 
 		// Set GLFW callbacks
+		glfwSetFramebufferSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
+		{
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			data.m_Context->FrameBufferResized();
+		});
+
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -189,7 +195,7 @@ namespace Quark
 
 	void WindowsWindow::Shutdown()
 	{
-		delete m_Context;
+		delete m_Data.m_Context;
 		glfwDestroyWindow(m_Window);
 	}
 

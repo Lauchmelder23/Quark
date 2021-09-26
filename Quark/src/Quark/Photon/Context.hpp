@@ -28,6 +28,11 @@ namespace Quark
 			 * the current frame buffer on the screen.
 			 */
 			virtual void SwapBuffers() = 0;
+
+			inline void FrameBufferResized() { m_FrameBufferResized = true; }
+
+		protected:
+			bool m_FrameBufferResized = false;
 		};
 	}
 }
