@@ -13,7 +13,16 @@ namespace Quark
 	{
 		s_Instance = this;
 
-		m_Window = std::unique_ptr<Window>(Window::Create(WindowProperties("Quark Engine", 1280, 720, RenderAPI::Vulkan)));
+		try 
+		{
+			m_Window = std::unique_ptr<Window>(Window::Create(WindowProperties("Quark Engine", 1280, 720, RenderAPI::Vulkan)));
+		}
+		catch (const std::runtime_error& exception)
+		{
+			QK_CORE_FATAL("Window creation failed. Stopping.");
+			m_Running = false;
+			return;
+		}
 		m_Window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
 
 		m_ImGuiLayer = new ImGuiLayer;

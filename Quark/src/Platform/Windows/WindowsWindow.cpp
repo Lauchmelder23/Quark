@@ -87,10 +87,18 @@ namespace Quark
 		case RenderAPI::Vulkan: m_Context = new Photon::VulkanContext(m_Window);	break;
 		}
 
-		m_Context->Init();
+		try
+		{
+			m_Context->Init();
+		}
+		catch (const std::runtime_error& exception)
+		{
+			QK_CORE_FATAL("Render context initialization error\n\t {0}", exception.what());
+			throw exception;
+		}
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
-		SetVSync(true);
+		SetVSync(false);
 
 		// Set GLFW callbacks
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
