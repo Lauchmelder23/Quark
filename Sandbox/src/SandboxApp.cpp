@@ -48,7 +48,7 @@ class Sandbox : public Quark::Application
 {
 public:
 	Sandbox() :
-		Quark::Application({ Quark::RenderAPI::Vulkan, Quark::RenderAPI::OpenGL})
+		Quark::Application({ Quark::RenderAPI::OpenGL, Quark::RenderAPI::Vulkan, Quark::RenderAPI::OpenGL})
 	{
 		PushLayer(new ExampleLayer());
 	}

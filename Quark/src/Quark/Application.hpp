@@ -9,6 +9,8 @@
 
 #include "ImGui/ImGuiLayer.hpp"
 
+#include "Quark/Photon/Shader.hpp"
+
 namespace Quark
 {
 	/**
@@ -72,6 +74,12 @@ namespace Quark
 
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+
+		unsigned int m_VertexArray;
+		unsigned int m_VertexBuffer;
+		unsigned int m_IndexBuffer;
+
+		std::unique_ptr<Photon::Shader> m_Shader;
 
 	private:
 		static Application* s_Instance;
