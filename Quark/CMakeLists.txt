@@ -25,9 +25,17 @@ target_link_libraries(Quark PUBLIC
 )
 
 function(quark_add_shaders)
+	if (${CMAKE_HOST_SYSTEM_PROCESSOR} STREQUAL "AMD64")
+	  set(GLSL_VALIDATOR "$ENV{VULKAN_SDK}/Bin/glslangValidator.exe")
+	else()
+	  set(GLSL_VALIDATOR "$ENV{VULKAN_SDK}/Bin32/glslangValidator.exe")
+	endif()
+
     set(oneValueArgs TARGET DESTINATION)
     set(multiValueArgs VERTEX FRAGMENT)
 	cmake_parse_arguments(ARG "" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
+
+	execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory "${PROJECT_BINARY_DIR}/shaders/")
 
 	set(HPP_FILE "${ARG_DESTINATION}/ShaderBinaries.hpp")
 	set(CPP_FILE "${ARG_DESTINATION}/ShaderBinaries.cpp")
@@ -69,7 +77,13 @@ struct ${ARG_TARGET}VertexShaders {
 		file(APPEND ${HPP_FILE} "\tstatic const Quark::Photon::VertexShaderBinary ${vertexFileName};\n")
 
 		file(READ ${VERTEX_FILE_NAME} VERTEX_FILE_CONTENT)
-		file(APPEND ${CPP_FILE} "const Quark::Photon::VertexShaderBinary ${ARG_TARGET}VertexShaders::${vertexFileName} = {R\"(${VERTEX_FILE_CONTENT})\"};\n")
+		file(APPEND ${CPP_FILE} "const Quark::Photon::VertexShaderBinary ${ARG_TARGET}VertexShaders::${vertexFileName} = {\nR\"(${VERTEX_FILE_CONTENT})\",\n")
+		
+		set(SPIRV "${PROJECT_BINARY_DIR}/shaders/tmp.spv")
+		execute_process(COMMAND ${GLSL_VALIDATOR} -V ${VERTEX_FILE} -o ${SPIRV} -x)
+		
+		file(READ "${PROJECT_BINARY_DIR}/shaders/tmp.spv" VULKAN_BINARY_CONTENT)
+		file(APPEND ${CPP_FILE} "{${VULKAN_BINARY_CONTENT}}\n};\n\n")
 	endforeach()
 
 	file(APPEND ${HPP_FILE} "};\n\nstruct ${ARG_TARGET}FragmentShaders {\n")
@@ -83,7 +97,13 @@ struct ${ARG_TARGET}VertexShaders {
 		file(APPEND ${HPP_FILE} "\tstatic const Quark::Photon::FragmentShaderBinary ${fragmentFileName};\n")
 
 		file(READ ${FRAGMENT_FILE_NAME} FRAGMENT_FILE_CONTENT)
-		file(APPEND ${CPP_FILE} "const Quark::Photon::FragmentShaderBinary ${ARG_TARGET}FragmentShaders::${fragmentFileName} = {R\"(${FRAGMENT_FILE_CONTENT})\"};\n")
+		file(APPEND ${CPP_FILE} "const Quark::Photon::FragmentShaderBinary ${ARG_TARGET}FragmentShaders::${fragmentFileName} = {\nR\"(${FRAGMENT_FILE_CONTENT})\",\n")
+	
+		set(SPIRV "${PROJECT_BINARY_DIR}/shaders/tmp.spv")
+		execute_process(COMMAND ${GLSL_VALIDATOR} -V ${FRAGMENT_FILE} -o ${SPIRV} -x)
+		
+		file(READ "${PROJECT_BINARY_DIR}/shaders/tmp.spv" VULKAN_BINARY_CONTENT)
+		file(APPEND ${CPP_FILE} "{${VULKAN_BINARY_CONTENT}}\n};\n\n")
 	endforeach()
 
 	file(APPEND ${HPP_FILE} "};")
