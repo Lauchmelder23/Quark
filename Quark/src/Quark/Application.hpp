@@ -9,6 +9,7 @@
 
 #include "ImGui/ImGuiLayer.hpp"
 
+#include "Quark/Utility/ShaderBinaryStructs.hpp"
 #include "Quark/Photon/Shader.hpp"
 
 namespace Quark
@@ -29,7 +30,7 @@ namespace Quark
 		 * 
 		 * @param desiredRenderAPIs	A list of render APIs to be used by the window. 
 		 */
-		Application(const std::vector<RenderAPI> desiredRenderAPIs);
+		Application(const Photon::VertexShaderBinary& vertexShaderSrc, const Photon::FragmentShaderBinary& fragmentShaderSrc, const std::vector<RenderAPI> desiredRenderAPIs);
 		virtual ~Application();
 		
 		/**

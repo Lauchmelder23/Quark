@@ -6,6 +6,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "imgui.h"
+#include "shaders/ShaderBinaries.hpp"
 
 glm::mat4 camera(float Translate, const glm::vec2& Rotate)
 {
@@ -48,7 +49,7 @@ class Sandbox : public Quark::Application
 {
 public:
 	Sandbox() :
-		Quark::Application({ Quark::RenderAPI::OpenGL, Quark::RenderAPI::Vulkan, Quark::RenderAPI::OpenGL})
+		Quark::Application(SandboxVertexShaders::shader, SandboxFragmentShaders::shader, { Quark::RenderAPI::OpenGL })
 	{
 		PushLayer(new ExampleLayer());
 	}

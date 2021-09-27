@@ -31,7 +31,7 @@ function(quark_add_shaders)
 
 	set(HPP_FILE "${ARG_DESTINATION}/ShaderBinaries.hpp")
 	set(CPP_FILE "${ARG_DESTINATION}/ShaderBinaries.cpp")
-	file(WRITE ${HPP_FILE} "#pragma once\n#include \"Quark/Utility/ShaderBinaryStructs.hpp\"\n\nstruct ${ARG_TARGET}Shaders {\n")
+	file(WRITE ${HPP_FILE} "#pragma once\n#include \"Quark/Utility/ShaderBinaryStructs.hpp\"\n\nstruct ${ARG_TARGET}VertexShaders {\n")
 	file(WRITE ${CPP_FILE} "#include \"ShaderBinaries.hpp\"\n\n")
 
 	foreach(VERTEX_FILE_NAME ${ARG_VERTEX})
@@ -42,10 +42,10 @@ function(quark_add_shaders)
 		file(APPEND ${HPP_FILE} "\tstatic const Quark::Photon::VertexShaderBinary ${vertexFileName};\n")
 
 		file(READ ${VERTEX_FILE_NAME} VERTEX_FILE_CONTENT)
-		file(APPEND ${CPP_FILE} "const Quark::Photon::VertexShaderBinary ${ARG_TARGET}Shaders::${vertexFileName} = {R\"(${VERTEX_FILE_CONTENT})\"};\n")
+		file(APPEND ${CPP_FILE} "const Quark::Photon::VertexShaderBinary ${ARG_TARGET}VertexShaders::${vertexFileName} = {R\"(${VERTEX_FILE_CONTENT})\"};\n")
 	endforeach()
 
-	file(APPEND ${HPP_FILE} "\n")
+	file(APPEND ${HPP_FILE} "};\n\nstruct ${ARG_TARGET}FragmentShaders {\n")
 	file(APPEND ${CPP_FILE} "\n")
 
 	foreach(FRAGMENT_FILE_NAME ${ARG_FRAGMENT})
@@ -56,7 +56,7 @@ function(quark_add_shaders)
 		file(APPEND ${HPP_FILE} "\tstatic const Quark::Photon::FragmentShaderBinary ${fragmentFileName};\n")
 
 		file(READ ${FRAGMENT_FILE_NAME} FRAGMENT_FILE_CONTENT)
-		file(APPEND ${CPP_FILE} "const Quark::Photon::FragmentShaderBinary ${ARG_TARGET}Shaders::${fragmentFileName} = {R\"(${FRAGMENT_FILE_CONTENT})\"};\n")
+		file(APPEND ${CPP_FILE} "const Quark::Photon::FragmentShaderBinary ${ARG_TARGET}FragmentShaders::${fragmentFileName} = {R\"(${FRAGMENT_FILE_CONTENT})\"};\n")
 	endforeach()
 
 	file(APPEND ${HPP_FILE} "};")

@@ -1,11 +1,9 @@
 set(QUARK_BUILD_SHARED Off CACHE BOOL "Build a DLL instead of a stati library")
 set(QUARK_VULKAN On CACHE BOOL "Include Vulkan in the project")
 
-if(${QUARK_VULKAN})
-	include(FindVulkan REQUIRED)
-	if(NOT ${VULKAN_FOUND})
-		message(WARNING "Could not locate Vulkan. Make sure you have the SDK installed: https://vulkan.lunarg.com/sdk/home")
-	endif()
+include(FindVulkan REQUIRED)
+if(NOT ${VULKAN_FOUND})
+	message(WARNING "Could not locate Vulkan. Make sure you have the SDK installed: https://vulkan.lunarg.com/sdk/home")
 endif()
 
 set(QUARK_SOURCES 

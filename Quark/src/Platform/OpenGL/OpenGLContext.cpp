@@ -23,6 +23,13 @@ namespace Quark
 		
 		void OpenGLContext::SwapBuffers()
 		{
+			if (m_FrameBufferResized)
+			{
+				int width = 0, height = 0;
+				glfwGetFramebufferSize(m_Handle, &width, &height);
+				glViewport(0, 0, width, height);
+			}
+
 			glfwSwapBuffers(m_Handle);
 		}
 	}

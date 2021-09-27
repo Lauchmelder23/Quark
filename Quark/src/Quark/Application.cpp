@@ -9,7 +9,7 @@ namespace Quark
 {
 	Application* Application::s_Instance = nullptr;
 
-	Application::Application(const std::vector<RenderAPI> desiredRenderAPIs)
+	Application::Application(const Photon::VertexShaderBinary& vertexShaderSrc, const Photon::FragmentShaderBinary& fragmentShaderSrc, const std::vector<RenderAPI> desiredRenderAPIs)
 	{
 		s_Instance = this;
 		m_Window = nullptr;
@@ -46,10 +46,18 @@ namespace Quark
 		glGenBuffers(1, &m_VertexBuffer);
 		glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
 
-		float vertices[3 * 3] = {
-			-0.5f, -0.5f, 0.0f,
-			0.5f, -0.5f, 0.0f,
-			0.0f, 0.5f, 0.0f
+		float vertices[3 * 3 * 3] = {
+			-0.5f, 0.0f, 0.0f,
+			0.0f, 0.866f, 0.0f,
+			0.5f, 0.0f, 0.0f,
+
+			-1.0f, -0.886f, 0.0f,
+			-0.5f, 0.0f, 0.0f,
+			0.0f, -0.886f, 0.0f,
+
+			-0.0f, -0.886f, 0.0f,
+			0.5f, 0.0f, 0.0f,
+			1.0f, -0.886f, 0.0f
 		};
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
@@ -59,21 +67,19 @@ namespace Quark
 		glGenBuffers(1, &m_IndexBuffer);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
 
-		unsigned int indices[3] = { 0, 1, 2 };
+		unsigned int indices[3 * 3] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-		std::string vertexShader = R"(
-			#version 330 core
-			
-			layout(location = 0) in vec3 a_Position;
-
-			void main()
-			{
-				gl_Position = a_Position;
-			}	
-		)";
-
-		// m_Shader.reset(new Photon::Shader());
+		try 
+		{
+			m_Shader.reset(new Photon::Shader(vertexShaderSrc.OpenGL, fragmentShaderSrc.OpenGL));
+		}
+		catch (const std::runtime_error& exception)
+		{
+			QK_CORE_FATAL("Shader creation failed:\n\n{0}", exception.what());
+			m_Running = false;
+			return;
+		}
 	}
 
 	Application::~Application()
@@ -116,8 +122,10 @@ namespace Quark
 			glClearColor(0.2f, 0.1f, 0.4f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
+			m_Shader->Bind();
+
 			glBindVertexArray(m_VertexArray);
-			glDrawArrays(GL_TRIANGLES, 0, 3);
+			glDrawArrays(GL_TRIANGLES, 0, 9);
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
