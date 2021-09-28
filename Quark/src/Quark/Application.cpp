@@ -13,7 +13,7 @@ namespace Quark
 	{
 		s_Instance = this;
 		m_Window = nullptr;
-
+		
 		for (Photon::RendererAPI api : desiredRenderAPIs)
 		{
 			try
@@ -58,6 +58,13 @@ namespace Quark
 		};
 		m_VertexBuffer.reset(Photon::VertexBuffer::Create(sizeof(vertices), vertices));
 
+		Photon::BufferLayout layout = {
+			{ Photon::ShaderDataType::Float3, "a_Position" },
+			{ Photon::ShaderDataType::Float4, "a_Color" },
+			{ Photon::ShaderDataType::Float3, "a_Normal" }
+		};
+
+		m_VertexBuffer->SetLayout(layout);
 
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
