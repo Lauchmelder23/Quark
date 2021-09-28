@@ -418,7 +418,7 @@ a:link, a:visited, a:hover, a:focus, a:active {
 
     to {
         opacity: 1;
-        transform: translate(0, 0px);
+        transform: translate(0, 0);
     }
 }
 
@@ -499,6 +499,7 @@ a:link, a:visited, a:hover, a:focus, a:active {
 
 .left #MSearchSelect {
     left: 0;
+    padding-left: 8px;
 }
 
 .tabs .left #MSearchSelect {
@@ -551,10 +552,6 @@ a:link, a:visited, a:hover, a:focus, a:active {
 
 #MSearchSelect {
     top: calc(calc(var(--searchbar-height) / 2) - 11px);
-}
-
-.left #MSearchSelect {
-    padding-left: 8px;
 }
 
 #MSearchBox span.left, #MSearchBox span.right {
@@ -769,10 +766,6 @@ div.contents, div.header .title  {
     margin: calc(var(--spacing-medium) + .2em) auto var(--spacing-medium) auto;
 }
 
-div.header .summary {
-    margin: var(--spacing-medium) auto 0 auto;
-}
-
 div.headertitle {
     padding: 0;
 }
@@ -785,6 +778,7 @@ div.header .title {
 }
 
 div.header .summary {
+    margin: var(--spacing-medium) auto 0 auto;
     width: auto;
     display: block;
     float: none;
@@ -1096,7 +1090,7 @@ dl.deprecated dt a {
 }
 
 dl.section dd, dl.bug dd, dl.deprecated dd {
-    margin-inline-start: 0px;
+    margin-inline-start: 0;
 }
 
 dl.invariant, dl.pre {
@@ -1118,6 +1112,7 @@ div.memdoc, div.memproto, h2.memtitle {
 div.memdoc {
     padding: 0 var(--spacing-medium);
     background: var(--page-background-color);
+    border-radius: 0;
 }
 
 h2.memtitle, div.memitem {
@@ -1156,10 +1151,6 @@ div.memitem {
     border-bottom-left-radius: var(--border-radius-medium);
     overflow: hidden;
     display: block !important;
-}
-
-div.memdoc {
-    border-radius: 0;
 }
 
 div.memproto {
