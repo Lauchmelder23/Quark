@@ -1388,7 +1388,6 @@ html.dark-mode .iconfopen, html.dark-mode .iconfclosed {
 }
 
 #nav-path ul {
-    background-image: none;
     background: var(--page-background-color);
     border: none;
     border-top: 1px solid var(--separator-color);
