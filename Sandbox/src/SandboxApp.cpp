@@ -22,27 +22,18 @@ glm::mat4 camera(float Translate, const glm::vec2& Rotate)
 class ExampleLayer : public Quark::Layer
 {
 public:
-	ExampleLayer() :
-		Layer("Example")
-	{
-	}
+	ExampleLayer() : Layer("Example") {}
 
-	void OnUpdate() override
-	{
+	void OnUpdate() override {}
 
-	}
-
-	virtual void OnImGuiRender() override
+	void OnImGuiRender() override
 	{
 		ImGui::Begin("Test");
 		ImGui::Text("Hello, World!");
 		ImGui::End();
 	}
 
-	void OnEvent(Quark::Event& event) override
-	{
-		
-	}
+	void OnEvent(Quark::Event& event) override {}
 };
 
 class Sandbox : public Quark::Application
@@ -54,11 +45,7 @@ public:
 		PushLayer(new ExampleLayer());
 	}
 
-	~Sandbox()
-	{
-
-	}
-
+	~Sandbox() {}
 };
 
 Quark::Application* Quark::CreateApplication()
