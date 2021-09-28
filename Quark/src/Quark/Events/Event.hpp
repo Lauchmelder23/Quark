@@ -31,17 +31,12 @@ namespace Quark
 		EventCategoryMouseButton	= BIT(4)
 	};
 
-#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::type; }\
-								virtual EventType GetEventType() const override { return GetStaticType(); }\
-								virtual const char* GetName() const override { return #type; }
+#define EVENT_CLASS_TYPE(type)	static EventType GetStaticType() { return EventType::type; }\
+								EventType GetEventType() const override { return GetStaticType(); }\
+								const char* GetName() const override { return #type; }
 
-#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
+#define EVENT_CLASS_CATEGORY(category) int GetCategoryFlags() const override { return category; }
 
-	/// <summary>
-	/// Base class for all events supported by the engine.
-	/// Defines several universal utility functions.
-	/// </summary>
-	
 	/**
 	 * @brief Base class for all events supported by the engine.
 	 * 		  Defines several universal utility functions.
