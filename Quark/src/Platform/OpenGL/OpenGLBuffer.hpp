@@ -27,8 +27,8 @@ namespace Quark
 			 */
 			virtual ~OpenGLVertexBuffer();
 
-			virtual void Bind() const override;
-			virtual void Unbind() const override;
+			void Bind() const override;
+			void Unbind() const override;
 
 		private:
 			uint32_t m_VertexBuffer;
@@ -55,10 +55,10 @@ namespace Quark
 			 */
 			virtual ~OpenGLIndexBuffer();
 
-			virtual void Bind() const override;
-			virtual void Unbind() const override;
+			void Bind() const override;
+			void Unbind() const override;
 
-			virtual uint32_t GetCount() const override { return m_Count; };
+			uint32_t GetCount() const override { return m_Count; };
 
 		private:
 			uint32_t m_IndexBuffer;
