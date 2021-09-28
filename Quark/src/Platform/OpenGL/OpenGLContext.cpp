@@ -8,11 +8,7 @@ namespace Quark
 {
 	namespace Photon
 	{
-		OpenGLContext::OpenGLContext(GLFWwindow* handle) :
-			m_Handle(handle)
-		{
-
-		}
+		OpenGLContext::OpenGLContext(GLFWwindow* handle) : m_Handle(handle) { }
 
 		void OpenGLContext::Init()
 		{
