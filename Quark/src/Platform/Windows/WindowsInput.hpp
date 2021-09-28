@@ -13,11 +13,11 @@ namespace Quark
 	class WindowsInput final : public Input
 	{
 	protected:
-		virtual bool IsKeyPressedImpl(Key keycode) override;
+		bool IsKeyPressedImpl(Key keycode) override;
 
-		virtual bool IsMouseButtonPressedImpl(MouseButton button) override;
-		virtual float GetMouseXImpl() override;
-		virtual float GetMouseYImpl() override;
-		virtual std::pair<float, float> GetMousePositionImpl() override;
+		bool IsMouseButtonPressedImpl(MouseButton button) override;
+		float GetMouseXImpl() override;
+		float GetMouseYImpl() override;
+		std::pair<float, float> GetMousePositionImpl() override;
 	};
 }
