@@ -12,16 +12,9 @@
 
 namespace Quark
 {
-	ImGuiLayer::ImGuiLayer() :
-		Layer("ImGuiLayer")
-	{
+	ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") { }
 
-	}
-
-	ImGuiLayer::~ImGuiLayer()
-	{
-
-	}
+	ImGuiLayer::~ImGuiLayer() { }
 
 	void ImGuiLayer::OnAttach()
 	{
