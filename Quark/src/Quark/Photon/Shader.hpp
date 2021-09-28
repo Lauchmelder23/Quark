@@ -1,22 +1,38 @@
 #pragma once
 
-#include <string>
+#include "Quark/Utility/ShaderBinaryStructs.hpp"
 
 namespace Quark
 {
 	namespace Photon
 	{
-		class Shader
+		/**
+		 * @brief Generic abstracted shader program
+		 */
+		class QUARK_API Shader
 		{
 		public:
-			Shader(const std::string& vertexSrc, const std::string& fragmentSrc);
-			~Shader();
+			/**
+			 * @brief				Create a new renderer API specific shader program
+			 *
+			 * @param vertexSrc		Structure containing generic vertex shader data
+			 * @param fragmentSrc	Structure containing generic fragment shader data
+			 * @returns				A new renderer API specific shader program
+			 */
+			static Shader* Create(const VertexShaderBinary& vertexSrc, const FragmentShaderBinary& fragmentSrc);
 
-			void Bind() const;
-			void Unbind() const;
+		public:
+			virtual ~Shader() {}
 
-		private:
-			uint32_t m_ProgramID;
+			/**
+			 * @brief Bind the shader program
+			 */
+			virtual void Bind() const = 0;
+
+			/**
+			 * @brief Unind the shader program
+			 */
+			virtual void Unbind() const = 0;
 		};
 	}
 }

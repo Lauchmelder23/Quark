@@ -49,7 +49,7 @@ class Sandbox : public Quark::Application
 {
 public:
 	Sandbox() :
-		Quark::Application(SandboxVertexShaders::shader, SandboxFragmentShaders::shader, { Quark::RenderAPI::OpenGL })
+		Quark::Application(SandboxVertexShaders::shader, SandboxFragmentShaders::shader, { Quark::Photon::RendererAPI::OpenGL })
 	{
 		PushLayer(new ExampleLayer());
 	}

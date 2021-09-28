@@ -11,6 +11,7 @@
 
 #include "Quark/Utility/ShaderBinaryStructs.hpp"
 #include "Quark/Photon/Shader.hpp"
+#include "Photon/Buffer.hpp"
 
 namespace Quark
 {
@@ -30,7 +31,7 @@ namespace Quark
 		 * 
 		 * @param desiredRenderAPIs	A list of render APIs to be used by the window. 
 		 */
-		Application(const Photon::VertexShaderBinary& vertexShaderSrc, const Photon::FragmentShaderBinary& fragmentShaderSrc, const std::vector<RenderAPI> desiredRenderAPIs);
+		Application(const Photon::VertexShaderBinary& vertexShaderSrc, const Photon::FragmentShaderBinary& fragmentShaderSrc, const std::vector<Photon::RendererAPI> desiredRenderAPIs);
 		virtual ~Application();
 		
 		/**
@@ -77,10 +78,10 @@ namespace Quark
 		LayerStack m_LayerStack;
 
 		unsigned int m_VertexArray;
-		unsigned int m_VertexBuffer;
-		unsigned int m_IndexBuffer;
 
 		std::unique_ptr<Photon::Shader> m_Shader;
+		std::unique_ptr<Photon::VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<Photon::IndexBuffer> m_IndexBuffer;
 
 	private:
 		static Application* s_Instance;

@@ -37,6 +37,12 @@ namespace Quark
 		 */
 		virtual inline std::any GetNativeWindow() const override { return std::make_any<GLFWwindow*>(m_Window); }
 
+		/**
+		 * @brief	Retrieves the rendering API of the window
+		 * 
+		 * @returns An
+		 */
+
 	private:
 		virtual void Init(const WindowProperties& props);
 		virtual void Shutdown();
@@ -51,7 +57,7 @@ namespace Quark
 			bool VSync;
 
 			EventCallbackFn EventCallback;
-			Photon::Context* m_Context;
+			Photon::Context* Context;
 		};
 
 		WindowData m_Data;

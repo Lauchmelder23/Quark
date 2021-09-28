@@ -20,8 +20,8 @@ namespace Quark
 	Window* Window::Create(const WindowProperties& props)
 	{
 		QK_CORE_ASSERT(
-			props.Renderer == RenderAPI::OpenGL || props.Renderer == RenderAPI::Vulkan,
-			"WindowsWindow can't be created with the requested RenderAPI: {0}", static_cast<int>(props.Renderer)
+			props.Renderer == Photon::RendererAPI::OpenGL || props.Renderer == Photon::RendererAPI::Vulkan,
+			"WindowsWindow can't be created with the requested RendererAPI (id={0})", static_cast<int>(props.Renderer)
 		);
 
 		return new WindowsWindow(props);
@@ -40,7 +40,7 @@ namespace Quark
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		m_Data.m_Context->SwapBuffers();
+		m_Data.Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
@@ -64,7 +64,9 @@ namespace Quark
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
 
-		QK_CORE_INFO("Creating window {0} ({1}, {2}). RenderAPI: {3}", props.Title, props.Width, props.Height, static_cast<int>(props.Renderer));
+		Photon::Renderer::SetAPI(props.Renderer);
+
+		QK_CORE_INFO("Creating window {0} ({1}, {2}). RendererAPI: {3}", props.Title, props.Width, props.Height, static_cast<int>(props.Renderer));
 
 		if (!s_GLFWInitialized)
 		{
@@ -76,20 +78,16 @@ namespace Quark
 			s_GLFWInitialized = true;
 		}
 
-		if (props.Renderer == RenderAPI::Vulkan)
+		if (Photon::Renderer::GetAPI() == Photon::RendererAPI::Vulkan)
 			glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 
-		switch (props.Renderer)
-		{
-		case RenderAPI::OpenGL: m_Data.m_Context = new Photon::OpenGLContext(m_Window);	break;
-		case RenderAPI::Vulkan: m_Data.m_Context = new Photon::VulkanContext(m_Window);	break;
-		}
+		m_Data.Context = Photon::Context::Create(m_Window);
 
 		try
 		{
-			m_Data.m_Context->Init();
+			m_Data.Context->Init();
 		}
 		catch (const std::runtime_error& exception)
 		{
@@ -104,7 +102,7 @@ namespace Quark
 		glfwSetFramebufferSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-			data.m_Context->FrameBufferResized();
+			data.Context->FrameBufferResized();
 		});
 
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
@@ -195,7 +193,7 @@ namespace Quark
 
 	void WindowsWindow::Shutdown()
 	{
-		delete m_Data.m_Context;
+		delete m_Data.Context;
 		glfwDestroyWindow(m_Window);
 	}
 

@@ -13,6 +13,15 @@ namespace Quark
 		{
 		public:
 			/**
+			 * @brief   Create a new rendering context for the given window handle
+			 * 
+			 * @param   handle A valid window handle
+			 * @returns A new rendering context
+			 */
+			static Context* Create(std::any handle);
+
+		public:
+			/**
 			 * @brief Initializes a new rendering context
 			 * 
 			 * This function gets implemented in a derived class, and is then
@@ -29,6 +38,9 @@ namespace Quark
 			 */
 			virtual void SwapBuffers() = 0;
 
+			/**
+			 * @brief Tell the context that the framebuffer was resized
+			 */
 			inline void FrameBufferResized() { m_FrameBufferResized = true; }
 
 		protected:

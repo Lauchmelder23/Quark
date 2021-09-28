@@ -15,8 +15,8 @@
 #endif // QK_PLATFORM_WINDOWS
 
 #ifdef QK_ENABLE_ASSERTS
-	#define QK_ASSERT(x, ...) { if(!(x)) { QK_ERROR("Assertion Failed in file {0}:{1} -> {2}", __FILE__, __LINE__, __VA_ARGS__); __debugbreak(); }}
-	#define QK_CORE_ASSERT(x, ...) { if(!(x)) { QK_CORE_ERROR("Assertion Failed in file {0}:{1} -> {2}", __FILE__, __LINE__, __VA_ARGS__); __debugbreak(); }}
+	#define QK_ASSERT(x, ...) { if(!(x)) { QK_FATAL("Assertion Failed in file {0}:{1} -> {2}", __FILE__, __LINE__, __VA_ARGS__); __debugbreak(); }}
+	#define QK_CORE_ASSERT(x, ...) { if(!(x)) { QK_CORE_FATAL("Assertion Failed in file {0}:{1} -> {2}", __FILE__, __LINE__, __VA_ARGS__); __debugbreak(); }}
 #else
 	#define QK_ASSERT(x, ...)
 	#define QK_CORE_ASSERT(x, ...)

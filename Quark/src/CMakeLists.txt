@@ -10,7 +10,7 @@ set(QUARK_SOURCES
 	"qkpch.cpp"
 	"Quark/Log.cpp"
 	"Quark/Application.cpp"
- "Platform/Windows/WindowsWindow.cpp" "Quark/Layer.cpp" "Quark/LayerStack.cpp" "Quark/ImGui/ImGuiLayer.cpp"  "Platform/Windows/WindowsInput.cpp" "Quark/ImGui/ImGuiBuild.cpp" "Platform/OpenGL/OpenGLContext.cpp" "Platform/Vulkan/VulkanContext.cpp" "Quark/Photon/Shader.cpp")
+ "Platform/Windows/WindowsWindow.cpp" "Quark/Layer.cpp" "Quark/LayerStack.cpp" "Quark/ImGui/ImGuiLayer.cpp"  "Platform/Windows/WindowsInput.cpp" "Quark/ImGui/ImGuiBuild.cpp" "Platform/OpenGL/OpenGLContext.cpp" "Platform/Vulkan/VulkanContext.cpp" "Quark/Photon/Shader.cpp" "Quark/Photon/Buffer.cpp" "Platform/OpenGL/OpenGLBuffer.cpp"  "Platform/OpenGL/OpenGLShader.cpp" "Quark/Photon/Context.cpp")
 
 set(QUARK_HEADERS
 	"Quark.hpp"
@@ -23,7 +23,7 @@ set(QUARK_HEADERS
 	"Quark/Events/KeyEvent.hpp"
 	"Quark/Events/MouseEvent.hpp"
 	"Quark/Window.hpp"
-  "Platform/Windows/WindowsWindow.hpp" "Quark/Layer.hpp" "Quark/LayerStack.hpp" "Quark/ImGui/ImGuiLayer.hpp"  "Quark/Input.hpp" "Platform/Windows/WindowsInput.hpp" "Quark/KeyCodes.hpp" "Quark/Utility/Bimap.hpp"  "Quark/MouseButtonCodes.hpp" "Quark/Photon/Context.hpp" "Platform/OpenGL/OpenGLContext.hpp" "Platform/Vulkan/VulkanContext.hpp" "Quark/Photon/Shader.hpp" "Quark/Utility/ShaderBinaryStructs.hpp")
+  "Platform/Windows/WindowsWindow.hpp" "Quark/Layer.hpp" "Quark/LayerStack.hpp" "Quark/ImGui/ImGuiLayer.hpp"  "Quark/Input.hpp" "Platform/Windows/WindowsInput.hpp" "Quark/KeyCodes.hpp" "Quark/Utility/Bimap.hpp"  "Quark/MouseButtonCodes.hpp" "Quark/Photon/Context.hpp" "Platform/OpenGL/OpenGLContext.hpp" "Platform/Vulkan/VulkanContext.hpp" "Quark/Photon/Shader.hpp" "Quark/Utility/ShaderBinaryStructs.hpp" "Quark/Photon/Buffer.hpp" "Platform/OpenGL/OpenGLBuffer.hpp" "Quark/Photon/Renderer.hpp" "Platform/OpenGL/OpenGLShader.hpp" )
 
 if(${QUARK_BUILD_SHARED})
 	message(STATUS "Building Quark as a shared library")

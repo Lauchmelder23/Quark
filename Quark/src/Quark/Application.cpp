@@ -9,12 +9,12 @@ namespace Quark
 {
 	Application* Application::s_Instance = nullptr;
 
-	Application::Application(const Photon::VertexShaderBinary& vertexShaderSrc, const Photon::FragmentShaderBinary& fragmentShaderSrc, const std::vector<RenderAPI> desiredRenderAPIs)
+	Application::Application(const Photon::VertexShaderBinary& vertexShaderSrc, const Photon::FragmentShaderBinary& fragmentShaderSrc, const std::vector<Photon::RendererAPI> desiredRenderAPIs)
 	{
 		s_Instance = this;
 		m_Window = nullptr;
 
-		for (RenderAPI api : desiredRenderAPIs)
+		for (Photon::RendererAPI api : desiredRenderAPIs)
 		{
 			try
 			{
@@ -23,7 +23,7 @@ namespace Quark
 			}
 			catch (const std::runtime_error& exception)
 			{
-				QK_CORE_ERROR("Window creation failed with requested API ({0}):\n\t{1}", static_cast<int>(api), exception.what());
+				QK_CORE_ERROR("Window creation failed with requested API (id={0}):\n\t{1}", static_cast<int>(api), exception.what());
 				m_Window = nullptr;
 			}
 		}
@@ -39,12 +39,9 @@ namespace Quark
 
 		m_ImGuiLayer = new ImGuiLayer;
 		PushOverlay(m_ImGuiLayer);
-
+		
 		glGenVertexArrays(1, &m_VertexArray);
 		glBindVertexArray(m_VertexArray);
-
-		glGenBuffers(1, &m_VertexBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
 
 		float vertices[3 * 3 * 3] = {
 			-0.5f, 0.0f, 0.0f,
@@ -59,20 +56,18 @@ namespace Quark
 			0.5f, 0.0f, 0.0f,
 			1.0f, -0.886f, 0.0f
 		};
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		m_VertexBuffer.reset(Photon::VertexBuffer::Create(sizeof(vertices), vertices));
+
 
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 
-		glGenBuffers(1, &m_IndexBuffer);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
-
 		unsigned int indices[3 * 3] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+		m_IndexBuffer.reset(Photon::IndexBuffer::Create(9, indices));
 
 		try 
 		{
-			m_Shader.reset(new Photon::Shader(vertexShaderSrc.OpenGL, fragmentShaderSrc.OpenGL));
+			m_Shader.reset(Photon::Shader::Create(vertexShaderSrc, fragmentShaderSrc));
 		}
 		catch (const std::runtime_error& exception)
 		{
@@ -125,7 +120,7 @@ namespace Quark
 			m_Shader->Bind();
 
 			glBindVertexArray(m_VertexArray);
-			glDrawArrays(GL_TRIANGLES, 0, 9);
+			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();

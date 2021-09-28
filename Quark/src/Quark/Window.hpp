@@ -4,18 +4,10 @@
 
 #include "Quark/Core.hpp"
 #include "Quark/Events/Event.hpp"
+#include "Quark/Photon/Renderer.hpp"
 
 namespace Quark
 {
-	/**
-	 * @brief Render APIs supported by Photon
-	 */
-	enum class RenderAPI
-	{
-		OpenGL,
-		Vulkan
-	};
-
 	/**
 	 * @brief A structure that contains basic information and properties about the window
 	 */
@@ -24,9 +16,9 @@ namespace Quark
 		std::string Title;
 		unsigned int Width;
 		unsigned int Height;
-		RenderAPI Renderer;
+		Photon::RendererAPI Renderer;
 
-		WindowProperties(const std::string& title = "Quark Engine", unsigned int width = 1280, unsigned int height = 720, RenderAPI renderer = RenderAPI::OpenGL) :
+		WindowProperties(const std::string& title = "Quark Engine", unsigned int width = 1280, unsigned int height = 720, Photon::RendererAPI renderer = Photon::RendererAPI::OpenGL) :
 			Title(title), Width(width), Height(height), Renderer(renderer)
 		{
 		}
