@@ -1,0 +1,29 @@
+#pragma once
+
+#include "Quark/Core.hpp"
+#include "Quark/Photon/VertexArray.hpp"
+
+namespace Quark
+{
+	namespace Photon
+	{
+		class QUARK_API OpenGLVertexArray : public VertexArray
+		{
+		public:
+			OpenGLVertexArray();
+			virtual ~OpenGLVertexArray();
+
+			void Bind() const override;
+			void Unbind() const override;
+
+			void AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) override;
+			void SetElementBuffer(const std::shared_ptr<ElementBuffer>& elementBuffer) override;
+
+		private:
+			std::vector<std::shared_ptr<VertexBuffer>> m_VertexBuffers;
+			std::shared_ptr<ElementBuffer> m_ElementBuffer;
+
+			uint32_t m_VertexArray;
+		};
+	}
+}

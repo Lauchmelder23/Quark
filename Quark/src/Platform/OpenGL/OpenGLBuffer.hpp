@@ -42,7 +42,7 @@ namespace Quark
 		/**
 		 * @brief OpenGL specific abstraction of an index buffer
 		 */
-		class QUARK_API OpenGLIndexBuffer : public IndexBuffer
+		class QUARK_API OpenGLElementBuffer : public ElementBuffer
 		{
 		public:
 			/**
@@ -52,12 +52,12 @@ namespace Quark
 			 * @param indices Pointer to the index data
 			 * @returns       A new renderer OpenGL index buffer
 			 */
-			OpenGLIndexBuffer(size_t count, uint32_t* indices);
+			OpenGLElementBuffer(size_t count, uint32_t* indices);
 
 			/**
 			 * @brief Delete the index buffer
 			 */
-			virtual ~OpenGLIndexBuffer();
+			virtual ~OpenGLElementBuffer();
 
 			void Bind() const override;
 			void Unbind() const override;
@@ -65,7 +65,7 @@ namespace Quark
 			uint32_t GetCount() const override { return m_Count; };
 
 		private:
-			uint32_t m_IndexBuffer;
+			uint32_t m_ElementBuffer;
 			uint32_t m_Count;
 		};
 	}

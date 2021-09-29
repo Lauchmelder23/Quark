@@ -22,11 +22,11 @@ namespace Quark
 			return nullptr;	// Make VS happy :)
 		}
 
-		IndexBuffer* IndexBuffer::Create(size_t size, uint32_t* indices)
+		ElementBuffer* ElementBuffer::Create(size_t size, uint32_t* indices)
 		{
 			switch (Renderer::GetAPI())
 			{
-			case RendererAPI::OpenGL:	return new OpenGLIndexBuffer(size, indices);	break;
+			case RendererAPI::OpenGL:	return new OpenGLElementBuffer(size, indices);	break;
 
 			default:
 				QK_CORE_ASSERT(false, "Photon doesn't support buffer creation for the desired render API (id={0})", static_cast<int>(Renderer::GetAPI()));

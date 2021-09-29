@@ -1,82 +1,12 @@
 #pragma once
 
 #include "Quark/Core.hpp"
+#include "Datatypes.hpp"
 
 namespace Quark
 {
 	namespace Photon
 	{
-		/**
-		 * An enum representing every possible datatype common in shading languages
-		 */
-		enum class ShaderDataType
-		{
-			None = -1,
-			Bool, Bool2, Bool3, Bool4,
-			Int, Int2, Int3, Int4,
-			Uint, Uint2, Uint3, Uint4,
-			Float, Float2, Float3, Float4,
-			Double, Double2, Double3, Double4,
-
-			Mat2x2, Mat2x3, Mat2x4, 
-			Mat3x2, Mat3x3, Mat3x4, 
-			Mat4x2, Mat4x3, Mat4x4, 
-
-			Mat2 = Mat2x2,
-			Mat3 = Mat3x3,
-			Mat4 = Mat4x4
-		};
-
-		/**
-		 * @brief      Calculates the size of a shader datatype
-		 * 
-		 * @param type The datatype to calculate the size of
-		 * @return     The size of the datatype
-		 */
-		static size_t ShaderDatatTypeSize(ShaderDataType type)
-		{
-			switch (type)
-			{
-			case ShaderDataType::Bool:		return 4 * 1;
-			case ShaderDataType::Bool2:		return 4 * 2;
-			case ShaderDataType::Bool3:		return 4 * 3;
-			case ShaderDataType::Bool4:		return 4 * 4;
-
-			case ShaderDataType::Int:		return 4 * 1;
-			case ShaderDataType::Int2:		return 4 * 2;
-			case ShaderDataType::Int3:		return 4 * 3;
-			case ShaderDataType::Int4:		return 4 * 4;
-
-			case ShaderDataType::Uint:		return 4 * 1;
-			case ShaderDataType::Uint2:		return 4 * 2;
-			case ShaderDataType::Uint3:		return 4 * 3;
-			case ShaderDataType::Uint4:		return 4 * 4;
-
-			case ShaderDataType::Float:		return 4 * 1;
-			case ShaderDataType::Float2:	return 4 * 2;
-			case ShaderDataType::Float3:	return 4 * 3;
-			case ShaderDataType::Float4:	return 4 * 4;
-
-			case ShaderDataType::Double:	return 8 * 1;
-			case ShaderDataType::Double2:	return 8 * 2;
-			case ShaderDataType::Double3:	return 8 * 3;
-			case ShaderDataType::Double4:	return 8 * 4;
-
-			case ShaderDataType::Mat2x2:	return 4 * 2 * 2;
-			case ShaderDataType::Mat2x3:	return 4 * 2 * 3;
-			case ShaderDataType::Mat2x4:	return 4 * 2 * 4;
-
-			case ShaderDataType::Mat3x2:	return 4 * 3 * 2;
-			case ShaderDataType::Mat3x3:	return 4 * 3 * 3;
-			case ShaderDataType::Mat3x4:	return 4 * 3 * 4;
-
-			case ShaderDataType::Mat4x2:	return 4 * 4 * 2;
-			case ShaderDataType::Mat4x3:	return 4 * 4 * 3;
-			case ShaderDataType::Mat4x4:	return 4 * 4 * 4;
-			}
-
-			QK_CORE_ASSERT(false, "Unknown shader datatype");
-		}
 
 		/**
 		 * @brief Represents a single element in a buffer
@@ -92,9 +22,12 @@ namespace Quark
 			ShaderDataType Type;
 			uint32_t Size;
 			uint32_t Offset;
+			bool Normalized;
 
 			BufferElement(ShaderDataType type, const std::string& name) :
-				Name(name), Type(type), Size(ShaderDatatTypeSize(type)), Offset(0)
+				Name(name), Type(type), Size(ShaderDataTypeSize(type)), Offset(0), Normalized(false) 
+			{
+			}
 		};
 
 		/**
@@ -106,8 +39,6 @@ namespace Quark
 		 */
 		class BufferLayout
 		{
-			friend class VertexBuffer;
-
 		public:
 			BufferLayout(const std::initializer_list<BufferElement>& elements) :
 				m_Elements(elements) 
@@ -116,7 +47,10 @@ namespace Quark
 			}
 
 			inline const std::vector<BufferElement>& GetElements() const { return m_Elements; }
+			inline uint32_t GetStride() const { return m_Stride; }
 
+			std::vector<BufferElement>::const_iterator begin() const { return m_Elements.begin(); }
+			std::vector<BufferElement>::const_iterator end() const { return m_Elements.end(); }
 		private:
 			void CalculateOffsetsAndStride()
 			{
@@ -134,18 +68,19 @@ namespace Quark
 			uint32_t m_Stride;
 		};
 
+
 		/**
-		 * @brief Generic abstracted vertex buffer
+		 * @brief Generic abstracted vertex buffer object (VBO)
 		 */
 		class QUARK_API VertexBuffer
 		{
 		public:
 			/**
-			 * @brief          Create a new renderer API specific vertex buffer object
+			 * @brief          Create a new renderer API specific VBO
 			 * 
 			 * @param size     Size of the vertex data in bytes
 			 * @param vertices Pointer to the vertex data
-			 * @returns        A new renderer APi specific vertex buffer
+			 * @returns        A new renderer APi specific VBO
 			 */
 			static VertexBuffer* Create(size_t size, float* vertices);
 
@@ -153,24 +88,24 @@ namespace Quark
 			virtual ~VertexBuffer() {}
 
 			/**
-			 * @brief Bind the vertex buffer
+			 * @brief Bind the VBO
 			 */
 			virtual void Bind() const = 0;
 
 			/**
-			 * @brief Unbind the vertex buffer
+			 * @brief Unbind the VBO
 			 */
 			virtual void Unbind() const = 0;
 
 			/**
-			 * @brief        Defines the vertex buffers layout
+			 * @brief        Defines the VBO's layout
 			 * 
 			 * @param layout A BufferLayout describing the layout
 			 */
 			virtual void SetLayout(const BufferLayout& layout) = 0;
 
 			/**
-			 * @brief   Retrieves the vertex buffers layout
+			 * @brief   Retrieves the VBO's layout
 			 *
 			 * @returns The buffers layout
 			 */
@@ -179,30 +114,30 @@ namespace Quark
 
 
 		/**
-		 * @brief Generic abstracted index buffer
+		 * @brief Generic abstracted element buffer object (EBO)
 		 */
-		class QUARK_API IndexBuffer
+		class QUARK_API ElementBuffer
 		{
 		public:
 			/**
-			 * @brief         Create a new renderer API specific element buffer object
+			 * @brief          Create a new renderer API specific EBO
 			 *
-			 * @param count   Number of elements in the index buffer
-			 * @param indices Pointer to the index data
-			 * @returns       A new renderer API specific index buffer
+			 * @param count    Number of elements in the EBO
+			 * @param elements Pointer to the index data
+			 * @returns        A new renderer API specific EBO
 			 */
-			static IndexBuffer* Create(size_t count, uint32_t* indices);
+			static ElementBuffer* Create(size_t count, uint32_t* elements);
 
 		public:
-			virtual ~IndexBuffer() {}
+			virtual ~ElementBuffer() {}
 
 			/**
-			 * @brief Bind the vertex buffer
+			 * @brief Bind the EBO
 			 */
 			virtual void Bind() const = 0;
 
 			/**
-			 * @brief Unbind the vertex buffer
+			 * @brief Unbind the EBO
 			 */
 			virtual void Unbind() const = 0;
 

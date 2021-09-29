@@ -39,38 +39,35 @@ namespace Quark
 
 		m_ImGuiLayer = new ImGuiLayer;
 		PushOverlay(m_ImGuiLayer);
-		
-		glGenVertexArrays(1, &m_VertexArray);
-		glBindVertexArray(m_VertexArray);
 
-		float vertices[3 * 3 * 3] = {
-			-0.5f, 0.0f, 0.0f,
-			0.0f, 0.866f, 0.0f,
-			0.5f, 0.0f, 0.0f,
+		m_VertexArray.reset(Photon::VertexArray::Create());
 
-			-1.0f, -0.886f, 0.0f,
-			-0.5f, 0.0f, 0.0f,
-			0.0f, -0.886f, 0.0f,
+		float vertices[3 * 3 * (3 * 3)] = {
+			-0.5f, 0.0f, 0.0f,		1.0f, 0.0f, 0.0f,
+			0.0f, 0.866f, 0.0f,		0.0f, 1.0f, 0.0f,
+			0.5f, 0.0f, 0.0f,		0.0f, 0.0f, 1.0f,
 
-			-0.0f, -0.886f, 0.0f,
-			0.5f, 0.0f, 0.0f,
-			1.0f, -0.886f, 0.0f
+			-1.0f, -0.886f, 0.0f,	0.0f, 0.0f, 1.0f,
+			-0.5f, 0.0f, 0.0f,		1.0f, 0.0f, 0.0f,
+			0.0f, -0.886f, 0.0f,	0.0f, 1.0f, 0.0f,
+
+			-0.0f, -0.886f, 0.0f,	0.0f, 1.0f, 0.0f,
+			0.5f, 0.0f, 0.0f,		0.0f, 0.0f, 1.0f,
+			1.0f, -0.886f, 0.0f,	1.0f, 0.0f, 0.0f
 		};
 		m_VertexBuffer.reset(Photon::VertexBuffer::Create(sizeof(vertices), vertices));
 
 		Photon::BufferLayout layout = {
 			{ Photon::ShaderDataType::Float3, "a_Position" },
-			{ Photon::ShaderDataType::Float4, "a_Color" },
-			{ Photon::ShaderDataType::Float3, "a_Normal" }
+			{ Photon::ShaderDataType::Float3, "a_Color" },
 		};
 
 		m_VertexBuffer->SetLayout(layout);
-
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
 
 		unsigned int indices[3 * 3] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-		m_IndexBuffer.reset(Photon::IndexBuffer::Create(9, indices));
+		m_IndexBuffer.reset(Photon::ElementBuffer::Create(9, indices));
+		m_VertexArray->SetElementBuffer(m_IndexBuffer);
 
 		try 
 		{
@@ -125,8 +122,7 @@ namespace Quark
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			m_Shader->Bind();
-
-			glBindVertexArray(m_VertexArray);
+			m_VertexArray->Bind();
 			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			for (Layer* layer : m_LayerStack)

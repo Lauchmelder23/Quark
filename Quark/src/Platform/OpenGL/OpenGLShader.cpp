@@ -88,5 +88,47 @@ namespace Quark
 		{
 			glUseProgram(0);
 		}
+
+
+		uint32_t ShaderDataTypeToOpenGLNativeType(ShaderDataType type)
+		{
+			switch (type)
+			{
+			case ShaderDataType::Bool:
+			case ShaderDataType::Bool2:
+			case ShaderDataType::Bool3:
+			case ShaderDataType::Bool4:
+				return GL_BOOL;
+
+			case ShaderDataType::Int:
+			case ShaderDataType::Int2:
+			case ShaderDataType::Int3:
+			case ShaderDataType::Int4:
+				return GL_INT;
+
+			case ShaderDataType::Uint:
+			case ShaderDataType::Uint2:
+			case ShaderDataType::Uint3:
+			case ShaderDataType::Uint4:
+				return GL_UNSIGNED_INT;
+
+			case ShaderDataType::Float:
+			case ShaderDataType::Float2:
+			case ShaderDataType::Float3:
+			case ShaderDataType::Float4:
+				return GL_FLOAT;
+
+			case ShaderDataType::Double:
+			case ShaderDataType::Double2:
+			case ShaderDataType::Double3:
+			case ShaderDataType::Double4:
+				return GL_DOUBLE;
+
+			case ShaderDataType::Mat2:
+			case ShaderDataType::Mat3:
+			case ShaderDataType::Mat4:
+				return GL_FLOAT;
+			}
+		}
 	}
 }

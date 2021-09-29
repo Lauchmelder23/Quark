@@ -11,7 +11,8 @@ namespace Quark
 		////          OPENGL VERTEX BUFFERS            ///
 		//////////////////////////////////////////////////
 
-		OpenGLVertexBuffer::OpenGLVertexBuffer(size_t size, float* vertices)
+		OpenGLVertexBuffer::OpenGLVertexBuffer(size_t size, float* vertices) :
+			m_Layout{}
 		{
 			glCreateBuffers(1, &m_VertexBuffer);
 			glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
@@ -38,25 +39,25 @@ namespace Quark
 		////           OPENGL INDEX BUFFERS            ///
 		//////////////////////////////////////////////////
 
-		OpenGLIndexBuffer::OpenGLIndexBuffer(size_t count, uint32_t* indices) :
+		OpenGLElementBuffer::OpenGLElementBuffer(size_t count, uint32_t* indices) :
 			m_Count(count)
 		{
-			glCreateBuffers(1, &m_IndexBuffer);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
+			glCreateBuffers(1, &m_ElementBuffer);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ElementBuffer);
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), (void*)indices, GL_STATIC_DRAW);
 		}
 
-		OpenGLIndexBuffer::~OpenGLIndexBuffer()
+		OpenGLElementBuffer::~OpenGLElementBuffer()
 		{
-			glDeleteBuffers(1, &m_IndexBuffer);
+			glDeleteBuffers(1, &m_ElementBuffer);
 		}
 
-		void OpenGLIndexBuffer::Bind() const
+		void OpenGLElementBuffer::Bind() const
 		{
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ElementBuffer);
 		}
 
-		void OpenGLIndexBuffer::Unbind() const
+		void OpenGLElementBuffer::Unbind() const
 		{
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		}

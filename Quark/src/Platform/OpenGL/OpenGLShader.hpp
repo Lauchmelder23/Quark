@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Quark/Photon/Shader.hpp"
+#include "Quark/Photon/Datatypes.hpp"
 
 namespace Quark
 {
@@ -32,5 +33,13 @@ namespace Quark
 		private:
 			uint32_t m_Program;
 		};
+
+		/**
+		 * @brief      Gets the underlying native OpenGL type of a shader datatype
+		 * 
+		 * @param type A GLSL datatype
+		 * @returns	   The underlying OpenGL datatype
+		 */
+		uint32_t ShaderDataTypeToOpenGLNativeType(ShaderDataType type);
 	}
 }

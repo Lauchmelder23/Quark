@@ -25,6 +25,7 @@ target_link_libraries(Quark PUBLIC
 )
 
 function(quark_add_shaders)
+	message(STATUS "Transpiling shaders...")
 	if (${CMAKE_HOST_SYSTEM_PROCESSOR} STREQUAL "AMD64")
 	  set(GLSL_VALIDATOR "$ENV{VULKAN_SDK}/Bin/glslangValidator.exe")
 	else()
@@ -80,7 +81,7 @@ struct ${ARG_TARGET}VertexShaders {
 		file(APPEND ${CPP_FILE} "const Quark::Photon::VertexShaderBinary ${ARG_TARGET}VertexShaders::${vertexFileName} = {\nR\"(${VERTEX_FILE_CONTENT})\",\n")
 		
 		set(SPIRV "${PROJECT_BINARY_DIR}/shaders/tmp.spv")
-		execute_process(COMMAND ${GLSL_VALIDATOR} -V ${VERTEX_FILE} -o ${SPIRV} -x)
+		execute_process(COMMAND ${GLSL_VALIDATOR} -S vert -V ${VERTEX_FILE} -o ${SPIRV} -x)
 		
 		file(READ "${PROJECT_BINARY_DIR}/shaders/tmp.spv" VULKAN_BINARY_CONTENT)
 		file(APPEND ${CPP_FILE} "{${VULKAN_BINARY_CONTENT}}\n};\n\n")
@@ -100,7 +101,7 @@ struct ${ARG_TARGET}VertexShaders {
 		file(APPEND ${CPP_FILE} "const Quark::Photon::FragmentShaderBinary ${ARG_TARGET}FragmentShaders::${fragmentFileName} = {\nR\"(${FRAGMENT_FILE_CONTENT})\",\n")
 	
 		set(SPIRV "${PROJECT_BINARY_DIR}/shaders/tmp.spv")
-		execute_process(COMMAND ${GLSL_VALIDATOR} -V ${FRAGMENT_FILE} -o ${SPIRV} -x)
+		execute_process(COMMAND ${GLSL_VALIDATOR} -S frag -V ${FRAGMENT_FILE} -o ${SPIRV} -x)
 		
 		file(READ "${PROJECT_BINARY_DIR}/shaders/tmp.spv" VULKAN_BINARY_CONTENT)
 		file(APPEND ${CPP_FILE} "{${VULKAN_BINARY_CONTENT}}\n};\n\n")
