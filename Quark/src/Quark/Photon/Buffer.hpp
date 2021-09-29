@@ -80,7 +80,7 @@ namespace Quark
 			 * 
 			 * @param size     Size of the vertex data in bytes
 			 * @param vertices Pointer to the vertex data
-			 * @returns        A new renderer APi specific VBO
+			 * @returns        A new renderer API specific VBO
 			 */
 			static VertexBuffer* Create(size_t size, float* vertices);
 

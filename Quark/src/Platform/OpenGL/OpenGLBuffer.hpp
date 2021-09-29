@@ -40,7 +40,7 @@ namespace Quark
 
 
 		/**
-		 * @brief OpenGL specific abstraction of an index buffer
+		 * @brief OpenGL specific abstraction of an EBO
 		 */
 		class QUARK_API OpenGLElementBuffer : public ElementBuffer
 		{

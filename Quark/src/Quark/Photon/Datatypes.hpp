@@ -19,6 +19,12 @@ namespace Quark
 			Vec2 = Float2, Vec3 = Float3, Vec4 = Float4
 		};
 
+		/**
+		 * @brief      Retrieves the size of a shader datatype
+		 * 
+		 * @param type The type to calculate the size of
+		 * @retuens    The size of the type
+		 */
 		static size_t ShaderDataTypeSize(ShaderDataType type)
 		{
 			switch (type)
@@ -58,6 +64,12 @@ namespace Quark
 			}
 		}
 
+		/**
+		 * @brief      Retrieves the number of elements in a shader datatype
+		 *
+		 * @param type The type to calculate the element count of
+		 * @retuens    The number of elements in the type
+		 */
 		static uint32_t ShaderDataTypeCount(ShaderDataType type)
 		{
 			switch (type)

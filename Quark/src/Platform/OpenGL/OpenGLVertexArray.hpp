@@ -7,6 +7,9 @@ namespace Quark
 {
 	namespace Photon
 	{
+		/**
+		 * @brief OpenGL specific abstraction of a VAO
+		 */
 		class QUARK_API OpenGLVertexArray : public VertexArray
 		{
 		public:
