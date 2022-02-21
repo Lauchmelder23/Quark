@@ -15,8 +15,9 @@ namespace Quark
 			// Does nothing right now
 		}
 
-		void Renderer::Submit(std::weak_ptr<VertexArray> vertexArray)
+		void Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray)
 		{
+			vertexArray->Bind();
 			RenderCommand::DrawIndexed(vertexArray);
 		}
 	}

@@ -64,7 +64,7 @@ namespace Quark
 			return m_VertexBuffers;
 		}
 
-		const std::weak_ptr<ElementBuffer> OpenGLVertexArray::GetIndexBuffer() const
+		const std::shared_ptr<ElementBuffer>& OpenGLVertexArray::GetIndexBuffer() const
 		{
 			return m_ElementBuffer;
 		}

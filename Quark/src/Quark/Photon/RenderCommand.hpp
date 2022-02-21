@@ -20,7 +20,7 @@ namespace Quark
 				s_API->Clear();
 			}
 
-			inline static void DrawIndexed(std::weak_ptr<VertexArray> vertexArray)
+			inline static void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray)
 			{
 				s_API->DrawIndexed(vertexArray);
 			}

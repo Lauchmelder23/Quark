@@ -15,7 +15,7 @@ namespace Quark
 			static void BeginScene();
 			static void EndScene();
 
-			static void Submit(std::weak_ptr<VertexArray> vertexArray);
+			static void Submit(const std::shared_ptr<VertexArray>& vertexArray);
 
 		public:
 			/**
