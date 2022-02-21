@@ -19,7 +19,7 @@ namespace Quark
 	Window* Window::Create(const WindowProperties& props)
 	{
 		QK_CORE_ASSERT(
-			props.Renderer == Photon::RendererAPI::OpenGL,
+			props.Renderer == Photon::RendererAPI::API::OpenGL,
 			"WindowsWindow can't be created with the requested RendererAPI (id={0})", static_cast<int>(props.Renderer)
 		);
 
@@ -62,8 +62,6 @@ namespace Quark
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
-
-		Photon::Renderer::SetAPI(props.Renderer);
 
 		QK_CORE_INFO("Creating window {0} ({1}, {2}). RendererAPI: {3}", props.Title, props.Width, props.Height, static_cast<int>(props.Renderer));
 

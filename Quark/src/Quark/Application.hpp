@@ -31,7 +31,7 @@ namespace Quark
 		 * 
 		 * @param desiredRenderAPIs	A list of render APIs to be used by the window. 
 		 */
-		Application(const std::vector<Photon::RendererAPI> desiredRenderAPIs);
+		Application(const std::vector<Photon::RendererAPI::API> desiredRenderAPIs);
 		virtual ~Application();
 		
 		/**

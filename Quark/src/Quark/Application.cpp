@@ -9,12 +9,12 @@ namespace Quark
 {
 	Application* Application::s_Instance = nullptr;
 
-	Application::Application(const std::vector<Photon::RendererAPI> desiredRenderAPIs)
+	Application::Application(const std::vector<Photon::RendererAPI::API> desiredRenderAPIs)
 	{
 		s_Instance = this;
 		m_Window = nullptr;
 		
-		for (Photon::RendererAPI api : desiredRenderAPIs)
+		for (Photon::RendererAPI::API api : desiredRenderAPIs)
 		{
 			try
 			{
@@ -145,12 +145,15 @@ namespace Quark
 	{
 		while (m_Running)
 		{
-			glClearColor(0.2f, 0.1f, 0.4f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT);
+			Photon::RenderCommand::SetClearColor({ 0.2f, 0.1f, 0.4f, 1.0f });
+			Photon::RenderCommand::Clear();
 
+			Photon::Renderer::BeginScene();
+	
 			m_Shader->Bind();
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Photon::Renderer::Submit(m_VertexArray);
+
+			Photon::Renderer::EndScene();
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();

@@ -1,25 +1,21 @@
 #pragma once
 
+#include "RenderCommand.hpp"
+
 namespace Quark
 {
 	namespace Photon
 	{
 		/**
-		 * @brief Render APIs supported by Photon
-		 */
-		enum class RendererAPI
-		{
-			None = -1,
-			OpenGL
-		};
-
-		/**
 		 * @brief Renderer structure for doing/storing generic render API actions/data
 		 */
 		class Renderer
 		{
-		private:
-			inline static RendererAPI s_RendererAPI = RendererAPI::None;
+		public:
+			static void BeginScene();
+			static void EndScene();
+
+			static void Submit(std::weak_ptr<VertexArray> vertexArray);
 
 		public:
 			/**
@@ -27,14 +23,7 @@ namespace Quark
 			 * 
 			 * @returns The current active API
 			 */
-			inline static RendererAPI GetAPI() { return s_RendererAPI; };
-
-			/**
-			 * @brief     Set the renderer API that should be used across the application
-			 *
-			 * @param api The new API
-			 */
-			inline static void SetAPI(RendererAPI api) { s_RendererAPI = api; }
+			inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); };
 		};
 	}
 }

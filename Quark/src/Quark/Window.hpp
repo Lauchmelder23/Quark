@@ -16,9 +16,9 @@ namespace Quark
 		std::string Title;
 		unsigned int Width;
 		unsigned int Height;
-		Photon::RendererAPI Renderer;
+		Photon::RendererAPI::API Renderer;
 
-		WindowProperties(const std::string& title = "Quark Engine", unsigned int width = 1280, unsigned int height = 720, Photon::RendererAPI renderer = Photon::RendererAPI::OpenGL) :
+		WindowProperties(const std::string& title = "Quark Engine", unsigned int width = 1280, unsigned int height = 720, Photon::RendererAPI::API renderer = Photon::RendererAPI::API::OpenGL) :
 			Title(title), Width(width), Height(height), Renderer(renderer)
 		{
 		}

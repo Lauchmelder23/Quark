@@ -13,7 +13,7 @@ namespace Quark
 		{
 			switch (Renderer::GetAPI())
 			{
-			case RendererAPI::OpenGL:	return new OpenGLShader(vertexSrc, fragmentSrc);	break;
+			case RendererAPI::API::OpenGL:	return new OpenGLShader(vertexSrc, fragmentSrc);	break;
 			default:
 				QK_CORE_ASSERT(false, "Photon doesn't support shader creation for the desired render API (id={0})", static_cast<int>(Renderer::GetAPI()));
 				break;

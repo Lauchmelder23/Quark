@@ -12,7 +12,7 @@ namespace Quark
 		{
 			switch (Renderer::GetAPI())
 			{
-			case RendererAPI::OpenGL:	return new OpenGLVertexBuffer(size, vertices);	break;
+			case RendererAPI::API::OpenGL:	return new OpenGLVertexBuffer(size, vertices);	break;
 
 			default:
 				QK_CORE_ASSERT(false, "Photon doesn't support buffer creation for the desired render API (id={0})", static_cast<int>(Renderer::GetAPI()));
@@ -26,7 +26,7 @@ namespace Quark
 		{
 			switch (Renderer::GetAPI())
 			{
-			case RendererAPI::OpenGL:	return new OpenGLElementBuffer(size, indices);	break;
+			case RendererAPI::API::OpenGL:	return new OpenGLElementBuffer(size, indices);	break;
 
 			default:
 				QK_CORE_ASSERT(false, "Photon doesn't support buffer creation for the desired render API (id={0})", static_cast<int>(Renderer::GetAPI()));
