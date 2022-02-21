@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Quark/Utility/ShaderBinaryStructs.hpp"
-
 namespace Quark
 {
 	namespace Photon
@@ -19,7 +17,7 @@ namespace Quark
 			 * @param fragmentSrc	Structure containing generic fragment shader data
 			 * @returns				A new renderer API specific shader program
 			 */
-			static Shader* Create(const VertexShaderBinary& vertexSrc, const FragmentShaderBinary& fragmentSrc);
+			static Shader* Create(const std::string& vertexSrc, const std::string& fragmentSrc);
 
 		public:
 			virtual ~Shader() {}

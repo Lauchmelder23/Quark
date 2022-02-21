@@ -10,8 +10,7 @@ namespace Quark
 		enum class RendererAPI
 		{
 			None = -1,
-			OpenGL,
-			Vulkan
+			OpenGL
 		};
 
 		/**

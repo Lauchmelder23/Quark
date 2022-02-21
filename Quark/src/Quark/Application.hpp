@@ -9,7 +9,6 @@
 
 #include "ImGui/ImGuiLayer.hpp"
 
-#include "Quark/Utility/ShaderBinaryStructs.hpp"
 #include "Quark/Photon/Shader.hpp"
 #include "Photon/Buffer.hpp"
 #include "Photon/VertexArray.hpp"
@@ -32,7 +31,7 @@ namespace Quark
 		 * 
 		 * @param desiredRenderAPIs	A list of render APIs to be used by the window. 
 		 */
-		Application(const Photon::VertexShaderBinary& vertexShaderSrc, const Photon::FragmentShaderBinary& fragmentShaderSrc, const std::vector<Photon::RendererAPI> desiredRenderAPIs);
+		Application(const std::vector<Photon::RendererAPI> desiredRenderAPIs);
 		virtual ~Application();
 		
 		/**

@@ -1,16 +1,10 @@
 set(QUARK_BUILD_SHARED Off CACHE BOOL "Build a DLL instead of a stati library")
-set(QUARK_VULKAN On CACHE BOOL "Include Vulkan in the project")
-
-include(FindVulkan REQUIRED)
-if(NOT ${VULKAN_FOUND})
-	message(WARNING "Could not locate Vulkan. Make sure you have the SDK installed: https://vulkan.lunarg.com/sdk/home")
-endif()
 
 set(QUARK_SOURCES 
 	"qkpch.cpp"
 	"Quark/Log.cpp"
 	"Quark/Application.cpp"
- "Platform/Windows/WindowsWindow.cpp" "Quark/Layer.cpp" "Quark/LayerStack.cpp" "Quark/ImGui/ImGuiLayer.cpp"  "Platform/Windows/WindowsInput.cpp" "Quark/ImGui/ImGuiBuild.cpp" "Platform/OpenGL/OpenGLContext.cpp" "Platform/Vulkan/VulkanContext.cpp" "Quark/Photon/Shader.cpp" "Quark/Photon/Buffer.cpp" "Platform/OpenGL/OpenGLBuffer.cpp"  "Platform/OpenGL/OpenGLShader.cpp" "Quark/Photon/Context.cpp" "Quark/Photon/VertexArray.cpp" "Platform/OpenGL/OpenGLVertexArray.cpp" )
+ "Platform/Windows/WindowsWindow.cpp" "Quark/Layer.cpp" "Quark/LayerStack.cpp" "Quark/ImGui/ImGuiLayer.cpp"  "Platform/Windows/WindowsInput.cpp" "Quark/ImGui/ImGuiBuild.cpp" "Platform/OpenGL/OpenGLContext.cpp" "Quark/Photon/Shader.cpp" "Quark/Photon/Buffer.cpp" "Platform/OpenGL/OpenGLBuffer.cpp"  "Platform/OpenGL/OpenGLShader.cpp" "Quark/Photon/Context.cpp" "Quark/Photon/VertexArray.cpp" "Platform/OpenGL/OpenGLVertexArray.cpp" )
 
 set(QUARK_HEADERS
 	"Quark.hpp"
@@ -23,7 +17,7 @@ set(QUARK_HEADERS
 	"Quark/Events/KeyEvent.hpp"
 	"Quark/Events/MouseEvent.hpp"
 	"Quark/Window.hpp"
-  "Platform/Windows/WindowsWindow.hpp" "Quark/Layer.hpp" "Quark/LayerStack.hpp" "Quark/ImGui/ImGuiLayer.hpp"  "Quark/Input.hpp" "Platform/Windows/WindowsInput.hpp" "Quark/KeyCodes.hpp" "Quark/Utility/Bimap.hpp"  "Quark/MouseButtonCodes.hpp" "Quark/Photon/Context.hpp" "Platform/OpenGL/OpenGLContext.hpp" "Platform/Vulkan/VulkanContext.hpp" "Quark/Photon/Shader.hpp" "Quark/Utility/ShaderBinaryStructs.hpp" "Quark/Photon/Buffer.hpp" "Platform/OpenGL/OpenGLBuffer.hpp" "Quark/Photon/Renderer.hpp" "Platform/OpenGL/OpenGLShader.hpp"  "Quark/Photon/VertexArray.hpp" "Platform/OpenGL/OpenGLVertexArray.hpp" "Quark/Photon/Datatypes.hpp")
+  "Platform/Windows/WindowsWindow.hpp" "Quark/Layer.hpp" "Quark/LayerStack.hpp" "Quark/ImGui/ImGuiLayer.hpp"  "Quark/Input.hpp" "Platform/Windows/WindowsInput.hpp" "Quark/KeyCodes.hpp" "Quark/Utility/Bimap.hpp"  "Quark/MouseButtonCodes.hpp" "Quark/Photon/Context.hpp" "Platform/OpenGL/OpenGLContext.hpp" "Quark/Photon/Shader.hpp" "Quark/Utility/ShaderBinaryStructs.hpp" "Quark/Photon/Buffer.hpp" "Platform/OpenGL/OpenGLBuffer.hpp" "Quark/Photon/Renderer.hpp" "Platform/OpenGL/OpenGLShader.hpp"  "Quark/Photon/VertexArray.hpp" "Platform/OpenGL/OpenGLVertexArray.hpp" "Quark/Photon/Datatypes.hpp")
 
 if(${QUARK_BUILD_SHARED})
 	message(STATUS "Building Quark as a shared library")
@@ -42,12 +36,6 @@ else()
 	set_property(TARGET glfw PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 	set_property(TARGET Quark PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 	set_property(TARGET ImGui PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-endif()
-
-if(${VULKAN_FOUND})
-	target_link_libraries(Quark PRIVATE 
-		Vulkan::Vulkan
-	)
 endif()
 
 target_include_directories(Quark PUBLIC

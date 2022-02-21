@@ -6,7 +6,6 @@
 #include "Quark/Events/KeyEvent.hpp"
 
 #include "Platform/OpenGL/OpenGLContext.hpp"
-#include "Platform/Vulkan/VulkanContext.hpp"
 
 namespace Quark
 {
@@ -20,7 +19,7 @@ namespace Quark
 	Window* Window::Create(const WindowProperties& props)
 	{
 		QK_CORE_ASSERT(
-			props.Renderer == Photon::RendererAPI::OpenGL || props.Renderer == Photon::RendererAPI::Vulkan,
+			props.Renderer == Photon::RendererAPI::OpenGL,
 			"WindowsWindow can't be created with the requested RendererAPI (id={0})", static_cast<int>(props.Renderer)
 		);
 
@@ -77,9 +76,6 @@ namespace Quark
 
 			s_GLFWInitialized = true;
 		}
-
-		if (Photon::Renderer::GetAPI() == Photon::RendererAPI::Vulkan)
-			glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 
