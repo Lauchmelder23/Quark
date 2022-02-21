@@ -17,7 +17,7 @@ set(QUARK_HEADERS
 	"Quark/Events/KeyEvent.hpp"
 	"Quark/Events/MouseEvent.hpp"
 	"Quark/Window.hpp"
-  "Platform/Windows/WindowsWindow.hpp" "Quark/Layer.hpp" "Quark/LayerStack.hpp" "Quark/ImGui/ImGuiLayer.hpp"  "Quark/Input.hpp" "Platform/Windows/WindowsInput.hpp" "Quark/KeyCodes.hpp" "Quark/Utility/Bimap.hpp"  "Quark/MouseButtonCodes.hpp" "Quark/Photon/Context.hpp" "Platform/OpenGL/OpenGLContext.hpp" "Quark/Photon/Shader.hpp" "Quark/Utility/ShaderBinaryStructs.hpp" "Quark/Photon/Buffer.hpp" "Platform/OpenGL/OpenGLBuffer.hpp" "Quark/Photon/Renderer.hpp" "Platform/OpenGL/OpenGLShader.hpp"  "Quark/Photon/VertexArray.hpp" "Platform/OpenGL/OpenGLVertexArray.hpp" "Quark/Photon/Datatypes.hpp")
+  "Platform/Windows/WindowsWindow.hpp" "Quark/Layer.hpp" "Quark/LayerStack.hpp" "Quark/ImGui/ImGuiLayer.hpp"  "Quark/Input.hpp" "Platform/Windows/WindowsInput.hpp" "Quark/KeyCodes.hpp" "Quark/Utility/Bimap.hpp"  "Quark/MouseButtonCodes.hpp" "Quark/Photon/Context.hpp" "Platform/OpenGL/OpenGLContext.hpp" "Quark/Photon/Shader.hpp" "Quark/Photon/Buffer.hpp" "Platform/OpenGL/OpenGLBuffer.hpp" "Quark/Photon/Renderer.hpp" "Platform/OpenGL/OpenGLShader.hpp"  "Quark/Photon/VertexArray.hpp" "Platform/OpenGL/OpenGLVertexArray.hpp" "Quark/Photon/Datatypes.hpp")
 
 if(${QUARK_BUILD_SHARED})
 	message(STATUS "Building Quark as a shared library")
