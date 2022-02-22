@@ -3,9 +3,11 @@
 
 QK_PHOTON_BEGIN
 
-	void Renderer::BeginScene()
+	Renderer::SceneProperties* Renderer::m_SceneProperties = new Renderer::SceneProperties;
+
+	void Renderer::BeginScene(OrthographicCamera& camera)
 	{
-		// Does nothing right now
+		m_SceneProperties->ViewProjectionMatrix = camera.GetViewProjection();
 	}
 
 	void Renderer::EndScene()
@@ -13,8 +15,11 @@ QK_PHOTON_BEGIN
 		// Does nothing right now
 	}
 
-	void Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray)
+	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray)
 	{
+		shader->Bind();
+		shader->SetUniformMat4("u_ViewProjection", m_SceneProperties->ViewProjectionMatrix);
+
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);
 	}

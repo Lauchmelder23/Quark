@@ -18,13 +18,14 @@ glm::mat4 camera(float Translate, const glm::vec2& Rotate)
 	return Projection * View * Model;
 }
 
-class ExampleLayer : public Quark::Layer
+class ExampleLayer : public Qk::Layer
 {
 public:
 	ExampleLayer() : 
-		Layer("Example") 
+		Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
 	{
-		m_VertexArray.reset(Quark::Photon::VertexArray::Create());
+#pragma region Triangles
+		m_VertexArray.reset(Qk::Photon::VertexArray::Create());
 
 		float vertices[3 * 3 * (3 * 3)] = {
 			-0.5f, 0.0f, 0.0f,		1.0f, 0.0f, 0.0f,
@@ -39,19 +40,21 @@ public:
 			0.5f, 0.0f, 0.0f,		0.0f, 0.0f, 1.0f,
 			1.0f, -0.886f, 0.0f,	1.0f, 0.0f, 0.0f
 		};
-		m_VertexBuffer.reset(Quark::Photon::VertexBuffer::Create(sizeof(vertices), vertices));
+		std::shared_ptr<Qk::Photon::VertexBuffer> vertexBuffer;
+		vertexBuffer.reset(Qk::Photon::VertexBuffer::Create(sizeof(vertices), vertices));
 
-		Quark::Photon::BufferLayout layout = {
-			{ Quark::Photon::ShaderDataType::Float3, "a_Position" },
-			{ Quark::Photon::ShaderDataType::Float3, "a_Color" },
+		Qk::Photon::BufferLayout layout = {
+			{ Qk::Photon::ShaderDataType::Float3, "a_Position" },
+			{ Qk::Photon::ShaderDataType::Float3, "a_Color" },
 		};
 
-		m_VertexBuffer->SetLayout(layout);
-		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
+		vertexBuffer->SetLayout(layout);
+		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		unsigned int indices[3 * 3] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-		m_IndexBuffer.reset(Quark::Photon::ElementBuffer::Create(9, indices));
-		m_VertexArray->SetElementBuffer(m_IndexBuffer);
+		std::shared_ptr<Qk::Photon::ElementBuffer> indexBuffer;
+		indexBuffer.reset(Qk::Photon::ElementBuffer::Create(9, indices));
+		m_VertexArray->SetElementBuffer(indexBuffer);
 
 		std::string vertexShaderSrc = R"(
 			#version 460 core
@@ -59,20 +62,22 @@ public:
 			layout(location = 0) in vec3 a_Position;
 			layout(location = 1) in vec3 a_Color;
 
-			layout(location = 0) out vec3 o_Color;
+			out vec3 o_Color;
+
+			uniform mat4 u_ViewProjection;
 
 			void main()
 			{
 				o_Color = a_Color;
-				gl_Position = vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
 			}
 		)";
 
 		std::string fragmentShaderSrc = R"(
 			#version 460 core
 
-			layout(location = 0) in vec3 o_Color;
-			layout(location = 0) out vec4 color;
+			in vec3 o_Color;
+			out vec4 color;
 
 			void main()
 			{
@@ -82,26 +87,101 @@ public:
 
 		try
 		{
-			m_Shader.reset(Quark::Photon::Shader::Create(vertexShaderSrc, fragmentShaderSrc));
+			m_Shader.reset(Qk::Photon::Shader::Create(vertexShaderSrc, fragmentShaderSrc));
 		}
 		catch (const std::runtime_error& exception)
 		{
 			QK_CORE_FATAL("Shader creation failed:\n\n{0}", exception.what());
 			return;
 		}
+
+#pragma endregion
+
+#pragma region Square
+
+		m_SquareVertexArray.reset(Qk::Photon::VertexArray::Create());
+
+		float squareVertices[4 * 3] = {
+			-1.1f, -1.1f, 0.0f,
+			-1.1f,  1.1f, 0.0f,
+			 1.1f,  1.1f, 0.0f,
+			 1.1f, -1.1f, 0.0f
+		};
+		std::shared_ptr<Qk::Photon::VertexBuffer> squareVertexBuffer;
+		squareVertexBuffer.reset(Qk::Photon::VertexBuffer::Create(sizeof(squareVertices), squareVertices));
+
+		Qk::Photon::BufferLayout squareLayout = {
+			{ Qk::Photon::ShaderDataType::Float3, "a_Position" }
+		};
+		squareVertexBuffer->SetLayout(squareLayout);
+		m_SquareVertexArray->AddVertexBuffer(squareVertexBuffer);
+
+		unsigned int squareIndices[6] = {
+			0, 1, 2,
+			0, 2, 3
+		};
+		std::shared_ptr<Qk::Photon::ElementBuffer> squareIndexBuffer;
+		squareIndexBuffer.reset(Qk::Photon::ElementBuffer::Create(sizeof(squareIndices), squareIndices));
+
+		m_SquareVertexArray->SetElementBuffer(squareIndexBuffer);
+
+		std::string squareVertexShaderSrc = R"(
+			#version 460 core 
+
+			layout (location = 0) in vec3 a_Position;
+			
+			uniform mat4 u_ViewProjection;
+
+			void main()
+			{
+				gl_Position = u_ViewProjection * vec4(a_Position, 1.0f);
+			}	
+		)";
+
+		std::string squareFragmentShaderSrc = R"(
+			#version 460 core
+
+			out vec4 color;
+			
+			void main()
+			{
+				color = vec4(0.6f, 0.6f, 1.0f, 1.0f);
+			}
+		)";
+		m_SquareShader.reset(Qk::Photon::Shader::Create(squareVertexShaderSrc, squareFragmentShaderSrc));
+
+#pragma endregion
 	}
 
 	void OnUpdate() override 
 	{
-		Quark::Photon::RenderCommand::SetClearColor({ 0.2f, 0.1f, 0.4f, 1.0f });
-		Quark::Photon::RenderCommand::Clear();
+		glm::vec3 moveDirection(0.0f);
+		float moveSpeed = 0.005f;
 
-		Quark::Photon::Renderer::BeginScene();
+		if (Qk::Input::IsKeyPressed(Qk::Key::W))
+			moveDirection += glm::vec3(0.0f, 1.0f, 0.0f);
 
-		m_Shader->Bind();
-		Quark::Photon::Renderer::Submit(m_VertexArray);
+		if (Qk::Input::IsKeyPressed(Qk::Key::A))
+			moveDirection += glm::vec3(-1.0f, 0.0f, 0.0f);
 
-		Quark::Photon::Renderer::EndScene();
+		if (Qk::Input::IsKeyPressed(Qk::Key::S))
+			moveDirection += glm::vec3(0.0f, -1.0f, 0.0f);
+
+		if (Qk::Input::IsKeyPressed(Qk::Key::D))
+			moveDirection += glm::vec3(1.0f, 0.0f, 0.0f);
+
+		if (glm::length(moveDirection) > 0.01f)
+			m_Camera.SetPosition(m_Camera.GetPosition() + glm::normalize(moveDirection) * moveSpeed);
+
+		Qk::Photon::RenderCommand::SetClearColor({ 0.2f, 0.1f, 0.4f, 1.0f });
+		Qk::Photon::RenderCommand::Clear();
+
+		Qk::Photon::Renderer::BeginScene(m_Camera);
+
+		Qk::Photon::Renderer::Submit(m_SquareShader, m_SquareVertexArray);
+		Qk::Photon::Renderer::Submit(m_Shader, m_VertexArray);
+
+		Qk::Photon::Renderer::EndScene();
 	}
 
 	void OnImGuiRender() override
@@ -111,20 +191,26 @@ public:
 		ImGui::End();
 	}
 
-	void OnEvent(Quark::Event& event) override {}
+	void OnEvent(Qk::Event& event) override 
+	{
+		
+	}
 
 private:
-	std::shared_ptr<Quark::Photon::Shader> m_Shader;
-	std::shared_ptr<Quark::Photon::VertexArray> m_VertexArray;
-	std::shared_ptr<Quark::Photon::VertexBuffer> m_VertexBuffer;
-	std::shared_ptr<Quark::Photon::ElementBuffer> m_IndexBuffer;
+	std::shared_ptr<Qk::Photon::Shader> m_Shader;
+	std::shared_ptr<Qk::Photon::Shader> m_SquareShader;
+
+	std::shared_ptr<Qk::Photon::VertexArray> m_VertexArray;
+	std::shared_ptr<Qk::Photon::VertexArray> m_SquareVertexArray;
+
+	Qk::Photon::OrthographicCamera m_Camera;
 };
 
-class Sandbox : public Quark::Application
+class Sandbox : public Qk::Application
 {
 public:
 	Sandbox() :
-		Quark::Application({ Quark::Photon::RendererAPI::API::OpenGL })
+		Qk::Application({ Qk::Photon::RendererAPI::API::OpenGL })
 	{
 		PushLayer(new ExampleLayer());
 	}
@@ -132,7 +218,7 @@ public:
 	~Sandbox() {}
 };
 
-Quark::Application* Quark::CreateApplication()
+Qk::Application* Qk::CreateApplication()
 {
 	return new Sandbox();
 }

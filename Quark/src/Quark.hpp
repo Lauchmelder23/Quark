@@ -6,10 +6,11 @@
 #include "Quark/Layer.hpp"
 #include "Quark/Log.hpp"
 #include "Quark/Input.hpp"
+#include "Quark/Photon/OrthographicCamera.hpp"
 
 #include "Quark/ImGui/ImGuiLayer.hpp"
 
 #include "Quark/EntryPoint.hpp"
 
 // Namespace aliases
-namespace qk = Quark;
+namespace Qk = Quark;

@@ -1,6 +1,8 @@
 #pragma once
 
 #include "RenderCommand.hpp"
+#include <Quark/Photon/OrthographicCamera.hpp>
+#include <Quark/Photon/Shader.hpp>
 
 QK_PHOTON_BEGIN
 
@@ -10,18 +12,25 @@ QK_PHOTON_BEGIN
 	class Renderer
 	{
 	public:
-		static void BeginScene();
+		static void BeginScene(OrthographicCamera& camera);
 		static void EndScene();
 
-		static void Submit(const std::shared_ptr<VertexArray>& vertexArray);
+		static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray);
 
-	public:
 		/**
 		* @brief   Retrieve the currently used renderer API
 		* 
 		* @returns The current active API
 		*/
 		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); };
+
+	private:
+		struct SceneProperties
+		{
+			glm::mat4 ViewProjectionMatrix;
+		};
+
+		static SceneProperties* m_SceneProperties;
 	};
 
 QK_PHOTON_END

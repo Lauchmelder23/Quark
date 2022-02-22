@@ -1,5 +1,7 @@
 #pragma once
 
+#include <glm/glm.hpp>
+
 QK_PHOTON_BEGIN
 
 	/**
@@ -29,6 +31,8 @@ QK_PHOTON_BEGIN
 		* @brief Unind the shader program
 		*/
 		virtual void Unbind() const = 0;
+
+		virtual void SetUniformMat4(const std::string& name, const glm::mat4& matrix) = 0;
 	};
 
 QK_PHOTON_END
