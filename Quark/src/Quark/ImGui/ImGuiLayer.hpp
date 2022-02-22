@@ -6,8 +6,8 @@
 #include "Quark/Events/KeyEvent.hpp"
 #include "Quark/Events/ApplicationEvent.hpp"
 
-namespace Quark
-{
+QK_BEGIN
+
 	/**
 	 * @brief A layer containing an ImGui context
 	 * 
@@ -33,4 +33,5 @@ namespace Quark
 	private:
 		float m_Time = 0.0f;
 	};
-}
+
+QK_END

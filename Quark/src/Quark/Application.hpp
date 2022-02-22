@@ -13,8 +13,8 @@
 #include "Photon/Buffer.hpp"
 #include "Photon/VertexArray.hpp"
 
-namespace Quark
-{
+QK_BEGIN
+
 	/**
 	 * @brief A singleton containing everything needed to run the application.
 	 */
@@ -77,12 +77,6 @@ namespace Quark
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
-
-		std::shared_ptr<Photon::Shader> m_Shader;
-		std::shared_ptr<Photon::VertexArray> m_VertexArray;
-		std::shared_ptr<Photon::VertexBuffer> m_VertexBuffer;
-		std::shared_ptr<Photon::ElementBuffer> m_IndexBuffer;
-
 	private:
 		static Application* s_Instance;
 	};
@@ -95,4 +89,4 @@ namespace Quark
 	 */
 	Application* CreateApplication();
 
-}
+QK_END

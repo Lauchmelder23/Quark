@@ -2,8 +2,8 @@
 
 #include "Quark/Input.hpp"
 
-namespace Quark
-{
+QK_BEGIN
+
 	/**
 	 * @brief Windows specific implementation of Input
 	 * 
@@ -20,4 +20,5 @@ namespace Quark
 		float GetMouseYImpl() override;
 		std::pair<float, float> GetMousePositionImpl() override;
 	};
-}
+
+QK_END

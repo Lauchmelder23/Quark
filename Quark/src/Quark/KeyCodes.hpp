@@ -2,8 +2,8 @@
 
 #include "Core.hpp"
 
-namespace Quark
-{
+QK_BEGIN
+
 	/**
 	 * @brief Defines Quark key codes
 	 */
@@ -148,4 +148,5 @@ namespace Quark
 	 * @returns			The Quark key code
 	 */
 	QUARK_API inline Key GetQuarkKeyCode(int keycode);
-}
+
+QK_END

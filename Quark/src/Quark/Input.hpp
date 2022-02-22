@@ -5,8 +5,8 @@
 #include "Quark/KeyCodes.hpp"
 #include "Quark/MouseButtonCodes.hpp"
 
-namespace Quark
-{
+QK_BEGIN
+
 	/**
 	 * @brief A static interface for polling input
 	 */
@@ -91,4 +91,5 @@ namespace Quark
 	private:
 		static Input* s_Instance;
 	};
-}
+
+QK_END

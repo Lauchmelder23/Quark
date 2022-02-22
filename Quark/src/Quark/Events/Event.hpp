@@ -3,8 +3,8 @@
 #include "Quark/Core.hpp"
 #include "qkpch.hpp"
 
-namespace Quark
-{
+QK_BEGIN
+
 	/**
 	 * @brief A structure containing all events currently supported by Quark.
 	 */
@@ -150,4 +150,5 @@ namespace Quark
 	{
 		return os << e.ToString();
 	}
-}
+
+QK_END

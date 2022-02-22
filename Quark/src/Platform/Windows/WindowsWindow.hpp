@@ -5,8 +5,8 @@
 
 #include <GLFW/glfw3.h>
 
-namespace Quark
-{
+QK_BEGIN
+
 	/**
 	 * @brief A structure representing a desktop window on Windows
 	 */
@@ -62,4 +62,5 @@ namespace Quark
 
 		WindowData m_Data;
 	};
-}
+
+QK_END

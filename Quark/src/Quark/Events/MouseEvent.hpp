@@ -4,8 +4,8 @@
 #include "Event.hpp"
 #include "Quark/MouseButtonCodes.hpp"
 
-namespace Quark
-{
+QK_BEGIN
+
 	/**
 	 * @brief Event for when the mouse was moved
 	 */
@@ -193,4 +193,5 @@ namespace Quark
 
 		EVENT_CLASS_TYPE(MouseButtonReleased)
 	};
-}
+
+QK_END

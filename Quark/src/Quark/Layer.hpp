@@ -3,8 +3,8 @@
 #include "Core.hpp"
 #include "Events/Event.hpp"
 
-namespace Quark
-{
+QK_BEGIN
+
 	/**
 	 * @brief Structure representing a Layer.
 	 * 
@@ -59,4 +59,5 @@ namespace Quark
 	protected:
 		std::string m_DebugName;
 	};
-}
+
+QK_END

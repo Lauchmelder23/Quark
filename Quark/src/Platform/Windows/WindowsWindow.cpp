@@ -7,8 +7,8 @@
 
 #include "Platform/OpenGL/OpenGLContext.hpp"
 
-namespace Quark
-{
+QK_BEGIN
+
 	static bool s_GLFWInitialized = false;
 
 	static void GLFWErrorCallback(int errcode, const char* desc)
@@ -191,4 +191,4 @@ namespace Quark
 		glfwDestroyWindow(m_Window);
 	}
 
-}
+QK_END

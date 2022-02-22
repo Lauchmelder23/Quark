@@ -5,8 +5,8 @@
 
 #include <vector>
 
-namespace Quark
-{
+QK_BEGIN
+
 	/**
 	 * @brief A structure containing a list of \ref Layer
 	 * 
@@ -93,4 +93,5 @@ namespace Quark
 		std::vector<Layer*> m_Layers;
 		unsigned int m_LayerInsertIndex = 0;
 	};
-}
+
+QK_END

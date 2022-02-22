@@ -2,8 +2,8 @@
 
 #include <map>
 
-namespace Quark
-{
+QK_BEGIN
+
 	/**
 	 * @brief A utility class for bi-directional map lookups.
 	 */
@@ -34,4 +34,5 @@ namespace Quark
 		std::map<FromType, ToType> m_FwdMap;
 		std::map<ToType, FromType> m_BwdMap;
 	};
-}
+
+QK_END

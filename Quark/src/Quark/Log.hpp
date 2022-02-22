@@ -4,18 +4,7 @@
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/ostr.h"
 
-namespace Quark
-{
-	/// <summary>
-	/// Static class containing basic logging functionality
-	/// </summary>
-	/// <remarks>
-	///	The logging module contains two types of loggers:
-	/// <list>
-	///		<item><c>Core</c>, which is used internally</item>
-	///		<item><c>Client</c>, which is for use by the application</item>
-	/// </list>
-	/// </remarks>
+QK_BEGIN
 	
 	/**
 	 * @brief Static class containing basic logging functionality.
@@ -51,7 +40,7 @@ namespace Quark
 		static std::shared_ptr<spdlog::logger> m_ClientLogger;
 	};
 
-}
+QK_END
 
 #define QK_CORE_TRACE(...)      ::Quark::Log::GetCoreLogger()->trace(__VA_ARGS__)
 #define QK_CORE_INFO(...)       ::Quark::Log::GetCoreLogger()->info(__VA_ARGS__)

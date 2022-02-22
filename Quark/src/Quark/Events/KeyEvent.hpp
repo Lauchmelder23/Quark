@@ -4,8 +4,8 @@
 #include "Event.hpp"
 #include "Quark/KeyCodes.hpp"
 
-namespace Quark
-{
+QK_BEGIN
+
 	/**
 	 * @brief Base class for all keyboard related events
 	 */
@@ -135,4 +135,4 @@ namespace Quark
 		EVENT_CLASS_TYPE(KeyTyped)
 	};
 
-}
+QK_END

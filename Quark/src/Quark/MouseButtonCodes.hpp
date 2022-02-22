@@ -1,7 +1,9 @@
 #pragma once
 
-namespace Quark
-{
+#include "Quark/Utility/Namespace.hpp"
+
+QK_BEGIN
+
 	/**
 	 * @brief Defines Quark mouse button codes
 	 */
@@ -42,4 +44,5 @@ namespace Quark
 	 * @returns			The mouse button code used by the underlying API
 	 */
 	QUARK_API inline MouseButton GetQuarkMouseButtonCode(int button);
-}
+
+QK_END

@@ -10,8 +10,8 @@
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
-namespace Quark
-{
+QK_BEGIN
+
 	ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") { }
 
 	ImGuiLayer::~ImGuiLayer() { }
@@ -79,4 +79,5 @@ namespace Quark
 		static bool show = true;
 		ImGui::ShowDemoWindow(&show);
 	}
-}
+
+QK_END

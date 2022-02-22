@@ -3,10 +3,8 @@
 
 #include "Platform/OpenGL/OpenGLRendererAPI.hpp"
 
-namespace Quark
-{
-	namespace Photon
-	{
-		RendererAPI* RenderCommand::s_API = new OpenGLRendererAPI;
-	}
-}
+QK_PHOTON_BEGIN
+
+	RendererAPI* RenderCommand::s_API = new OpenGLRendererAPI;
+
+QK_PHOTON_END

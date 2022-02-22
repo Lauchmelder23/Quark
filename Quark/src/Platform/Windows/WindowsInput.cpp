@@ -8,8 +8,8 @@
 
 #include <glfw/glfw3.h>
 
-namespace Quark
-{
+QK_BEGIN
+
 	Input* Input::s_Instance = new WindowsInput();
 
 #pragma region Mapping
@@ -213,4 +213,5 @@ namespace Quark
 
 		return std::make_pair(xpos, ypos);
 	}
-}
+
+QK_END

@@ -3,8 +3,8 @@
 #include <sstream>
 #include "Event.hpp"
 
-namespace Quark
-{
+QK_BEGIN
+
 	/**
 	 * @brief Event for when the application window was resized
 	 */
@@ -115,4 +115,5 @@ namespace Quark
 		EVENT_CLASS_TYPE(AppRender)
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
-}
+
+QK_END

@@ -3,10 +3,8 @@
 
 #include <glad/glad.h>
 
-namespace Quark
-{
-	namespace Photon
-	{
+QK_PHOTON_BEGIN
+
 		//////////////////////////////////////////////////
 		////          OPENGL VERTEX BUFFERS            ///
 		//////////////////////////////////////////////////
@@ -61,5 +59,5 @@ namespace Quark
 		{
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		}
-	}
-}
+
+QK_PHOTON_END

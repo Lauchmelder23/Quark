@@ -1,7 +1,7 @@
 #include "LayerStack.hpp"
 
-namespace Quark
-{
+QK_BEGIN
+
 	LayerStack::LayerStack()
 	{
 	}
@@ -43,4 +43,5 @@ namespace Quark
 			m_Layers.erase(it);
 		overlay->OnDetach();
 	}
-}
+
+QK_END
