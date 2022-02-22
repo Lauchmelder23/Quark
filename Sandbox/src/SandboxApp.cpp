@@ -186,9 +186,7 @@ public:
 
 	void OnImGuiRender() override
 	{
-		ImGui::Begin("Test");
-		ImGui::Text("Hello, World!");
-		ImGui::End();
+		
 	}
 
 	void OnEvent(Qk::Event& event) override 
@@ -218,7 +216,4 @@ public:
 	~Sandbox() {}
 };
 
-Qk::Application* Qk::CreateApplication()
-{
-	return new Sandbox();
-}
+QK_SET_APPLICATION(Sandbox);
