@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Quark/Utility/Namespace.hpp"
+#include "Quark/Core/Namespace.hpp"
 
 QK_BEGIN
 

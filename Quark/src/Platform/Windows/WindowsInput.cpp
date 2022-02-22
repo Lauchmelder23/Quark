@@ -4,7 +4,7 @@
 #include <map>
 
 #include "Quark/Application.hpp"
-#include "Quark/Utility/Bimap.hpp"
+#include "Quark/Core/Bimap.hpp"
 
 #include <glfw/glfw3.h>
 

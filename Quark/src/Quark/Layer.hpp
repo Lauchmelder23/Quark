@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Core.hpp"
+#include "Core/Timestep.hpp"
 #include "Events/Event.hpp"
 
 QK_BEGIN
@@ -37,7 +38,7 @@ QK_BEGIN
 		/**
 		 * @brief Gets called when the layer needs to update
 		 */
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep dt) {}
 
 		/**
 		 * @brief Gets called when the layer needs to show its ImGui content

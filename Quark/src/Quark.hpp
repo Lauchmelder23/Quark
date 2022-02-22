@@ -7,6 +7,8 @@
 #include "Quark/Log.hpp"
 #include "Quark/Input.hpp"
 
+#include "Quark/Core/Timestep.hpp"
+
 #include "Quark/ImGui/ImGuiLayer.hpp"
 
 #include "Quark/Photon/Renderer.hpp"

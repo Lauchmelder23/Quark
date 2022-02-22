@@ -7,17 +7,6 @@
 
 #include "imgui.h"
 
-glm::mat4 camera(float Translate, const glm::vec2& Rotate)
-{
-	glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
-	glm::mat4 View = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -Translate));
-	View = glm::rotate(View, Rotate.y, glm::vec3(-1.0f, 0.0f, 0.0f));
-	View = glm::rotate(View, Rotate.x, glm::vec3(0.0f, 1.0f, 0.0f));
-	glm::mat4 Model = glm::scale(glm::mat4(1.0f), glm::vec3(0.5f));
-
-	return Projection * View * Model;
-}
-
 class ExampleLayer : public Qk::Layer
 {
 public:
@@ -153,10 +142,10 @@ public:
 #pragma endregion
 	}
 
-	void OnUpdate() override 
+	void OnUpdate(Qk::Timestep dt) override 
 	{
 		glm::vec3 moveDirection(0.0f);
-		float moveSpeed = 0.005f;
+		float moveSpeed = 2.0f * dt;
 
 		if (Qk::Input::IsKeyPressed(Qk::Key::W))
 			moveDirection += glm::vec3(0.0f, 1.0f, 0.0f);
