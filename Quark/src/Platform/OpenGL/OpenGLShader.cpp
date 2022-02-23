@@ -88,6 +88,12 @@ QK_PHOTON_BEGIN
 		glUseProgram(0);
 	}
 
+	void OpenGLShader::SetUniformFloat4(const std::string& name, const glm::vec4& vec)
+	{
+		GLint location = glGetUniformLocation(m_Program, name.c_str());
+		glUniform4f(location, vec.x, vec.y, vec.z, vec.w);
+	}
+
 	void OpenGLShader::SetUniformMat4(const std::string& name, const glm::mat4& matrix)
 	{
 		GLint location = glGetUniformLocation(m_Program, name.c_str());

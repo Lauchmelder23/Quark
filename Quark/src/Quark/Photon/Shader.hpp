@@ -32,6 +32,7 @@ QK_PHOTON_BEGIN
 		*/
 		virtual void Unbind() const = 0;
 
+		virtual void SetUniformFloat4(const std::string& name, const glm::vec4& vec) = 0;
 		virtual void SetUniformMat4(const std::string& name, const glm::mat4& matrix) = 0;
 	};
 

@@ -6,6 +6,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "imgui.h"
+#include <glm/gtc/type_ptr.hpp>
 
 class ExampleLayer : public Qk::Layer
 {
@@ -134,12 +135,14 @@ public:
 
 			out vec4 color;
 			
+			uniform vec4 u_Color;
+
 			void main()
 			{
-				color = vec4(0.6f, 0.6f, 1.0f, 1.0f);
+				color = u_Color;
 			}
 		)";
-		m_SquareShader.reset(Qk::Photon::Shader::Create(squareVertexShaderSrc, squareFragmentShaderSrc));
+		m_FlatColorShader.reset(Qk::Photon::Shader::Create(squareVertexShaderSrc, squareFragmentShaderSrc));
 
 #pragma endregion
 	}
@@ -170,7 +173,7 @@ public:
 		if (glm::length(moveDirection) > 0.01f)
 			m_Camera.SetPosition(m_Camera.GetPosition() + glm::normalize(moveDirection) * moveSpeed);
 
-		Qk::Photon::RenderCommand::SetClearColor({ 0.2f, 0.1f, 0.4f, 1.0f });
+		Qk::Photon::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		Qk::Photon::RenderCommand::Clear();
 
 		Qk::Photon::Renderer::BeginScene(m_Camera);
@@ -183,7 +186,12 @@ public:
 				glm::mat4 transform = glm::scale(glm::mat4(1.0f), glm::vec3(0.05f));
 				transform = glm::translate(transform, pos);
 
-				Qk::Photon::Renderer::Submit(m_SquareShader, m_SquareVertexArray, transform);
+				if ((x + y) % 2 == 0)
+					m_FlatColorShader->SetUniformFloat4("u_Color", redColor);
+				else
+					m_FlatColorShader->SetUniformFloat4("u_Color", blueColor);
+
+				Qk::Photon::Renderer::Submit(m_FlatColorShader, m_SquareVertexArray, transform);
 			}
 		}
 		
@@ -194,7 +202,15 @@ public:
 
 	void OnImGuiRender() override
 	{
-		
+		ImGui::Begin("Example Settings");
+
+		if (ImGui::CollapsingHeader("Grid colors"))
+		{
+			ImGui::ColorEdit4("Color 1", glm::value_ptr(redColor));
+			ImGui::ColorEdit4("Color 2", glm::value_ptr(blueColor));
+		}
+
+		ImGui::End();
 	}
 
 	void OnEvent(Qk::Event& event) override 
@@ -204,7 +220,7 @@ public:
 
 private:
 	std::shared_ptr<Qk::Photon::Shader> m_Shader;
-	std::shared_ptr<Qk::Photon::Shader> m_SquareShader;
+	std::shared_ptr<Qk::Photon::Shader> m_FlatColorShader;
 
 	std::shared_ptr<Qk::Photon::VertexArray> m_VertexArray;
 	std::shared_ptr<Qk::Photon::VertexArray> m_SquareVertexArray;
@@ -212,6 +228,9 @@ private:
 	Qk::Photon::OrthographicCamera m_Camera;
 
 	glm::vec3 m_SquarePosition;
+	glm::vec4 redColor = glm::vec4(1.0f, 0.35f, 0.35f, 1.0f);
+	glm::vec4 blueColor = glm::vec4(0.35f, 0.35f, 1.0f, 1.0f);
+
 };
 
 class Sandbox : public Qk::Application

@@ -1,14 +1,14 @@
 #include "qkpch.hpp"
 #include "ImGuiLayer.hpp"
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 #define IMGUI_IMPL_API
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
 
 #include "Quark/Application.hpp"
-
-#include <GLFW/glfw3.h>
-#include <glad/glad.h>
 
 QK_BEGIN
 
