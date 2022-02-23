@@ -80,7 +80,7 @@ QK_BEGIN
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
-		float m_LastFrameTime = 0.0f;
+		std::chrono::steady_clock::time_point m_LastFrameTime = std::chrono::steady_clock::now();
 
 	private:
 		static Application* s_Instance;

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <chrono>
+
 #include <Quark/Core/Namespace.hpp>
 
 QK_BEGIN
@@ -7,19 +9,22 @@ QK_BEGIN
 	class Timestep
 	{
 	public:
-		Timestep(float time = 0.0f) :
+		Timestep(std::chrono::duration<float> time) :
 			m_Time(time)
 		{
 
 		}
 
-		operator float() const { return m_Time; }
+		template<typename Period>
+		inline float GetTimestep() const { return std::chrono::duration_cast<std::chrono::duration<float, Period>>(m_Time).count(); }
 
-		inline float GetSeconds() const { return m_Time; }
-		inline float GetMilliseconds() const { return m_Time * 1000.0f; }
+		operator float() const { return m_Time.count(); }
+
+		inline float GetSeconds() const { return m_Time.count(); }
+		inline float GetMilliseconds() const { return GetTimestep<std::milli>(); }
 
 	private:
-		float m_Time;
+		std::chrono::duration<float> m_Time;
 	};
 
 QK_END

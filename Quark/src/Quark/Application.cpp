@@ -79,7 +79,7 @@ QK_BEGIN
 	{
 		while (m_Running)
 		{
-			float time = (float)glfwGetTime();
+			std::chrono::steady_clock::time_point time = std::chrono::steady_clock::now();
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
