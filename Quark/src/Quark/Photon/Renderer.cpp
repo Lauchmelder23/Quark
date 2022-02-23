@@ -15,10 +15,11 @@ QK_PHOTON_BEGIN
 		// Does nothing right now
 	}
 
-	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray)
+	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4& transform)
 	{
 		shader->Bind();
 		shader->SetUniformMat4("u_ViewProjection", m_SceneProperties->ViewProjectionMatrix);
+		shader->SetUniformMat4("u_Model", transform);
 
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);

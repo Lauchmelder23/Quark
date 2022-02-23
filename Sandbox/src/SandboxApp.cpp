@@ -11,7 +11,7 @@ class ExampleLayer : public Qk::Layer
 {
 public:
 	ExampleLayer() : 
-		Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
+		Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_SquarePosition(0.0f)
 	{
 #pragma region Triangles
 		m_VertexArray.reset(Qk::Photon::VertexArray::Create());
@@ -54,11 +54,12 @@ public:
 			out vec3 o_Color;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Model;
 
 			void main()
 			{
 				o_Color = a_Color;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Model * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -120,10 +121,11 @@ public:
 			layout (location = 0) in vec3 a_Position;
 			
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Model;
 
 			void main()
 			{
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0f);
+				gl_Position = u_ViewProjection * u_Model * vec4(a_Position, 1.0f);
 			}	
 		)";
 
@@ -159,6 +161,12 @@ public:
 		if (Qk::Input::IsKeyPressed(Qk::Key::D))
 			moveDirection += glm::vec3(1.0f, 0.0f, 0.0f);
 
+		if (Qk::Input::IsKeyPressed(Qk::Key::Q))
+			m_Camera.SetRotation(m_Camera.GetRotation() + 90.0f * dt);
+
+		if (Qk::Input::IsKeyPressed(Qk::Key::E))
+			m_Camera.SetRotation(m_Camera.GetRotation() - 90.0f * dt);
+
 		if (glm::length(moveDirection) > 0.01f)
 			m_Camera.SetPosition(m_Camera.GetPosition() + glm::normalize(moveDirection) * moveSpeed);
 
@@ -167,8 +175,19 @@ public:
 
 		Qk::Photon::Renderer::BeginScene(m_Camera);
 
-		Qk::Photon::Renderer::Submit(m_SquareShader, m_SquareVertexArray);
-		Qk::Photon::Renderer::Submit(m_Shader, m_VertexArray);
+		for (int y = 0; y < 20; y++)
+		{
+			for (int x = 0; x < 20; x++)
+			{
+				glm::vec3 pos(x * 2.4f, y * 2.4f, 0.0f);
+				glm::mat4 transform = glm::scale(glm::mat4(1.0f), glm::vec3(0.05f));
+				transform = glm::translate(transform, pos);
+
+				Qk::Photon::Renderer::Submit(m_SquareShader, m_SquareVertexArray, transform);
+			}
+		}
+		
+		// Qk::Photon::Renderer::Submit(m_Shader, m_VertexArray);
 
 		Qk::Photon::Renderer::EndScene();
 	}
@@ -191,6 +210,8 @@ private:
 	std::shared_ptr<Qk::Photon::VertexArray> m_SquareVertexArray;
 
 	Qk::Photon::OrthographicCamera m_Camera;
+
+	glm::vec3 m_SquarePosition;
 };
 
 class Sandbox : public Qk::Application
