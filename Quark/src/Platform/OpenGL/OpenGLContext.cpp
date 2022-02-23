@@ -1,8 +1,8 @@
 #include "qkpch.hpp"
 #include "OpenGLContext.hpp"
 
-#include <GLFW/glfw3.h>
 #include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 QK_PHOTON_BEGIN
 
