@@ -62,28 +62,28 @@ QK_BEGIN
 		void PopOverlay(Layer* overlay);
 
 		/**
-		 * @begin Get an iterator to the beginning of the stack
+		 * @brief Get an iterator to the beginning of the stack
 		 * 
 		 * @returns A non-constant iterator to the beginning of the entire stack
 		 */
 		std::vector<Layer*>::iterator begin() { return m_Layers.begin(); }
 
 		/**
-		 * @begin Get an iterator to the end of the stack
+		 * @brief Get an iterator to the end of the stack
 		 *
 		 * @returns A non-constant iterator to the end of the entire stack
 		 */
 		std::vector<Layer*>::iterator end() { return m_Layers.end(); }
 
 		/**
-		 * @begin Get a reverse iterator to the end of the stack
+		 * @brief Get a reverse iterator to the end of the stack
 		 *
 		 * @returns A non-constant reverse iterator to the end of the entire stack
 		 */
 		std::vector<Layer*>::reverse_iterator rbegin() { return m_Layers.rbegin(); }
 
 		/**
-		 * @begin Get a reverse iterator to the beginning of the stack
+		 * @brief Get a reverse iterator to the beginning of the stack
 		 *
 		 * @returns A non-constant reverse iterator to the beginning of the entire stack
 		 */

@@ -20,15 +20,27 @@ QK_PHOTON_BEGIN
 		*/
 		OpenGLVertexBuffer(size_t size, float* vertices);
 
-		/**
-		* @brief Delete the VBO
-		*/
 		virtual ~OpenGLVertexBuffer();
 
+
+		/**
+		 * @copydoc VertexBuffer::Bind()
+		 */
 		void Bind() const override;
+
+		/**
+		 * @copydoc VertexBuffer::Unbind()
+		 */
 		void Unbind() const override;
 
+		/**
+		 * @copydoc VertexBuffer::SetLayout()
+		 */
 		void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
+
+		/**
+		 * @copydoc VertexBuffer::GetLayout()
+		 */
 		const BufferLayout& GetLayout() const override { return m_Layout; }
 
 	private:

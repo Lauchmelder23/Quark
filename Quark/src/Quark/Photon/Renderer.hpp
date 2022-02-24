@@ -7,14 +7,30 @@
 QK_PHOTON_BEGIN
 
 	/**
-	* @brief Renderer structure for doing/storing generic render API actions/data
+	* @brief Structure for setting up scenes and submitting data/objects to that scene
 	*/
 	class Renderer
 	{
 	public:
+		/**
+		 * @brief Tells the renderer to start a new scene with the given properties
+		 * 
+		 * @param camera The camera the scene should be rendered with
+		 */
 		static void BeginScene(OrthographicCamera& camera);
+
+		/**
+		 * @brief Ends the current scene
+		 */
 		static void EndScene();
 
+		/**
+		 * @brief Renders a VAO with a given shader and transformation in the current active scene
+		 * 
+		 * @param shader The shader to use when rendering the VAO
+		 * @param vertexArray The VAO to render
+		 * @param transform The transformations to apply to the object
+		 */
 		static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4& transform = glm::mat4(1.0f));
 
 		/**

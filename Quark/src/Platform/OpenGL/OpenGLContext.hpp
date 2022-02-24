@@ -25,7 +25,7 @@ QK_PHOTON_BEGIN
 		void Init() override;
 
 		/**
-		* @brief Swap the contexts frame buffers
+		* @copydoc Context::SwapBuffers()
 		*/
 		void SwapBuffers() override;
 

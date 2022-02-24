@@ -25,11 +25,25 @@ QK_PHOTON_BEGIN
 		*/
 		virtual ~OpenGLShader();
 
-		virtual void Bind() const;
-		virtual void Unbind() const;
+		/**
+		 * @copydoc Shader::Bind()
+		 */
+		virtual void Bind() const override;
+
+		/**
+		 * @copydoc Shader::Unbind()
+		 */
+		virtual void Unbind() const override;
 
 
+		/**
+		 * @copydoc Shader::SetUniformFloat4()
+		 */
 		virtual void SetUniformFloat4(const std::string& name, const glm::vec4& vec) override;
+
+		/**
+		 * @copydoc Shader::SetUniformMat4()
+		 */
 		virtual void SetUniformMat4(const std::string& name, const glm::mat4& matrix) override;
 
 	private:

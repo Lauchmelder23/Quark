@@ -14,13 +14,36 @@ QK_PHOTON_BEGIN
 		OpenGLVertexArray();
 		virtual ~OpenGLVertexArray();
 
+		/**
+		 * @copydoc VertexArray::Bind()
+		 */
 		void Bind() const override;
+
+		/**
+		 * @copydoc VertexArray::Unbind()
+		 */
 		void Unbind() const override;
 
+
+		/**
+		 * @copydoc VertexArray::AddVertexBuffer()
+		 */
 		void AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) override;
+		
+		/**
+		 * @copydoc VertexArray::SetElementBuffer()
+		 */
 		void SetElementBuffer(const std::shared_ptr<ElementBuffer>& elementBuffer) override;
 
+
+		/**
+		 * @copydoc VertexArray::GetVertexBuffers()
+		 */
 		virtual const std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffers() const override;
+
+		/**
+		 * @copydoc VertexArray::GetIndexBuffer()
+		 */
 		virtual const std::shared_ptr<ElementBuffer>& GetIndexBuffer() const override;
 
 	private:
