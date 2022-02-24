@@ -7,6 +7,7 @@
 
 #include "imgui.h"
 #include <glm/gtc/type_ptr.hpp>
+#include <Platform/OpenGL/OpenGLShader.hpp>
 
 class ExampleLayer : public Qk::Layer
 {
@@ -178,6 +179,8 @@ public:
 
 		Qk::Photon::Renderer::BeginScene(m_Camera);
 
+		m_FlatColorShader->Bind();
+
 		for (int y = 0; y < 20; y++)
 		{
 			for (int x = 0; x < 20; x++)
@@ -187,9 +190,9 @@ public:
 				transform = glm::translate(transform, pos);
 
 				if ((x + y) % 2 == 0)
-					m_FlatColorShader->SetUniformFloat4("u_Color", redColor);
+					std::dynamic_pointer_cast<Qk::Photon::OpenGLShader>(m_FlatColorShader)->SetUniformFloat4("u_Color", redColor);
 				else
-					m_FlatColorShader->SetUniformFloat4("u_Color", blueColor);
+					std::dynamic_pointer_cast<Qk::Photon::OpenGLShader>(m_FlatColorShader)->SetUniformFloat4("u_Color", blueColor);
 
 				Qk::Photon::Renderer::Submit(m_FlatColorShader, m_SquareVertexArray, transform);
 			}

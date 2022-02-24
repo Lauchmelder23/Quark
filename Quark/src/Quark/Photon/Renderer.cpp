@@ -1,5 +1,6 @@
 #include "qkpch.hpp"
 #include "Renderer.hpp"
+#include <Platform/OpenGL/OpenGLShader.hpp>
 
 QK_PHOTON_BEGIN
 
@@ -18,8 +19,8 @@ QK_PHOTON_BEGIN
 	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4& transform)
 	{
 		shader->Bind();
-		shader->SetUniformMat4("u_ViewProjection", m_SceneProperties->ViewProjectionMatrix);
-		shader->SetUniformMat4("u_Model", transform);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetUniformMat4("u_ViewProjection", m_SceneProperties->ViewProjectionMatrix);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetUniformMat4("u_Model", transform);
 
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);

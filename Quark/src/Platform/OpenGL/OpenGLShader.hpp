@@ -37,14 +37,65 @@ QK_PHOTON_BEGIN
 
 
 		/**
-		 * @copydoc Shader::SetUniformFloat4()
+		 * @brief Uploads an int to the current bound shader
+		 *
+		 * @param name Name of the uniform to upload
+		 * @param vec Data to be uploaded
 		 */
-		virtual void SetUniformFloat4(const std::string& name, const glm::vec4& vec) override;
+		void SetUniformInt(const std::string& name, int vec);
+
 
 		/**
-		 * @copydoc Shader::SetUniformMat4()
+		 * @brief Uploads a float to the current bound shader
+		 *
+		 * @param name Name of the uniform to upload
+		 * @param vec Data to be uploaded
 		 */
-		virtual void SetUniformMat4(const std::string& name, const glm::mat4& matrix) override;
+		void SetUniformFloat(const std::string& name, float vec);
+
+		/**
+		* @brief Uploads a vec2 to the current bound shader
+		*
+		* @param name Name of the uniform to upload
+		* @param vec Data to be uploaded
+		*/
+		void SetUniformFloat2(const std::string& name, const glm::vec2& vec);
+
+		/**
+		 * @brief Uploads a vec3 to the current bound shader
+		 *
+		 * @param name Name of the uniform to upload
+		 * @param vec Data to be uploaded
+		 */
+		void SetUniformFloat3(const std::string& name, const glm::vec3& vec);
+
+
+		/**
+		 * @brief Uploads a vec4 to the current bound shader
+		 *
+		 * @param name Name of the uniform to upload
+		 * @param vec Data to be uploaded
+		 */
+		void SetUniformFloat4(const std::string& name, const glm::vec4& vec);
+
+
+		/**
+		 * @brief Uploads a 3x3 matrix to the current bound shader
+		 *
+		 * @param name Name of the uniform to upload
+		 * @param matrix Data to be uploaded°
+		 */
+		void SetUniformMat3(const std::string& name, const glm::mat3& matrix);
+
+
+		/**
+		 * @brief Uploads a 4x4 matrix to the current bound shader
+		 *
+		 * @param name Name of the uniform to upload
+		 * @param matrix Data to be uploaded°
+		 */
+		void SetUniformMat4(const std::string& name, const glm::mat4& matrix);
+
 
 	private:
 		uint32_t m_Program;

@@ -88,10 +88,40 @@ QK_PHOTON_BEGIN
 		glUseProgram(0);
 	}
 
+	void OpenGLShader::SetUniformInt(const std::string& name, int vec)
+	{
+		GLint location = glGetUniformLocation(m_Program, name.c_str());
+		glUniform1i(location, vec);
+	}
+
+	void OpenGLShader::SetUniformFloat(const std::string& name, float vec)
+	{
+		GLint location = glGetUniformLocation(m_Program, name.c_str());
+		glUniform1f(location, vec);
+	}
+
+	void OpenGLShader::SetUniformFloat2(const std::string& name, const glm::vec2& vec)
+	{
+		GLint location = glGetUniformLocation(m_Program, name.c_str());
+		glUniform2f(location, vec.x, vec.y);
+	}
+
+	void OpenGLShader::SetUniformFloat3(const std::string& name, const glm::vec3& vec)
+	{
+		GLint location = glGetUniformLocation(m_Program, name.c_str());
+		glUniform3f(location, vec.x, vec.y, vec.z);
+	}
+
 	void OpenGLShader::SetUniformFloat4(const std::string& name, const glm::vec4& vec)
 	{
 		GLint location = glGetUniformLocation(m_Program, name.c_str());
 		glUniform4f(location, vec.x, vec.y, vec.z, vec.w);
+	}
+
+	void OpenGLShader::SetUniformMat3(const std::string& name, const glm::mat3& matrix)
+	{
+		GLint location = glGetUniformLocation(m_Program, name.c_str());
+		glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 
 	void OpenGLShader::SetUniformMat4(const std::string& name, const glm::mat4& matrix)
