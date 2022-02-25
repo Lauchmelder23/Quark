@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['s_0',['S',['../namespace_quark.html#a2519b0eab28239281c53de666b75a11ba5dbc98dcc983a70728bd082d1a47546e',1,'Quark']]],
+  ['scrolllock_1',['ScrollLock',['../namespace_quark.html#a2519b0eab28239281c53de666b75a11ba7d7902d5e2998e4fb2b8694a2de4ff65',1,'Quark']]],
+  ['semicolon_2',['Semicolon',['../namespace_quark.html#a2519b0eab28239281c53de666b75a11ba9806fa37a3ecd39bf637c203aa011ed0',1,'Quark']]],
+  ['setclearcolor_3',['SetClearColor',['../class_quark_1_1_photon_1_1_render_command.html#aa790637364e2a307ad90df7f48f5eb1c',1,'Quark::Photon::RenderCommand::SetClearColor()'],['../class_quark_1_1_photon_1_1_renderer_a_p_i.html#a41f2a0b2d4636e2cf23fb0a015fcee99',1,'Quark::Photon::RendererAPI::SetClearColor()']]],
+  ['setelementbuffer_4',['SetElementBuffer',['../class_quark_1_1_photon_1_1_open_g_l_vertex_array.html#a04915535440f147ffc0122c2f6dbe053',1,'Quark::Photon::OpenGLVertexArray::SetElementBuffer()'],['../class_quark_1_1_photon_1_1_vertex_array.html#ac3bece69607d22076f271492abcb0ca5',1,'Quark::Photon::VertexArray::SetElementBuffer()']]],
+  ['seteventcallback_5',['SetEventCallback',['../class_quark_1_1_windows_window.html#acb7f4217ceefabf472e5b9afc7bafbc1',1,'Quark::WindowsWindow::SetEventCallback()'],['../class_quark_1_1_window.html#afbbe0fd82efc6860db43b2b8be540cbc',1,'Quark::Window::SetEventCallback()']]],
+  ['setlayout_6',['SetLayout',['../class_quark_1_1_photon_1_1_open_g_l_vertex_buffer.html#a11d4e51fe643d797c9fa619d9f28376c',1,'Quark::Photon::OpenGLVertexBuffer::SetLayout()'],['../class_quark_1_1_photon_1_1_vertex_buffer.html#a6ee16483fc742c1275feebc576769138',1,'Quark::Photon::VertexBuffer::SetLayout()']]],
+  ['setposition_7',['SetPosition',['../class_orthographic_camera.html#ae7879653c4749a7b87572120fe0be144',1,'OrthographicCamera']]],
+  ['setrotation_8',['SetRotation',['../class_orthographic_camera.html#a7905fca6d6059fbed3cbf9a272eb214e',1,'OrthographicCamera']]],
+  ['setuniformfloat4_9',['SetUniformFloat4',['../class_open_g_l_shader.html#a151bba4ea61702ad8186ef33a8e54330',1,'OpenGLShader::SetUniformFloat4()'],['../class_shader.html#a87238927c0dde9f2f03d4cb0e25037aa',1,'Shader::SetUniformFloat4()']]],
+  ['setuniformmat4_10',['SetUniformMat4',['../class_open_g_l_shader.html#aeb0d20bdf472f2f7b101d10f10e62d9d',1,'OpenGLShader::SetUniformMat4()'],['../class_shader.html#afa44ad3d3e0077a35810206d7c1a16e1',1,'Shader::SetUniformMat4()']]],
+  ['setvsync_11',['SetVSync',['../class_quark_1_1_windows_window.html#a8ca75b40811dc02364b5c0bec1e32e49',1,'Quark::WindowsWindow::SetVSync()'],['../class_quark_1_1_window.html#a659fbd37aab59f96a7bd39c8bdbed99f',1,'Quark::Window::SetVSync()']]],
+  ['shader_12',['Shader',['../class_shader.html',1,'']]],
+  ['shader_2ecpp_13',['Shader.cpp',['../_shader_8cpp.html',1,'']]],
+  ['shader_2ehpp_14',['Shader.hpp',['../_shader_8hpp.html',1,'']]],
+  ['shaderdatatype_15',['ShaderDataType',['../_datatypes_8hpp.html#a1d90b7898afdb62bcee0cb44bd62f919',1,'Datatypes.hpp']]],
+  ['shaderdatatypetoopenglnativetype_16',['ShaderDataTypeToOpenGLNativeType',['../namespace_quark_1_1_photon.html#a40290e39670a0cb66c57fa0bc2c1d263',1,'Quark::Photon::ShaderDataTypeToOpenGLNativeType()'],['../_open_g_l_shader_8hpp.html#af2bbbdd0d120382edf84d5f6f10e6f0c',1,'ShaderDataTypeToOpenGLNativeType():&#160;OpenGLShader.hpp']]],
+  ['size_17',['Size',['../struct_quark_1_1_photon_1_1_buffer_element.html#aa34e6c088a305e0ba5a29b114c158b79',1,'Quark::Photon::BufferElement']]],
+  ['slash_18',['Slash',['../namespace_quark.html#a2519b0eab28239281c53de666b75a11ba358cfe58715d680d9ab09f82e4010cbc',1,'Quark']]],
+  ['space_19',['Space',['../namespace_quark.html#a2519b0eab28239281c53de666b75a11bad511f8439ecde36647437fbba67a4394',1,'Quark']]],
+  ['submit_20',['Submit',['../class_quark_1_1_photon_1_1_renderer.html#a12857d5089faae819eeb076f13142f07',1,'Quark::Photon::Renderer']]],
+  ['swapbuffers_21',['SwapBuffers',['../class_quark_1_1_photon_1_1_open_g_l_context.html#af88cccbb94b482ecd2935b8de6feb533',1,'Quark::Photon::OpenGLContext::SwapBuffers()'],['../class_quark_1_1_photon_1_1_context.html#aa70e8052b514995cbd868aa68b7767a3',1,'Quark::Photon::Context::SwapBuffers()']]]
+];

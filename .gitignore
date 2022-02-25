@@ -1,0 +1,8 @@
+*
+
+!.gitignore
+!doc
+!doc/html/
+!doc/html/*
+!doc/html/search
+!doc/html/search/*
