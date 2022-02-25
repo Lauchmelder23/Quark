@@ -3,6 +3,7 @@ add_subdirectory(vendor/spdlog)
 add_subdirectory(vendor/GLFW)
 add_subdirectory(vendor/GLAD)
 add_subdirectory(vendor/glm)
+add_subdirectory(vendor/stb)
 
 # ImGui doesn't provide a CMakeLists.txt, so we have to build it ourselves
 add_library(ImGui

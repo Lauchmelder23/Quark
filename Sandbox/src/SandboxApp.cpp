@@ -13,95 +13,20 @@ public:
 	ExampleLayer() : 
 		Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_SquarePosition(0.0f)
 	{
-#pragma region Triangles
-		m_VertexArray.reset(Qk::Photon::VertexArray::Create());
+		m_SquareVertexArray = Qk::Photon::VertexArray::Create();
 
-		float vertices[3 * 3 * (3 * 3)] = {
-			-0.5f, 0.0f, 0.0f,		1.0f, 0.0f, 0.0f,
-			0.0f, 0.866f, 0.0f,		0.0f, 1.0f, 0.0f,
-			0.5f, 0.0f, 0.0f,		0.0f, 0.0f, 1.0f,
-
-			-1.0f, -0.886f, 0.0f,	0.0f, 0.0f, 1.0f,
-			-0.5f, 0.0f, 0.0f,		1.0f, 0.0f, 0.0f,
-			0.0f, -0.886f, 0.0f,	0.0f, 1.0f, 0.0f,
-
-			-0.0f, -0.886f, 0.0f,	0.0f, 1.0f, 0.0f,
-			0.5f, 0.0f, 0.0f,		0.0f, 0.0f, 1.0f,
-			1.0f, -0.886f, 0.0f,	1.0f, 0.0f, 0.0f
-		};
-		Qk::Reference<Qk::Photon::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(Qk::Photon::VertexBuffer::Create(sizeof(vertices), vertices));
-
-		Qk::Photon::BufferLayout layout = {
-			{ Qk::Photon::ShaderDataType::Float3, "a_Position" },
-			{ Qk::Photon::ShaderDataType::Float3, "a_Color" },
-		};
-
-		vertexBuffer->SetLayout(layout);
-		m_VertexArray->AddVertexBuffer(vertexBuffer);
-
-		unsigned int indices[3 * 3] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-		Qk::Reference<Qk::Photon::ElementBuffer> indexBuffer;
-		indexBuffer.reset(Qk::Photon::ElementBuffer::Create(9, indices));
-		m_VertexArray->SetElementBuffer(indexBuffer);
-
-		std::string vertexShaderSrc = R"(
-			#version 460 core
-
-			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec3 a_Color;
-
-			out vec3 o_Color;
-
-			uniform mat4 u_ViewProjection;
-			uniform mat4 u_Model;
-
-			void main()
-			{
-				o_Color = a_Color;
-				gl_Position = u_ViewProjection * u_Model * vec4(a_Position, 1.0);
-			}
-		)";
-
-		std::string fragmentShaderSrc = R"(
-			#version 460 core
-
-			in vec3 o_Color;
-			out vec4 color;
-
-			void main()
-			{
-				color = vec4(o_Color, 1.0);
-			}
-		)";
-
-		try
-		{
-			m_Shader.reset(Qk::Photon::Shader::Create(vertexShaderSrc, fragmentShaderSrc));
-		}
-		catch (const std::runtime_error& exception)
-		{
-			QK_CORE_FATAL("Shader creation failed:\n\n{0}", exception.what());
-			return;
-		}
-
-#pragma endregion
-
-#pragma region Square
-
-		m_SquareVertexArray.reset(Qk::Photon::VertexArray::Create());
-
-		float squareVertices[4 * 3] = {
-			-1.1f, -1.1f, 0.0f,
-			-1.1f,  1.1f, 0.0f,
-			 1.1f,  1.1f, 0.0f,
-			 1.1f, -1.1f, 0.0f
+		float squareVertices[4 * (3 + 2)] = {
+			-1.1f, -1.1f, 0.0f,		0.0f, 0.0f,
+			-1.1f,  1.1f, 0.0f,		0.0f, 1.0f,
+			 1.1f,  1.1f, 0.0f,		1.0f, 1.0f,
+			 1.1f, -1.1f, 0.0f,		1.0f, 0.0f
 		};
 		Qk::Reference<Qk::Photon::VertexBuffer> squareVertexBuffer;
-		squareVertexBuffer.reset(Qk::Photon::VertexBuffer::Create(sizeof(squareVertices), squareVertices));
+		squareVertexBuffer = Qk::Photon::VertexBuffer::Create(sizeof(squareVertices), squareVertices);
 
 		Qk::Photon::BufferLayout squareLayout = {
-			{ Qk::Photon::ShaderDataType::Float3, "a_Position" }
+			{ Qk::Photon::ShaderDataType::Float3, "a_Position" },
+			{ Qk::Photon::ShaderDataType::Float2, "a_TexCoord" }
 		};
 		squareVertexBuffer->SetLayout(squareLayout);
 		m_SquareVertexArray->AddVertexBuffer(squareVertexBuffer);
@@ -111,15 +36,15 @@ public:
 			0, 2, 3
 		};
 		Qk::Reference<Qk::Photon::ElementBuffer> squareIndexBuffer;
-		squareIndexBuffer.reset(Qk::Photon::ElementBuffer::Create(sizeof(squareIndices), squareIndices));
+		squareIndexBuffer = Qk::Photon::ElementBuffer::Create(sizeof(squareIndices), squareIndices);
 
 		m_SquareVertexArray->SetElementBuffer(squareIndexBuffer);
 
 		std::string squareVertexShaderSrc = R"(
 			#version 460 core 
 
-			layout (location = 0) in vec3 a_Position;
-			
+			layout (location = 0) in vec3 a_Position;			
+
 			uniform mat4 u_ViewProjection;
 			uniform mat4 u_Model;
 
@@ -144,14 +69,60 @@ public:
 		
 		try
 		{
-			m_FlatColorShader.reset(Qk::Photon::Shader::Create(squareVertexShaderSrc, squareFragmentShaderSrc));
+			m_FlatColorShader = Qk::Photon::Shader::Create(squareVertexShaderSrc, squareFragmentShaderSrc);
 		}
 		catch (const std::runtime_error& err)
 		{
-			QK_CORE_FATAL("Shader creation failed:\n\n{0}", err.what());
+			QK_CORE_FATAL("FlatColorShader creation failed:\n\n{0}", err.what());
 			return;
 		}
-#pragma endregion
+
+		std::string textureVertexShaderSrc = R"(
+			#version 460 core 
+		
+			layout (location = 0) in vec3 a_Position;			
+			layout (location = 1) in vec2 a_TexCoord;		
+
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Model;
+		
+			out vec2 v_TexCoord;
+
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Model * vec4(a_Position, 1.0f);
+			}	
+		)";
+		
+		std::string textureFragmentShaderSrc = R"(
+			#version 460 core
+		
+			in vec2 v_TexCoord;
+
+			out vec4 color;
+			
+			uniform sampler2D u_Texture;
+		
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+
+		try
+		{
+			m_TextureShader = Qk::Photon::Shader::Create(textureVertexShaderSrc, textureFragmentShaderSrc);
+		}
+		catch (const std::runtime_error& err)
+		{
+			QK_CORE_FATAL("TextureShader creation failed:\n\n{0}", err.what());
+			return;
+		}
+
+		m_PoggersTexture = Qk::Photon::Texture2D::Create("assets/textures/poggers.png");
+		m_TextureShader->Bind();
+		std::dynamic_pointer_cast<Qk::Photon::OpenGLShader>(m_TextureShader)->SetUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Qk::Timestep dt) override 
@@ -204,6 +175,10 @@ public:
 			}
 		}
 		
+		m_PoggersTexture->Bind(0);
+
+		Qk::Photon::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(0.7f)));
+
 		Qk::Photon::Renderer::EndScene();
 	}
 
@@ -226,10 +201,11 @@ public:
 	}
 
 private:
-	Qk::Reference<Qk::Photon::Shader> m_Shader;
 	Qk::Reference<Qk::Photon::Shader> m_FlatColorShader;
+	Qk::Reference<Qk::Photon::Shader> m_TextureShader;
 
-	Qk::Reference<Qk::Photon::VertexArray> m_VertexArray;
+	Qk::Reference<Qk::Photon::Texture2D> m_PoggersTexture;
+
 	Qk::Reference<Qk::Photon::VertexArray> m_SquareVertexArray;
 
 	Qk::Photon::OrthographicCamera m_Camera;

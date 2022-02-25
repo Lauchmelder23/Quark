@@ -15,6 +15,7 @@
 #include "Quark/Photon/RenderCommand.hpp"
 #include "Quark/Photon/Buffer.hpp"
 #include "Quark/Photon/Shader.hpp"
+#include "Quark/Photon/Texture.hpp"
 #include "Quark/Photon/VertexArray.hpp"
 #include "Quark/Photon/OrthographicCamera.hpp"
 

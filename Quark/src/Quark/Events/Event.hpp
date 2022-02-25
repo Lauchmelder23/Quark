@@ -84,7 +84,7 @@ QK_BEGIN
 		 */
 		inline bool IsInCategory(EventCategory category)
 		{
-			return GetCategoryFlags() & category;
+			return GetCategoryFlags() & static_cast<unsigned int>(category);
 		}
 
 		bool Handled = false;	///< Whether the event has been handled or not

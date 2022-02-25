@@ -18,7 +18,7 @@ QK_PHOTON_BEGIN
 		*
 		* @returns        A new renderer API specific VAO
 		*/
-		static VertexArray* Create();
+		static Reference<VertexArray> Create();
 
 	public:
 		virtual ~VertexArray() {}

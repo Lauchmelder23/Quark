@@ -79,7 +79,7 @@ QK_PHOTON_BEGIN
 		* @param vertices Pointer to the vertex data
 		* @returns        A new renderer API specific VBO
 		*/
-		static VertexBuffer* Create(size_t size, float* vertices);
+		static Reference<VertexBuffer> Create(size_t size, float* vertices);
 
 	public:
 		virtual ~VertexBuffer() {}
@@ -123,7 +123,7 @@ QK_PHOTON_BEGIN
 		* @param elements Pointer to the index data
 		* @returns        A new renderer API specific EBO
 		*/
-		static ElementBuffer* Create(size_t count, uint32_t* elements);
+		static Reference<ElementBuffer> Create(size_t count, uint32_t* elements);
 
 	public:
 		virtual ~ElementBuffer() {}

@@ -6,11 +6,11 @@
 
 QK_PHOTON_BEGIN
 
-	VertexArray* VertexArray::Create()
+	Reference<VertexArray> VertexArray::Create()
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::API::OpenGL:	return new OpenGLVertexArray();	break;
+		case RendererAPI::API::OpenGL:	return std::make_shared<OpenGLVertexArray>();	break;
 
 		default:
 			QK_CORE_ASSERT(false, "Photon doesn't support VAO creation for the desired render API (id={0})", static_cast<int>(Renderer::GetAPI()));

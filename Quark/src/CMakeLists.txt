@@ -1,10 +1,10 @@
-set(QUARK_BUILD_SHARED Off CACHE BOOL "Build a DLL instead of a stati library")
+set(QUARK_BUILD_SHARED Off CACHE BOOL "Build a DLL instead of a static library")
 
 set(QUARK_SOURCES 
 	"qkpch.cpp"
 	"Quark/Log.cpp"
 	"Quark/Application.cpp"
- "Platform/Windows/WindowsWindow.cpp" "Quark/Layer.cpp" "Quark/LayerStack.cpp" "Quark/ImGui/ImGuiLayer.cpp"  "Platform/Windows/WindowsInput.cpp" "Quark/ImGui/ImGuiBuild.cpp" "Platform/OpenGL/OpenGLContext.cpp" "Quark/Photon/Shader.cpp" "Quark/Photon/Buffer.cpp" "Platform/OpenGL/OpenGLBuffer.cpp"  "Platform/OpenGL/OpenGLShader.cpp" "Quark/Photon/Context.cpp" "Quark/Photon/VertexArray.cpp" "Platform/OpenGL/OpenGLVertexArray.cpp"  "Quark/Photon/RendererAPI.cpp" "Quark/Photon/Renderer.cpp" "Quark/Photon/RenderCommand.cpp" "Platform/OpenGL/OpenGLRendererAPI.cpp" "Quark/Photon/OrthographicCamera.cpp")
+ "Platform/Windows/WindowsWindow.cpp" "Quark/Layer.cpp" "Quark/LayerStack.cpp" "Quark/ImGui/ImGuiLayer.cpp"  "Platform/Windows/WindowsInput.cpp" "Quark/ImGui/ImGuiBuild.cpp" "Platform/OpenGL/OpenGLContext.cpp" "Quark/Photon/Shader.cpp" "Quark/Photon/Buffer.cpp" "Platform/OpenGL/OpenGLBuffer.cpp"  "Platform/OpenGL/OpenGLShader.cpp" "Quark/Photon/Context.cpp" "Quark/Photon/VertexArray.cpp" "Platform/OpenGL/OpenGLVertexArray.cpp"  "Quark/Photon/RendererAPI.cpp" "Quark/Photon/Renderer.cpp" "Quark/Photon/RenderCommand.cpp" "Platform/OpenGL/OpenGLRendererAPI.cpp" "Quark/Photon/OrthographicCamera.cpp" "Quark/Photon/Texture.cpp" "Platform/OpenGL/OpenGLTexture.cpp")
 
 if(${QUARK_BUILD_SHARED})
 	message(STATUS "Building Quark as a shared library")
@@ -34,6 +34,7 @@ target_link_libraries(Quark PUBLIC
 	glfw
 	glad
 	glm
+	stb
 )
 
 if(WIN32)
