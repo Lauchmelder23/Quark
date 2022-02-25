@@ -38,17 +38,17 @@ QK_PHOTON_BEGIN
 		* 
 		* @param vertexBuffer A VBO with the layout already set 
 		*/
-		virtual void AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) = 0;
+		virtual void AddVertexBuffer(const Reference<VertexBuffer>& vertexBuffer) = 0;
 
 		/**
 		* @brief              Add a new EBO to the VAO
 		*
 		* @param vertexBuffer The EBO to set in the VAO
 		*/
-		virtual void SetElementBuffer(const std::shared_ptr<ElementBuffer>& elementBuffer) = 0;
+		virtual void SetElementBuffer(const Reference<ElementBuffer>& elementBuffer) = 0;
 
-		virtual const std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffers() const = 0;
-		virtual const std::shared_ptr<ElementBuffer>& GetIndexBuffer() const = 0;
+		virtual const std::vector<Reference<VertexBuffer>>& GetVertexBuffers() const = 0;
+		virtual const Reference<ElementBuffer>& GetIndexBuffer() const = 0;
 	};
 
 QK_PHOTON_END

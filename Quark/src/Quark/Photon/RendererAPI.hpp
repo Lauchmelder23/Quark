@@ -39,7 +39,7 @@ QK_PHOTON_BEGIN
 		 * 
 		 * @param vertexArray The VAO to render
 		 */
-		virtual void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) = 0;
+		virtual void DrawIndexed(const Reference<VertexArray>& vertexArray) = 0;
 
 		/**
 		 * @brief Returns the currently used graphics API

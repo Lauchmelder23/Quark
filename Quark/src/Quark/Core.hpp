@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #ifdef QK_PLATFORM_WINDOWS
 	#ifdef QK_DYNAMIC_LINK
 		#ifdef QK_BUILD_DLL
@@ -27,3 +29,13 @@
 #define QK_BIND_EVENT(x) std::bind(&x, this, std::placeholders::_1)
 
 #include "Quark/Core/Namespace.hpp"
+
+QK_BEGIN
+
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+
+	template<typename T>
+	using Reference = std::shared_ptr<T>;
+
+QK_END

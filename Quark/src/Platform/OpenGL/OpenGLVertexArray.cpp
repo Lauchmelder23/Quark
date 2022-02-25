@@ -25,7 +25,7 @@ QK_PHOTON_BEGIN
 		glBindVertexArray(0);
 	}
 
-	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer)
+	void OpenGLVertexArray::AddVertexBuffer(const Reference<VertexBuffer>& vertexBuffer)
 	{
 		glBindVertexArray(m_VertexArray);
 		vertexBuffer->Bind();
@@ -49,7 +49,7 @@ QK_PHOTON_BEGIN
 		m_VertexBuffers.push_back(vertexBuffer);
 	}
 
-	void OpenGLVertexArray::SetElementBuffer(const std::shared_ptr<ElementBuffer>& elementBuffer)
+	void OpenGLVertexArray::SetElementBuffer(const Reference<ElementBuffer>& elementBuffer)
 	{
 		glBindVertexArray(m_VertexArray);
 		elementBuffer->Bind();
@@ -57,12 +57,12 @@ QK_PHOTON_BEGIN
 		m_ElementBuffer = elementBuffer;
 	}
 
-	const std::vector<std::shared_ptr<VertexBuffer>>& OpenGLVertexArray::GetVertexBuffers() const
+	const std::vector<Reference<VertexBuffer>>& OpenGLVertexArray::GetVertexBuffers() const
 	{
 		return m_VertexBuffers;
 	}
 
-	const std::shared_ptr<ElementBuffer>& OpenGLVertexArray::GetIndexBuffer() const
+	const Reference<ElementBuffer>& OpenGLVertexArray::GetIndexBuffer() const
 	{
 		return m_ElementBuffer;
 	}

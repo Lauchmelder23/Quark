@@ -28,27 +28,27 @@ QK_PHOTON_BEGIN
 		/**
 		 * @copydoc VertexArray::AddVertexBuffer()
 		 */
-		void AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) override;
+		void AddVertexBuffer(const Reference<VertexBuffer>& vertexBuffer) override;
 		
 		/**
 		 * @copydoc VertexArray::SetElementBuffer()
 		 */
-		void SetElementBuffer(const std::shared_ptr<ElementBuffer>& elementBuffer) override;
+		void SetElementBuffer(const Reference<ElementBuffer>& elementBuffer) override;
 
 
 		/**
 		 * @copydoc VertexArray::GetVertexBuffers()
 		 */
-		virtual const std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffers() const override;
+		virtual const std::vector<Reference<VertexBuffer>>& GetVertexBuffers() const override;
 
 		/**
 		 * @copydoc VertexArray::GetIndexBuffer()
 		 */
-		virtual const std::shared_ptr<ElementBuffer>& GetIndexBuffer() const override;
+		virtual const Reference<ElementBuffer>& GetIndexBuffer() const override;
 
 	private:
-		std::vector<std::shared_ptr<VertexBuffer>> m_VertexBuffers;
-		std::shared_ptr<ElementBuffer> m_ElementBuffer;
+		std::vector<Reference<VertexBuffer>> m_VertexBuffers;
+		Reference<ElementBuffer> m_ElementBuffer;
 
 		uint32_t m_VertexArray;
 	};

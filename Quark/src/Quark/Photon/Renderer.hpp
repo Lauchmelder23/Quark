@@ -31,7 +31,7 @@ QK_PHOTON_BEGIN
 		 * @param vertexArray The VAO to render
 		 * @param transform The transformations to apply to the object
 		 */
-		static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4& transform = glm::mat4(1.0f));
+		static void Submit(const Reference<Shader>& shader, const Reference<VertexArray>& vertexArray, const glm::mat4& transform = glm::mat4(1.0f));
 
 		/**
 		* @brief   Retrieve the currently used renderer API

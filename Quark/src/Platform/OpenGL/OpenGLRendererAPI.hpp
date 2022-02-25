@@ -24,7 +24,7 @@ QK_PHOTON_BEGIN
 		/**
 		 * @copydoc RendererAPI::DrawIndexed()
 		 */
-		virtual void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) override;
+		virtual void DrawIndexed(const Reference<VertexArray>& vertexArray) override;
 	};
 
 QK_PHOTON_END

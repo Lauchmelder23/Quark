@@ -26,14 +26,14 @@ QK_BEGIN
 		 * 
 		 * @return A shared pointer to the core logger
 		 */
-		inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return m_CoreLogger; }
+		inline static Reference<spdlog::logger>& GetCoreLogger() { return m_CoreLogger; }
 
 		/**
 		 * @brief Returns the logger for use by the application
 		 *
 		 * @return A shared pointer to the client logger
 		 */
-		inline static std::shared_ptr<spdlog::logger>& GetClientLogger() { return m_ClientLogger; }
+		inline static Reference<spdlog::logger>& GetClientLogger() { return m_ClientLogger; }
 
 	private:
 		static std::shared_ptr<spdlog::logger> m_CoreLogger;

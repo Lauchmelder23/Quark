@@ -30,7 +30,7 @@ QK_PHOTON_BEGIN
 		/**
 		 * @copydoc RendererAPI::DrawIndexed()
 		 */
-		inline static void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray)
+		inline static void DrawIndexed(const Reference<VertexArray>& vertexArray)
 		{
 			s_API->DrawIndexed(vertexArray);
 		}

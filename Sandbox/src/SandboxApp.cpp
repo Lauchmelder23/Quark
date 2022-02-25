@@ -1,12 +1,10 @@
 #include <Quark.hpp>
 
-#include <glm/vec3.hpp>
-#include <glm/vec4.hpp>
-#include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "imgui.h"
-#include <glm/gtc/type_ptr.hpp>
+
 #include <Platform/OpenGL/OpenGLShader.hpp>
 
 class ExampleLayer : public Qk::Layer
@@ -31,7 +29,7 @@ public:
 			0.5f, 0.0f, 0.0f,		0.0f, 0.0f, 1.0f,
 			1.0f, -0.886f, 0.0f,	1.0f, 0.0f, 0.0f
 		};
-		std::shared_ptr<Qk::Photon::VertexBuffer> vertexBuffer;
+		Qk::Reference<Qk::Photon::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Qk::Photon::VertexBuffer::Create(sizeof(vertices), vertices));
 
 		Qk::Photon::BufferLayout layout = {
@@ -43,7 +41,7 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		unsigned int indices[3 * 3] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-		std::shared_ptr<Qk::Photon::ElementBuffer> indexBuffer;
+		Qk::Reference<Qk::Photon::ElementBuffer> indexBuffer;
 		indexBuffer.reset(Qk::Photon::ElementBuffer::Create(9, indices));
 		m_VertexArray->SetElementBuffer(indexBuffer);
 
@@ -99,7 +97,7 @@ public:
 			 1.1f,  1.1f, 0.0f,
 			 1.1f, -1.1f, 0.0f
 		};
-		std::shared_ptr<Qk::Photon::VertexBuffer> squareVertexBuffer;
+		Qk::Reference<Qk::Photon::VertexBuffer> squareVertexBuffer;
 		squareVertexBuffer.reset(Qk::Photon::VertexBuffer::Create(sizeof(squareVertices), squareVertices));
 
 		Qk::Photon::BufferLayout squareLayout = {
@@ -112,7 +110,7 @@ public:
 			0, 1, 2,
 			0, 2, 3
 		};
-		std::shared_ptr<Qk::Photon::ElementBuffer> squareIndexBuffer;
+		Qk::Reference<Qk::Photon::ElementBuffer> squareIndexBuffer;
 		squareIndexBuffer.reset(Qk::Photon::ElementBuffer::Create(sizeof(squareIndices), squareIndices));
 
 		m_SquareVertexArray->SetElementBuffer(squareIndexBuffer);
@@ -136,15 +134,23 @@ public:
 
 			out vec4 color;
 			
-			uniform vec4 u_Color;
+			uniform vec3 u_Color;
 
 			void main()
 			{
-				color = u_Color;
+				color = vec4(u_Color, 1.0f);
 			}
 		)";
-		m_FlatColorShader.reset(Qk::Photon::Shader::Create(squareVertexShaderSrc, squareFragmentShaderSrc));
-
+		
+		try
+		{
+			m_FlatColorShader.reset(Qk::Photon::Shader::Create(squareVertexShaderSrc, squareFragmentShaderSrc));
+		}
+		catch (const std::runtime_error& err)
+		{
+			QK_CORE_FATAL("Shader creation failed:\n\n{0}", err.what());
+			return;
+		}
 #pragma endregion
 	}
 
@@ -190,16 +196,14 @@ public:
 				transform = glm::translate(transform, pos);
 
 				if ((x + y) % 2 == 0)
-					std::dynamic_pointer_cast<Qk::Photon::OpenGLShader>(m_FlatColorShader)->SetUniformFloat4("u_Color", redColor);
+					std::dynamic_pointer_cast<Qk::Photon::OpenGLShader>(m_FlatColorShader)->SetUniformFloat3("u_Color", redColor);
 				else
-					std::dynamic_pointer_cast<Qk::Photon::OpenGLShader>(m_FlatColorShader)->SetUniformFloat4("u_Color", blueColor);
+					std::dynamic_pointer_cast<Qk::Photon::OpenGLShader>(m_FlatColorShader)->SetUniformFloat3("u_Color", blueColor);
 
 				Qk::Photon::Renderer::Submit(m_FlatColorShader, m_SquareVertexArray, transform);
 			}
 		}
 		
-		// Qk::Photon::Renderer::Submit(m_Shader, m_VertexArray);
-
 		Qk::Photon::Renderer::EndScene();
 	}
 
@@ -209,8 +213,8 @@ public:
 
 		if (ImGui::CollapsingHeader("Grid colors"))
 		{
-			ImGui::ColorEdit4("Color 1", glm::value_ptr(redColor));
-			ImGui::ColorEdit4("Color 2", glm::value_ptr(blueColor));
+			ImGui::ColorEdit3("Color 1", glm::value_ptr(redColor));
+			ImGui::ColorEdit3("Color 2", glm::value_ptr(blueColor));
 		}
 
 		ImGui::End();
@@ -222,18 +226,17 @@ public:
 	}
 
 private:
-	std::shared_ptr<Qk::Photon::Shader> m_Shader;
-	std::shared_ptr<Qk::Photon::Shader> m_FlatColorShader;
+	Qk::Reference<Qk::Photon::Shader> m_Shader;
+	Qk::Reference<Qk::Photon::Shader> m_FlatColorShader;
 
-	std::shared_ptr<Qk::Photon::VertexArray> m_VertexArray;
-	std::shared_ptr<Qk::Photon::VertexArray> m_SquareVertexArray;
+	Qk::Reference<Qk::Photon::VertexArray> m_VertexArray;
+	Qk::Reference<Qk::Photon::VertexArray> m_SquareVertexArray;
 
 	Qk::Photon::OrthographicCamera m_Camera;
 
 	glm::vec3 m_SquarePosition;
-	glm::vec4 redColor = glm::vec4(1.0f, 0.35f, 0.35f, 1.0f);
-	glm::vec4 blueColor = glm::vec4(0.35f, 0.35f, 1.0f, 1.0f);
-
+	glm::vec3 redColor = glm::vec3(1.0f, 0.35f, 0.35f);
+	glm::vec3 blueColor = glm::vec3(0.35f, 0.35f, 1.0f);
 };
 
 class Sandbox : public Qk::Application
