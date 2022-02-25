@@ -18,13 +18,40 @@ QK_PHOTON_BEGIN
 		m_Width = width;
 		m_Height = height;
 
+		GLenum textureFormat = 0;
+		GLenum imageFormat = 0;
+		switch (channels)
+		{
+		case 1:
+			textureFormat = GL_R8;
+			imageFormat = GL_R;
+			break;
+		
+		case 2:
+			textureFormat = GL_RG8;
+			imageFormat = GL_RG;
+			break;
+
+		case 3:
+			textureFormat = GL_RGB8;
+			imageFormat = GL_RGB;
+			break;
+
+		case 4:
+			textureFormat = GL_RGBA8;
+			imageFormat = GL_RGBA;
+			break;
+		}
+
+		QK_CORE_ASSERT(textureFormat & imageFormat, "Texture has invalid format.");
+
 		glCreateTextures(GL_TEXTURE_2D, 1, &m_Texture);
-		glTextureStorage2D(m_Texture, 1, GL_RGB8, m_Width, m_Height);
+		glTextureStorage2D(m_Texture, 1, textureFormat, m_Width, m_Height);
 
 		glTextureParameteri(m_Texture, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTextureParameteri(m_Texture, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	
-		glTextureSubImage2D(m_Texture, 0, 0, 0, m_Width, m_Height, GL_RGB, GL_UNSIGNED_BYTE, (void*)data);
+		glTextureSubImage2D(m_Texture, 0, 0, 0, m_Width, m_Height, imageFormat, GL_UNSIGNED_BYTE, (void*)data);
 
 		stbi_image_free((void*)data);
 	}

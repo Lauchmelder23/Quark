@@ -22,6 +22,11 @@ QK_PHOTON_BEGIN
 
 	public:
 		/**
+		 * @brief Does basic setup (e.g. blending, depth testing, etc)
+		 */
+		virtual void Init() = 0;
+
+		/**
 		 * @brief Sets the colour the screen should be cleared to
 		 * 
 		 * @param color RGBA vector representing the color

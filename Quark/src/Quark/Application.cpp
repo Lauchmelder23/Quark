@@ -35,11 +35,11 @@ QK_BEGIN
 		}
 
 		m_Window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
+		
+		Photon::Renderer::Init();
 
 		m_ImGuiLayer = new ImGuiLayer;
 		PushOverlay(m_ImGuiLayer);
-
-		
 	}
 
 	Application::~Application()

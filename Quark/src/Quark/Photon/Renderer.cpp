@@ -6,6 +6,11 @@ QK_PHOTON_BEGIN
 
 	Renderer::SceneProperties* Renderer::m_SceneProperties = new Renderer::SceneProperties;
 
+	void Renderer::Init()
+	{
+		RenderCommand::Init();
+	}
+
 	void Renderer::BeginScene(OrthographicCamera& camera)
 	{
 		m_SceneProperties->ViewProjectionMatrix = camera.GetViewProjection();

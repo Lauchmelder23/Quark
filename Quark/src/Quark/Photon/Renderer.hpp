@@ -13,6 +13,11 @@ QK_PHOTON_BEGIN
 	{
 	public:
 		/**
+		 * @brief Initializes the renderer and sets up API properties
+		 */
+		static void Init();
+
+		/**
 		 * @brief Tells the renderer to start a new scene with the given properties
 		 * 
 		 * @param camera The camera the scene should be rendered with

@@ -10,6 +10,12 @@ QK_PHOTON_BEGIN
 	class OpenGLRendererAPI :
 		public RendererAPI
 	{
+	public:
+		/**
+		 * @copydoc RendererAPI::Init()
+		 */
+		virtual void Init() override;
+
 		/**
 		 * @copydoc RendererAPI::SetClearColor()
 		 */
